@@ -5,7 +5,7 @@ module.exports = {
   themeConfig: {
     lastUpdated: "Last Updated",
     smoothScroll: true,
-    repo: "https://christine-only.github.io/blog",
+    repo: "https://github.com/Christine-Only/blog",
     repoLabel: "Github",
     nav: [
       {
