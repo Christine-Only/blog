@@ -1,11 +1,11 @@
 module.exports = {
   title: "Christine",
   description: "欢迎来到我的博客👏🏻",
+  base: "/blog/",
   themeConfig: {
-    base: "/blog/",
     lastUpdated: "Last Updated",
     smoothScroll: true,
-    repo: "https://christine-only.github.io/blog/",
+    repo: "https://christine-only.github.io/blog",
     repoLabel: "Github",
     nav: [
       {
