@@ -9,4 +9,4 @@ git init
 git add -A
 git commit -m "deploy脚本更新"
 
-git push --force origin master:gh-pages
+git push --force git@github.com:Christine-Only/blog.git master:gh-pages
