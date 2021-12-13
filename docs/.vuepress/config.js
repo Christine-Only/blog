@@ -8,7 +8,6 @@ module.exports = {
     smoothScroll: true,
     repo: "https://github.com/Christine-Only/blog",
     repoLabel: "Github",
-    sidebar: "auto",
     nav: [
       {
         text: "前端面试之道",
@@ -23,10 +22,6 @@ module.exports = {
         link: "/git/",
       },
       {
-        text: "Nginx",
-        link: "/nginx/",
-      },
-      {
         text: "TypeScript",
         link: "/typeScript/",
       },
@@ -35,5 +30,10 @@ module.exports = {
         link: "/react/",
       },
     ],
+    sidebar: {
+      "/interview/": ["", "advance", "es6", "jsAsync", "promise", "eventLoop"],
+      "/automate/": ["", "nginx"],
+      "/react/": ["", "advance"],
+    },
   },
 };
