@@ -23,7 +23,7 @@ module.exports = {
       },
       {
         text: "TypeScript",
-        link: "/typeScript/",
+        link: "/typescript/",
       },
       {
         text: "React",
@@ -33,6 +33,7 @@ module.exports = {
     sidebar: {
       "/interview/": ["", "advance", "es6", "jsAsync", "promise", "eventLoop"],
       "/automate/": ["", "nginx"],
+      "/typescript/": ["", "base"],
       "/react/": ["", "advance"],
     },
   },
