@@ -24,7 +24,7 @@
 构建命令 `cnpm install && npm run build`
 
 *    构建物上传
-![alt 构建物上传](/construct.png)
+![alt 构建物上传](/blog/construct.png)
 
 1.  部署
     * 选择主机部署

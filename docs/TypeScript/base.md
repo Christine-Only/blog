@@ -227,5 +227,222 @@ if (typeof dogName === 'string') {
 const upName = (dogName as string).toLowerCase(); // OK
 ```
 
+## Array
+对数组的定义有两种：
+* 类型＋[]
+```ts
+let arr:string[] = ['hello', 'world']
+```
+* 泛型
+```ts
+let arr2: Array<string> = ['hello','world']
+```
 
+定义联合类型的数组
+```ts
+let arr: (number | string)[];
+arr = [0,'hi', 1, 'world']
+```
+在数组中不仅可以存储基础数据类型，还可以存储对象类型，如果需要存储对象类型，可以用如下方式进行定义：
+```ts
+// 只允许存储对象仅有name和age，且name为string类型，age为number类型的对象
+let objArray: ({ name: string, age: number })[] = [
+  { name: 'AAA', age: 23 }
+]
+```
+对象类型可以使用interface定义
+```ts
+interface ObjArray {
+  name: string;
+  age: number
+}
 
+// 对象+[]的写法
+let objArray: ObjArray[] = [
+  { name: 'AAA', age: 23 }
+]
+// 泛型的写法
+let objArray: Array<ObjArray> = [
+  { name: 'AAA', age: 23 }
+]
+```
+为了更加方便的撰写代码，我们可以使用类型别名的方式来管理以上类型：
+```ts
+type ObjArray = {
+  name: string;
+  age: number
+}
+
+// 对象+[]的写法
+let objArray: ObjArray[] = [
+  { name: 'AAA', age: 23 }
+]
+// 泛型的写法
+let objArray: Array<ObjArray> = [
+  { name: 'AAA', age: 23 }
+]
+```
+
+## 函数
+在JavaScript中，定义函数有三种表现形式：
+* 函数声明。
+* 函数表达式。
+* 箭头函数
+```js
+// 函数声明
+function func1 () {
+  console.log('Hello, world')
+}
+// 函数表达式
+const func2 = function () {
+  console.log('Hello, world')
+}
+// 箭头函数
+const func3 = () => {
+  console.log('Hello, world')
+}
+```
+如果函数有参数，则必须在`TypeScript`中为其定义具体的类型：
+```ts
+function sum(a: number, b:number): number {
+  return a + b
+}
+console.log(sum(1, 2))    // 输出3
+console.log(sum(1, '2'))  // 报错
+```
+### 用接口定义函数类型
+```ts
+interface SumType {
+  (x: number, y: number): number
+}
+const sum: SumType = function (x: number, y: number): number {
+  return x + y
+}
+console.log(sum(1, 2))    // 输出3
+```
+采用函数表达式接口定义函数的方式时，对等号左侧进行类型限制，可以保证以后对函数名赋值时保证参数的个数、参数类型、返回值类型不变。
+```ts
+sum = function (a: number, b: number): number {
+  return a + b
+}
+```
+### 可选参数
+```ts
+function familyName(firstName: string, lastName?: string) {
+  if (lastName) {
+    return firstName + ' ' + lastName;
+  } else {
+    return firstName;
+  }
+}
+
+console.log(familyName('Christine', 'Tang')) //Christine Tang
+console.log(familyName('Christine')) //Christine
+```
+:::tip
+可选参数必须放在最后一个位置，否则会报错。
+:::
+```ts
+// 编辑报错 
+function buildName(firstName: string, lastName?: string, _abc: number) {
+  if (lastName) {
+    return firstName + ' ' + lastName;
+  } else {
+    return firstName;
+  }
+}
+```
+在`JavaScript`中，函数允许我们给参数设置默认值，因此另外一种处理可选参数的方式是: 为参数提供一个默认值，此时TypeScript将会把该参数识别为可选参数：
+```ts
+function getArea (a: number, b: number = 1): number {
+  return  a * b
+}
+console.log(getArea(4))     // 4
+console.log(getArea(4, 5))  // 20
+```
+:::tip
+给一个参数设置了默认值后，就不再受`TypeScript`可选参数必须在最后一个位置的限制了。
+:::
+```ts
+function getArea (b: number = 1, a: number): number {
+  return  a * b
+}
+// 此时必须显示的传递一个undefined进行占位
+console.log(getArea(undefined,4)) // 4
+console.log(getArea(4, 5))        // 20
+```
+### 剩余参数
+```ts
+function push(array: Array<number>, ...items: any[]) {
+    items.forEach(function(item) {
+        array.push(item);
+    });
+}
+let arr = [0];
+push(arr, 1, 2, 3);
+console.log(arr) //[0, 1, 2, 3] 
+```
+### 函数重载
+> 函数重载或方法重载是使用相同名称和不同参数数量或类型创建多个方法的一种能力。
+
+由于 JavaScript 是一个动态语言，我们通常会使用不同类型的参数来调用同一个函数，该函数会根据不同的参数而返回不同的类型的调用结果：
+```ts
+function add(x, y) {
+ return x + y;
+}
+add(1, 2); // 3
+add("1", "2"); //"12"
+```
+由于 TypeScript 是 JavaScript 的超集，因此以上的代码可以直接在 TypeScript 中使用，但当 tsconfig.json中指定 `"noImplicitAny": true` 的配时，以上代码会提示以下错误信息：
+```ts
+Parameter 'x' implicitly has an 'any' type.
+Parameter 'y' implicitly has an 'any' type.
+```
+该信息告诉我们参数 x 和参数 y 隐式具有 `any` 类型。为了解决这个问题，我们可以为参数设置一个类型。因为我们希望 `add` 函数同时支持 `string` 和 `number` 类型，因此我们可以定义一个 `string | number` 联合类型，同时我们为该联合类型取个别名：
+```ts
+type Combinable = string | number;
+```
+在定义完 Combinable 联合类型后，我们来更新一下 `add` 函数：
+```ts
+type Combinable = string | number;
+function add(x:Combinable, y: Combinable): Combinable {
+  if(typeof x === 'number' && typeof y === "number") {
+    return x + y;
+  }
+  return String(x) + String(y)
+
+}
+console.log(add(1, 2)) // 3
+console.log(add("1", "2")) //"12"
+```
+为 `add` 函数的参数显式设置类型之后，之前错误的提示消息就消失了。那么此时的 `add` 函数就完美了么，我们来实际测试一下：
+```ts
+const result = add('Semlinker', ' Kakuqo');
+result.split(' ');
+```
+在上面代码中，我们分别使用 `Semlinker` 和 `Kakuqo` 这两个字符串作为参数调用 add 函数，并把调用结果保存到一个名为 `result` 的变量上，这时候我们想当然的认为此时 result 的变量的类型为 string，所以我们就可以正常调用字符串对象上的 `split` 方法。但这时 TypeScript 编译器又出现以下错误信息了：
+```ts
+Property 'split' does not exist on type 'number'.
+```
+很明显 `number` 类型的对象上并不存在 `split` 属性。问题又来了，那如何解决呢？这时我们就可以利用 TypeScript 提供的函数重载特性。
+```ts
+type Combinable = string | number;
+// 函数声明
+function add(a: number,b: number):number;
+function add(a: string, b: string): string;
+function add(a: string, b: number): string;
+function add(a: number, b: string): string;
+
+//函数实现
+function add(a: Combinable, b: Combinable) {
+  if (typeof a === 'string' || typeof b === 'string') {
+    return a.toString() + b.toString();
+  }
+  return a + b;
+}
+const result = add('Semlinker', ' Kakuqo');
+console.log(result.split(' ')) //["Semlinker", "Kakuqo"] 
+```
+:::tip
+在有函数重载时，会优先从第一个进行逐一匹配，因此如果重载函数有包含关系，应该将最精准的函数定义写在最前面。
+:::
