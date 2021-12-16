@@ -100,6 +100,7 @@ val1 = val3;
 方法没有返回值将得到`undefined`， 但是我们需要定义成void类型，而不是undefined类型。
 :::
 ```ts
+// A function whose declared type is neither 'void' nor 'any' must return a value.
 function add(): undefined {
     console.log('hello')
 }
@@ -282,6 +283,83 @@ let objArray: Array<ObjArray> = [
   { name: 'AAA', age: 23 }
 ]
 ```
+## Tuple(元组)
+### 元祖定义
+众所周知，数组一般由同种类型的值组成，但有时我们需要在单个变量中存储不同类型的值，这时候我们就可以使用元组。在 JavaScript 中是没有元组的，元组是 TypeScript 中特有的类型，其工作方式类似于数组。
+
+元组最重要的特性是可以限制 `数组元素的个数和类型` ，它特别适合用来实现多值返回。
+
+元祖用于保存定长定数据类型的数据
+```ts
+let x: [string, number]; 
+// 类型必须匹配且个数必须为2
+
+x = ['hello', 10]; // OK 
+x = ['hello', 10,10]; // Error 
+x = [10, 'hello']; // Error
+```
+:::tip 注意
+元组类型只能表示一个已知元素数量和类型的数组，长度已指定，越界访问会提示错误。如果一个数组中可能有多种类型，数量和类型都不确定，那就直接any[]
+:::
+### 元祖类型的解构赋值
+我们可以通过下标的方式来访问元组中的元素，当元组中的元素较多时，这种方式并不是那么便捷。其实元组也是支持解构赋值的：
+```ts
+let tupleArr: [number, string] = [520, "Christine"];
+let [id, username] = tupleArr;
+console.log(id); //520
+console.log(username); //Christine
+```
+```ts
+let tupleArr: [number, string] = [520, "Christine"];
+let [id, username, age] = tupleArr; //Error
+```
+:::tip 注意
+在解构赋值时，如果解构数组元素的个数超过元组中元素的个数，会报错。
+:::
+
+### 元组类型的可选元素
+```ts
+let tupleArr: [string, boolean?];
+tupleArr = ['hi', true]
+tupleArr = ['hi']
+```
+在上面代码中，我们定义了一个名为 `tupleArr` 的变量，该变量的类型要求包含一个必须的字符串属性和一个可选布尔属性。
+那么在实际工作中，声明可选的元组元素有什么作用？这里我们来举一个例子，在三维坐标轴中，一个坐标点可以使用 `(x, y, z) `的形式来表示，对于二维坐标轴来说，坐标点可以使用 `(x, y)` 的形式来表示，而对于一维坐标轴来说，只要使用 `(x)` 的形式来表示即可。针对这种情形，在 TypeScript 中就可以利用元组类型可选元素的特性来定义一个元组类型的坐标点，具体实现如下：
+```ts
+type Point = [number, number?, number?];
+
+const x: Point = [10]; // 一维坐标点
+const xy: Point = [10, 20]; // 二维坐标点
+const xyz: Point = [10, 20, 10]; // 三维坐标点
+
+console.log(x.length); // 1
+console.log(xy.length); // 2
+console.log(xyz.length); // 3
+```
+### 元组类型的剩余元素
+元组类型里最后一个元素可以是剩余元素，形式为 `...X`，这里 `X` 是数组类型。剩余元素代表元组类型是开放的，可以有零个或多个额外的元素。 例如，[number, ...string[]] 表示带有一个 `number` 元素和任意数量`string` 类型元素的元组类型。为了能更好的理解，我们来举个具体的例子：
+```ts
+type RestTupleType = [number, ...string[]];
+let restTuple: RestTupleType = [666, "Semlinker", "Kakuqo", "Lolo"];
+console.log(restTuple[0]); //666
+console.log(restTuple[1]); //Semlinker
+```
+### 只读的元组类型
+TypeScript 3.4 还引入了对只读元组的新支持。我们可以为任何元组类型加上 `readonly` 关键字前缀，以使其成为只读元组。具体的示例如下：
+```ts
+const point: readonly [number, number] = [10, 20];
+```
+在使用 `readonly` 关键字修饰元组类型之后，任何企图修改元组中元素的操作都会抛出异常：
+```ts
+// Cannot assign to '0' because it is a read-only property.
+point[0] = 1;
+// Property 'push' does not exist on type 'readonly [number, number]'.
+point.push(0);
+// Property 'pop' does not exist on type 'readonly [number, number]'.
+point.pop();
+// Property 'splice' does not exist on type 'readonly [number, number]'.
+point.splice(1, 1);
+```
 
 ## 函数
 在JavaScript中，定义函数有三种表现形式：
@@ -382,6 +460,7 @@ let arr = [0];
 push(arr, 1, 2, 3);
 console.log(arr) //[0, 1, 2, 3] 
 ```
+
 ### 函数重载
 > 函数重载或方法重载是使用相同名称和不同参数数量或类型创建多个方法的一种能力。
 
@@ -446,3 +525,54 @@ console.log(result.split(' ')) //["Semlinker", "Kakuqo"]
 :::tip
 在有函数重载时，会优先从第一个进行逐一匹配，因此如果重载函数有包含关系，应该将最精准的函数定义写在最前面。
 :::
+
+## Number、String、Boolean、Symbol
+首先，我们来回顾一下初学 TypeScript 时，很容易和原始类型 number、string、boolean、symbol 混淆的首字母大写的 Number、String、Boolean、Symbol 类型，后者是相应原始类型的`包装对象`，姑且把它们称之为对象类型。
+
+从类型兼容性上看，原始类型兼容对应的对象类型，反过来对象类型不兼容对应的原始类型。
+
+```ts
+let num: number = 3;
+let Num: Number = Number(4);
+Num = num; // ok
+num = Num; // ts(2322)报错
+```
+在示例中的第 3 行，我们可以把 number 赋给类型 Number，但在第 4 行把 Number 赋给 number 就会提示 ts(2322) 错误。
+
+::: tip
+我们需要铭记不要使用对象类型来注解值的类型，因为这没有任何意义。
+:::
+
+## object、Object 和 {}
+小 object 代表的是引用类型，也就是说我们不能把 number、string、boolean、symbol等 原始类型赋值给 object。在严格模式下，null 和 undefined 类型也不能赋给 object。
+```ts
+let lowerCaseObject: object;
+lowerCaseObject = 1; // ts(2322)
+lowerCaseObject = 'a'; // ts(2322)
+lowerCaseObject = true; // ts(2322)
+lowerCaseObject = null; // ts(2322)
+lowerCaseObject = undefined; // ts(2322)
+lowerCaseObject = {}; // ok
+```
+大Object 代表所有拥有 toString、hasOwnProperty 方法的类型，所以所有原始类型、引用类型都可以赋给 Object。同样，在严格模式下，null 和 undefined 类型也不能赋给 Object。
+```ts
+let upperCaseObject: Object;
+upperCaseObject = 1; // ok
+upperCaseObject = 'a'; // ok
+upperCaseObject = true; // ok
+upperCaseObject = null; // ts(2322)
+upperCaseObject = undefined; // ts(2322)
+upperCaseObject = {}; // ok
+```
+{}空对象类型和大 Object 一样，也是表示原始类型和引用类型的集合，并且在严格模式下，null 和 undefined 也不能赋给 {} ，如下示例：
+```ts
+let ObjectLiteral: {};
+ObjectLiteral = 1; // ok
+ObjectLiteral = 'a'; // ok
+ObjectLiteral = true; // ok
+ObjectLiteral = null; // ts(2322)
+ObjectLiteral = undefined; // ts(2322)
+ObjectLiteral = {}; // ok
+```
+综上结论：{}、大 Object 是比小 object 更宽泛的类型（least specific），{} 和大 Object 可以互相代替，用来表示原始类型（null、undefined 除外）和引用类型；而小 object 则表示引用类型。
+
