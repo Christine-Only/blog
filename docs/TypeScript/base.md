@@ -598,3 +598,134 @@ let myFavoriteNumber;
 myFavoriteNumber = 'seven';
 myFavoriteNumber = 7;
 ```
+
+## 类型断言
+```ts
+const arrayNumber: number[] = [1, 2, 3, 4];
+const greaterThan2: number = arrayNumber.find(num => num > 2); // 提示 ts(2322)
+```
+其中，greaterThan2 一定是一个数字（确切地讲是 3），因为 arrayNumber 中明显有大于 2 的成员，但静态类型对运行时的逻辑无能为力。
+
+在 TypeScript 看来，greaterThan2 的类型既可能是数字，也可能是 undefined，所以上面的示例中提示了一个 ts(2322) 错误，此时我们不能把类型 undefined 分配给类型 number。
+
+不过，我们可以使用一种笃定的方式——类型断言（类似仅作用在类型层面的强制类型转换）告诉 TypeScript 按照我们的方式做类型检查。
+
+```ts
+const arrayNumber: number[] = [1, 2, 3, 4];
+const greaterThan2: number = arrayNumber.find(num => num > 2) as number;
+```
+### 非空断言
+在上下文中当类型检查器无法断定类型时，一个新的后缀表达式操作符` ! `可以用于断言操作对象是非 `null` 和非 `undefined` 类型。**具体而言，x! 将从 x 值域中排除 null 和 undefined** 。
+
+```ts
+let mayNullOrUndefinedOrString: null | undefined | string;
+mayNullOrUndefinedOrString!.toString(); // ok
+mayNullOrUndefinedOrString.toString(); // ts(2531)
+```
+
+```ts
+type NumGenerator = () => number;
+
+function myFunc(numGenerator: NumGenerator | undefined) {
+  // Object is possibly 'undefined'.(2532)
+  // Cannot invoke an object which is possibly 'undefined'.(2722)
+  const num1 = numGenerator(); // Error
+  const num2 = numGenerator!(); //OK
+}
+```
+
+### 确定赋值断言
+允许在实例属性和变量声明后面放置一个 `!` 号，从而告诉 TypeScript 该属性会被明确地赋值。为了更好地理解它的作用，我们来看个具体的例子：
+```ts
+let x: number;
+initialize();
+
+// Variable 'x' is used before being assigned.(2454)
+console.log(2 * x); // Error
+function initialize() {
+  x = 10;
+}
+```
+很明显该异常信息是说变量 x 在赋值前被使用了，要解决该问题，我们可以使用确定赋值断言：
+```ts
+let x!: number;
+initialize();
+
+// Variable 'x' is used before being assigned.(2454)
+console.log(2 * x); // Error
+function initialize() {
+  x = 10;
+}
+```
+
+## 字面量类型
+在 TypeScript 中，字面量不仅可以表示值，还可以表示类型，即所谓的字面量类型。
+
+目前，TypeScript 支持 3 种字面量类型：字符串字面量类型、数字字面量类型、布尔字面量类型，对应的字符串字面量、数字字面量、布尔字面量分别拥有与其值一样的字面量类型，具体示例如下：
+
+```ts
+let specifiedStr: 'this is string' = 'this is string';
+let specifiedNum: 1 = 1;
+let specifiedBoolean: true = true;
+```
+比如 'this is string' （这里表示一个字符串字面量类型）类型是 string 类型（确切地说是 string 类型的子类型），而 string 类型不一定是 'this is string'（这里表示一个字符串字面量类型）类型，如下具体示例：
+
+```ts
+let specifiedStr: 'this is string' = 'this is string';
+let str: string = 'any string';
+specifiedStr = str; // ts(2322) 类型 '"string"' 不能赋值给类型 'this is string'
+str = specifiedStr; // ok 
+```
+
+### 字符串字面量类型
+一般来说，我们可以使用一个字符串字面量类型作为变量的类型，如下代码所示：
+```ts
+let hello: 'hello' = 'hello';
+hello = 'hi'; // ts(2322) Type '"hi"' is not assignable to type '"hello"'
+```
+实际上，定义单个的字面量类型并没有太大的用处，它真正的应用场景是可以把多个字面量类型组合成一个联合类型（后面会讲解），用来描述拥有明确成员的实用的集合。
+```ts
+type eventName = 'click' | 'scroll' | 'mousemove'
+function handleEvent (event: eventName) {
+  console.log(event)
+}
+handleEvent('click')    // click
+handleEvent('scroll')   // scroll
+handleEvent('dbclick')  // Argument of type '"dbclick"' is not assignable to parameter of type 'eventName'.(2345)
+```
+通过使用字面量类型组合的联合类型，我们可以限制函数的参数为指定的字面量类型集合，然后编译器会检查参数是否是指定的字面量类型集合里的成员。
+
+### 数字字面量类型及布尔字面量类型
+数字字面量类型和布尔字面量类型的使用与字符串字面量类型的使用类似，我们可以使用字面量组合的联合类型将函数的参数限定为更具体的类型，比如声明如下所示的一个类型 Config：
+
+```ts
+interface Config {
+  size: 'small' | 'big';
+  isEnable:  true | false;
+  margin: 0 | 2 | 4;
+}
+```
+在上述代码中，我们限定了 size 属性为字符串字面量类型 'small' | 'big'，isEnable 属性为布尔字面量类型 true | false（布尔字面量只包含 true 和 false，true | false 的组合跟直接使用 boolean 没有区别），margin 属性为数字字面量类型 0 | 2 | 4。
+
+### let和const分析
+const 🌰
+```ts
+const str = 'hello world'; // str: 'hello world'
+const num = 1; // num: 1
+const bool = true; // bool: true
+```
+在上述代码中，我们将 const 定义为一个不可变更的常量，在缺省类型注解的情况下，TypeScript 推断出它的类型直接由赋值字面量的类型决定，这也是一种比较合理的设计。
+
+let 🌰
+```ts
+let str = 'this is string'; // str: string
+let num = 1; // num: number
+let bool = true; // bool: boolean
+```
+这种设计符合编程预期，意味着我们可以分别赋予 str 和 num 任意值（只要类型是 string 和 number 的子集的变量）：
+
+```ts
+str = 'any string';
+num = 2;
+bool = false;
+```
