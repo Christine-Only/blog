@@ -729,3 +729,191 @@ str = 'any string';
 num = 2;
 bool = false;
 ```
+
+## 类型拓宽（Type Widening）
+>所有通过 let 或 var 定义的变量、函数的形参、对象的非只读属性，如果满足指定了初始值且未显式添加类型注解的条件，那么它们推断出来的类型就是指定的初始值字面量类型拓宽后的类型，这就是字面量类型拓宽。
+
+```ts
+let str = 'this is string'; // 类型是 string
+let strFun = (str = 'this is string') => str; // 类型是 (str?: string) => string;
+const specifiedStr = 'hello world' // 'hello world'
+let newStr = specifiedStr // string
+```
+第 1~2 行满足了 let、形参且未显式声明类型注解的条件，所以变量、形参的类型拓宽为 string（形参类型确切地讲是 string | undefined）。
+
+第 3 行的常量不可变更，类型没有拓宽，所以 specifiedStr 的类型是 'hello world' 字面量类型。
+
+第 4 行赋予的值 specifiedStr 的类型是字面量类型，且没有显式类型注解，所以变量、形参的类型也被拓宽了。
+
+基于字面量类型拓宽的条件，我们可以通过如下所示代码添加显示类型注解控制类型拓宽行为。
+
+```ts
+const str = 'hello world' as const
+或者
+const str: 'hello world' = 'hello world'
+
+// Type is "hello world"
+let newStr = str
+```
+实际上，除了字面量类型拓宽之外，TypeScript 对某些特定类型值也有类似 "Type Widening" （类型拓宽）的设计，下面我们具体来了解一下。
+
+比如对 null 和 undefined 的类型进行拓宽，通过 let、var 定义的变量如果满足未显式声明类型注解且被赋予了 null 或 undefined 值，则推断出这些变量的类型是 any：
+
+```ts
+let x = null; // 类型拓宽成 any
+let y = undefined; // 类型拓宽成 any
+
+const z = null; // 类型是 null
+
+let anyFun = (param = null) => param; // 形参类型是 null
+let z2 = z; // 类型是 null
+let x2 = x; // 类型是 null
+let y2 = y; // 类型是 undefined
+```
+
+```ts
+interface Vectors {
+  x: number;
+  y: number;
+  z: number
+}
+
+function getComponent(vectors: Vectors, axis: "x" | "y" | "z") {
+  return vectors[axis]
+}
+
+let x = "x"
+let vec = {x: 10, y: 20, z: 30}
+getComponent(vec, x) //Argument of type 'string' is not assignable to parameter of type '"x" | "y" | "z"'.(2345)
+```
+为什么会出现上述错误呢？通过 TypeScript 的错误提示消息，我们知道是因为变量 x 的类型被推断为 string 类型，而 getComponent 函数期望它的第二个参数有一个更具体的类型。这在实际场合中被拓宽了，所以导致了一个错误。
+
+TypeScript 提供了一些控制拓宽过程的方法。其中一种方法是使用 const。如果用 const 而不是 let 声明一个变量，那么它的类型会更窄。事实上，使用 const 可以帮助我们修复前面例子中的错误：
+```ts
+const x = "x"
+let vec = {x: 10, y: 20, z: 30}
+getComponent(vec, x)
+```
+因为 x 不能重新赋值，所以 TypeScript 可以推断更窄的类型，就不会在后续赋值中出现错误。因为字符串字面量型 “x” 可以赋值给  "x"|"y"|"z"，所以代码会通过类型检查器的检查。
+
+```ts
+const obj = { x: 1}
+obj.x = 6 //ok
+
+//Type 'string' is not assignable to type 'number'.(2322)
+obj.x = 'hi' 
+
+// Property 'name' does not exist on type '{ x: number; }'.(2339)
+obj.name = "christine"
+```
+
+```ts
+// Type is { name: string; age: number }
+const obj = {name: 'christine', age: 18}
+
+// Type is { name: 'christine'; age: number }
+const obj = {name: 'christine' as const, age: 18}
+
+// Type is { readonly name: 'christine'; readonly age: 18 }
+const obj = {name: 'christine', age: 18} as const
+```
+当你在一个值之后使用 const 断言时，TypeScript 将为它推断出最窄的类型，没有拓宽。对于真正的常量，这通常是你想要的。当然你也可以对数组使用 const 断言：
+
+```ts
+// Type is number[]
+const arr = [1, 2, 3]
+
+// Type is readonly [1, 2, 3]
+const arr1 = [1, 2, 3] as const
+```
+
+## 类型缩小 (Type Narrowing)
+在 TypeScript 中，我们可以通过某些操作将变量的类型由一个较为宽泛的集合缩小到相对较小、较明确的集合，这就是 "Type Narrowing"。
+
+比如，我们可以使用类型守卫（后面会讲到）将函数参数的类型从 any 缩小到明确的类型，具体示例如下：
+```ts
+let func = (anything: any) => {
+  if (typeof anything === 'string') {
+    return anything; // 类型是 string 
+  } else if (typeof anything === 'number') {
+    return anything; // 类型是 number
+  }
+  return null;
+};
+```
+同样，我们可以使用类型守卫将联合类型缩小到明确的子类型，具体示例如下：
+
+```ts
+let func = (anything: string | number) => {
+  if (typeof anything === 'string') {
+      return anything; // 类型是 string 
+  } else {
+      return anything; // 类型是 number
+  }
+};
+```
+当然，我们也可以通过字面量类型等值判断（===）或其他控制流语句（包括但不限于 if、三目运算符、switch 分支）将联合类型收敛为更具体的类型，如下代码所示：
+
+```ts
+type Goods = 'pen' | 'pencil' |'ruler';
+  const getPenCost = (item: 'pen') => 2;
+  const getPencilCost = (item: 'pencil') => 4;
+  const getRulerCost = (item: 'ruler') => 6;
+  const getCost = (item: Goods) =>  {
+    if (item === 'pen') {
+      return getPenCost(item); // item => 'pen'
+    } else if (item === 'pencil') {
+      return getPencilCost(item); // item => 'pencil'
+    } else {
+      return getRulerCost(item); // item => 'ruler'
+  }
+}
+```
+那为什么类型由多个字面量组成的变量 item 可以传值给仅接收单一特定字面量类型的函数 `getPenCost`、`getPencilCost`、`getRulerCost `呢？这是因为在每个流程分支中，编译器知道流程分支中的 item 类型是什么。比如 item === 'pencil' 的分支，item 的类型就被收缩为“pencil”。
+
+一般来说 `TypeScript` 非常擅长通过条件来判别类型，但在处理一些特殊值时要特别注意 —— 它可能包含你不想要的东西！例如，以下从联合类型中排除 null 的方法是错误的：
+
+```ts
+const el = document.getElementById("foo"); // Type is HTMLElement | null
+if (typeof el === "object") {
+  el; // Type is HTMLElement | null
+}
+```
+
+因为在 JavaScript 中 typeof null 的结果是 "object" ，所以你实际上并没有通过这种检查排除 null 值。除此之外，falsy 的原始值也会产生类似的问题：
+```ts
+function foo(x?: number | string | null) {
+  if (!x) {
+    x; // Type is string | number | null | undefined\
+  }
+}
+```
+因为空字符串和 0 都属于 falsy 值，所以在分支中 x 的类型可能是 string 或 number 类型。帮助类型检查器缩小类型的另一种常见方法是在它们上放置一个明确的 “标签”：
+
+```ts
+interface UploadEvent {
+  type: "upload";
+  filename: string;
+  contents: string;
+}
+
+interface DownloadEvent {
+  type: "download";
+  filename: string;
+}
+
+type AppEvent = UploadEvent | DownloadEvent;
+
+function handleEvent(e: AppEvent) {
+  switch (e.type) {
+    case "download":
+      e; // Type is DownloadEvent 
+      break;
+    case "upload":
+      e; // Type is UploadEvent 
+      break;
+  }
+}
+```
+这种模式也被称为 ”标签联合“ 或 ”可辨识联合“，它在 TypeScript 中的应用范围非常广。
+
