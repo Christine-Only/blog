@@ -917,3 +917,135 @@ function handleEvent(e: AppEvent) {
 ```
 这种模式也被称为 ”标签联合“ 或 ”可辨识联合“，它在 TypeScript 中的应用范围非常广。
 
+## 联合类型 (Union Types)
+联合类型表示取值可以为多种类型中的一种，使用 `|` 分隔每个类型。
+
+```ts
+let unionTypeValue: string | number;
+unionTypeValue = 'Hello World';
+unionTypeValue = 666;
+```
+联合类型通常与 `null` 和 `undefined` 一起使用：
+```ts
+const sayHello = (name: string | undefined) => {};
+```
+例如，这里 `name` 的类型是 `string | undefined` 意味着可以将 `string` 或 `undefined` 的值传递给 `sayHello` 函数。
+```ts
+sayHello('Christine');
+sayHello(undefined);
+```
+
+::: warning 警告
+当我们使用联合类型的时候，因为TypeScript不确定到底是哪一个类型，所以我们只能访问此联合类型的所有类型公用的属性和方法。
+:::
+
+```ts
+// Property 'length' does not exist on type 'number'.(2339)
+function getLength (value: string | number): number {
+  return value.length
+}
+
+// ok
+function valueToStr (value: string | number): string {
+  return value.toString()
+}
+```
+
+## 类型别名 (Type Aliases)
+类型别名用 `type` 关键字来给一个类型起个新的名字，类型别名常用于联合类型。
+```ts
+type CombineType = number | string
+type PeopleType = {
+  age: number;
+  name: string;
+}
+const value: CombineType = 666
+const obj: PeopleType = {
+  age: 18,
+  name: 'Christine'
+}
+```
+
+## 交叉类型（Intersection Types）
+交叉类型是将多个类型合并为一个类型。 这让我们可以把现有的多种类型叠加到一起成为一种类型，它包含了所需的所有类型的特性，使用 `&` 定义交叉类型。
+
+```ts
+interface IPerson {
+  id: string;
+  age: number;
+}
+
+interface IWorker {
+  companyId: string;
+}
+
+type IStaff = IPerson & IWorker;
+
+const staff: IStaff = {
+  id: '001',
+  age: 18,
+  companyId: '100'
+}
+```
+在上面示例中，我们首先为 `IPerson` 和 `IWorker` 类型定义了不同的成员，然后通过 `&` 运算符定义了 `IStaff` 交叉类型，所以该类型同时拥有`IPerson` 和 `IWorker` 这两种类型的成员。那么现在问题来了，假设在合并多个类型的过程中，刚好出现某些类型存在相同的成员，但对应的类型又不一致，比如：
+
+```ts
+type IntersectionTypeConfict = { id: string, name: string } & { id: number, age: number }
+
+const mixed: IntersectionTypeConfict = {
+  id: 123,
+  name: 'Christine',
+  age: 18
+}
+```
+上面的示例中，混入后的成员id的类型为`string & number`，即成员id的类型即是`string`类型又为`number`类型。很明显这种类型是不存在的，所以混入后成员id的类型为`never`。
+
+
+如果同名属性（age）的类型兼容，比如一个是number类型，另一个是number类型的子类型（字面量类型），合并后age属性的类型就是两者中的子类型，即为数字字面量类型。
+```ts
+type IntersectionType = {id: string, age: 18} & {name: string, age: number}
+
+let people: IntersectionType = {
+  id: '001',
+  name: 'Christine',
+  age: 8 //Type '8' is not assignable to type '18'.(2322)
+}
+
+people = {
+  id: '001',
+  name: 'Christine',
+  age: 18 //ok
+}
+
+```
+
+如果同名属性是非基本数据类型的话，又会是什么情形。我们来看个具体的例子：
+```ts
+interface A {
+  x:{d:true},
+}
+interface B {
+  x:{e:string},
+}
+interface C {
+  x:{f:number},
+}
+type ABC = A & B & C
+let abc:ABC = {
+  x:{
+    d:true,
+    e:'',
+    f:666
+  }
+}
+
+console.log(abc) 
+// {
+//   "x": {
+//     "d": true,
+//     "e": "",
+//     "f": 666
+//   }
+// } 
+```
+在混入多个类型时，若存在相同的成员，且成员类型为非基本数据类型，那么是可以成功合并。
