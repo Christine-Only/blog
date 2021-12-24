@@ -33,7 +33,7 @@ module.exports = {
     sidebar: {
       "/interview/": ["", "advance", "es6", "jsAsync", "promise", "eventLoop"],
       "/automate/": ["", "nginx"],
-      "/typescript/": ["", "base"],
+      "/typescript/": ["", "base", "advance"],
       "/react/": ["", "advance"],
     },
   },
