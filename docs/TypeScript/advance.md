@@ -632,3 +632,106 @@ let christine: PersonA = {
 
 ## 泛型 (Generics)
 
+```ts
+function ha<T, U>(id: T, value: U): T {
+  console.log(id)
+  return id
+}
+
+ha<number, string>(123, 'hi')
+ha<string, boolean>('123', true)
+ha<Number, string>(123, '')
+```
+T 和 U 是抽象类型，只有在调用的时候才确定它的值。
+
+除了为类型变量显式设定值之外，一种更常见的做法是使编译器自动选择这些类型，从而使代码更简洁。我们可以完全省略尖括号，比如：
+```ts
+function ha<T, U>(id: T, value: U): T {
+  console.log(id)
+  return id
+}
+
+ha(123, 'hi')
+ha('123', true)
+ha(123, '')
+```
+### 约束类型
+```ts
+function trace<T>(arg: T): T {
+  console.log(arg.size); // Error: Property 'size doesn't exist on type 'T'
+  return arg;
+}
+```
+报错的原因在于 T 理论上是可以是任何类型的，不同于 any，你不管使用它的什么属性或者方法都会报错（除非这个属性和方法是所有集合共有的）。那么直观的想法是限定传给 trace 函数的`参数类型`应该有 size 类型，这样就不会报错了。如何去表达这个`类型约束`的点呢？实现这个需求的关键在于使用类型约束。 使用 extends 关键字可以做到这一点。简单来说就是你定义一个类型，然后让 T 实现这个接口即可。
+
+```ts
+interface Sizeable {
+  size: number;
+}
+function trace<T extends Sizeable>(arg: T): T {
+  console.log(arg.size);
+  return arg;
+}
+
+trace({size: 123, age: 18})
+
+function trace<{
+    size: number;
+    age: number;
+}>(arg: {
+    size: number;
+    age: number;
+}): {
+    size: number;
+    age: number;
+}
+```
+
+### 泛型工具类型
+**typeof**
+
+typeof 的主要用途是在类型上下文中获取变量或者属性的类型。
+```ts
+interface Person {
+  name: string;
+  age: number;
+}
+const people: Person = { name: "Christine", age: 18 };
+type People = typeof people; // type People = Person
+
+const chris: People = { name: 'hi', age: 18 }
+```
+在上面代码中，我们通过 `typeof` 操作符获取 people 变量的类型并赋值给 People 类型变量。
+
+还可以对嵌套对象执行相同的操作：
+```ts
+const Message = {
+    name: "jimmy",
+    age: 18,
+    address: {
+      province: '四川',
+      city: '成都'   
+    }
+}
+type message = typeof Message;
+/*
+ type message = {
+    name: string;
+    age: number;
+    address: {
+        province: string;
+        city: string;
+    };
+}
+*/
+```
+
+此外，`typeof` 操作符除了可以获取对象的结构类型之外，它也可以用来获取函数对象的类型，比如：
+```ts
+function toArray(x: number): Array<number> {
+  return [x];
+}
+type Func = typeof toArray; // -> (x: number) => number[]
+```
+
+**keyof**
