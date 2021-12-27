@@ -735,3 +735,143 @@ type Func = typeof toArray; // -> (x: number) => number[]
 ```
 
 **keyof**
+
+**`keyof` 操作符是在 TypeScript 2.1 版本引入的，该操作符可以用于获取某种类型的所有键，其返回类型是联合类型。**
+
+```ts
+const obj = { 0: 0, 1: 1, length: 3 }
+
+type K1 = keyof typeof obj; // 0 | 1 | "length"
+type K2 = keyof typeof obj[];  // number | "length" | "push" | "concat" | ...
+type K3 = keyof { [x: string]: any };  // string | number
+type K4 = keyof { [x: number]: any}; // number
+type K5 = keyof { [x: symbol]: any}; // symbol
+```
+除了接口外，`keyof` 也可以用于操作类，比如：
+```ts
+class Person {
+  name: string = "Christine";
+}
+
+let sname: keyof Person;
+sname = "name";
+
+// Type '"age"' is not assignable to type '"name"'.(2322)
+sname = "age";
+```
+`keyof` 操作符除了支持接口和类之外，它也支持基本数据类型：
+```ts
+let K1: keyof boolean; // let K1: "valueOf"
+let K2: keyof number; // let K2: "valueOf" | "toString" | "toFixed" | "toExponential" | "toPrecision" | "toLocaleString"
+let K3: keyof symbol; // let K1: "valueOf" | "toString" | typeof Symbol.toPrimitive | typeof Symbol.toStringTag
+```
+此外 `keyof` 也称为输入索引类型查询，与之相对应的是索引访问类型，也称为查找类型。在语法上，它们看起来像属性或元素访问，但最终会被转换为类型：
+```ts
+interface Person {
+  name: string;
+  age: number;
+  location: string;
+}
+
+type P1 = Person["name"];  // string
+type P2 = Person["name" | "age"];  // string | number
+type P3 = string["charAt"];  // (pos: number) => string
+type P4 = string[]["push"];  // (...items: string[]) => number
+type P5 = string[][0];  // string
+```
+**keyof 的作用**
+JavaScript 是一种高度动态的语言。有时在静态类型系统中捕获某些操作的语义可能会很棘手。以一个简单的 `prop` 函数为例：
+```js
+function prop(obj, key) {
+  return obj[key];
+}
+```
+该函数接收 obj 和 key 两个参数，并返回对应属性的值。对象上的不同属性，可以具有完全不同的类型，我们甚至不知道 obj 对象长什么样。
+
+那么在 TypeScript 中如何定义上面的 `prop` 函数呢？我们来尝试一下：
+```ts
+function prop(obj: object, key: string) {
+  return obj[key];
+}
+```
+在上面代码中，为了避免调用 prop 函数时传入错误的参数类型，我们为 obj 和 key 参数设置了类型，分别为 `{}` 和 `string` 类型。然而，事情并没有那么简单。针对上述的代码，TypeScript 编译器会输出以下错误信息：
+```
+Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '{}'.
+  No index signature with a parameter of type 'string' was found on type '{}'.(7053)
+```
+元素隐式地拥有 `any` 类型，因为 `string` 类型不能被用于索引 {} 类型。要解决这个问题，你可以使用以下非常暴力的方案：
+```ts
+function prop(obj: object, key: string) {
+  return (obj as any)[key];
+}
+```
+很明显该方案并不是一个好的方案，我们来回顾一下 `prop` 函数的作用，该函数用于获取某个对象中指定属性的属性值。因此我们期望用户输入的属性是对象上已存在的属性，那么如何限制属性名的范围呢？这时我们可以利用本文的主角 `keyof` 操作符：
+```ts
+function prop<T extends object, K extends keyof T>(obj: T, key: K) {
+  return obj[key];
+}
+```
+在以上代码中，我们使用了 TypeScript 的泛型和泛型约束。**首先定义了 T 类型并使用 `extends` 关键字约束该类型必须是 object 类型的子类型，然后使用 `keyof` 操作符获取 T 类型的所有键，其返回类型是联合类型，最后利用 `extends` 关键字约束 K 类型必须为 `keyof T` 联合类型的子类型。**
+```ts
+type Todo = {
+  id: number;
+  text: string;
+  done: boolean;
+}
+
+const todo: Todo = {
+  id: 1,
+  text: "Learn TypeScript keyof",
+  done: false
+}
+
+function prop<T extends object, K extends keyof T>(obj: T, key: K) {
+  return obj[key];
+}
+
+const id = prop(todo, "id"); // const id: number
+const text = prop(todo, "text"); // const text: string
+const done = prop(todo, "done"); // const done: boolean
+```
+很明显使用泛型，重新定义后的 `prop<T extends object, K extends keyof T>(obj: T, key: K)` 函数，已经可以正确地推导出指定键对应的类型。那么当访问 todo 对象上不存在的属性时，会出现什么情况？比如：
+```ts
+// Argument of type '"date"' is not assignable to parameter of type 'keyof Todo'.(2345)
+const date = prop(todo, "date");
+```
+**keyof 与对象的数值属性**
+
+在使用对象的数值属性时，我们也可以使用 keyof 关键字。**请记住，如果我们定义一个带有数值属性的对象，那么我们既需要定义该属性，又需要使用数组语法访问该属性。** 如下所示：
+```ts
+class ClassWithNumericProperty {
+  [1]: string = "Semlinker";
+}
+
+let classWithNumeric = new ClassWithNumericProperty();
+console.log(`${classWithNumeric[1]} `);
+```
+下面我们来举个示例，介绍一下在含有数值属性的对象中，如何使用 keyof 操作符来安全地访问对象的属性：
+```ts
+enum Currency {
+  CNY = 6,
+  EUR = 8,
+  USD = 10
+}
+
+const CurrencyName = {
+  [Currency.CNY]: "人民币",
+  [Currency.EUR]: "欧元",
+  [Currency.USD]: "美元"
+};
+
+console.log(`CurrencyName[Currency.CNY] = ${CurrencyName[Currency.CNY]}`); // CurrencyName[Currency.CNY] = 人民币
+console.log(`CurrencyName[36] = ${CurrencyName[6]}`); //CurrencyName[36] = 人民币
+```
+为了方便用户能根据货币类型来获取对应的货币名称，我们来定义一个 getCurrencyName 函数，具体实现如下：
+```ts
+function getCurrencyName<K extends keyof T, T>(key: K, map: T): T[K] {
+  return map[key];
+}
+
+console.log(`name = ${getCurrencyName(Currency.CNY, CurrencyName)}`); // "name = 人民币" 
+```
+同样，getCurrencyName 函数和前面介绍的 prop 函数一样，使用了泛型和泛型约束，从而来保证属性的安全访问。
