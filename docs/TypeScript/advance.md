@@ -1,4 +1,8 @@
-# 进阶
+---
+sidebar: auto
+---
+
+# TypeScript进阶
 
 ## 类型拓宽（Type Widening）
 >所有通过 let 或 var 定义的变量、函数的形参、对象的非只读属性，如果满足指定了初始值且未显式添加类型注解的条件，那么它们推断出来的类型就是指定的初始值字面量类型拓宽后的类型，这就是字面量类型拓宽。
@@ -687,9 +691,8 @@ function trace<{
 }
 ```
 
-### 泛型工具类型
-**typeof**
-
+## 泛型工具类型
+### typeof
 typeof 的主要用途是在类型上下文中获取变量或者属性的类型。
 ```ts
 interface Person {
@@ -734,7 +737,7 @@ function toArray(x: number): Array<number> {
 type Func = typeof toArray; // -> (x: number) => number[]
 ```
 
-**keyof**
+### keyof
 
 **`keyof` 操作符是在 TypeScript 2.1 版本引入的，该操作符可以用于获取某种类型的所有键，其返回类型是联合类型。**
 
@@ -875,3 +878,119 @@ function getCurrencyName<K extends keyof T, T>(key: K, map: T): T[K] {
 console.log(`name = ${getCurrencyName(Currency.CNY, CurrencyName)}`); // "name = 人民币" 
 ```
 同样，getCurrencyName 函数和前面介绍的 prop 函数一样，使用了泛型和泛型约束，从而来保证属性的安全访问。
+
+### in
+`in` 用来遍历枚举类型：
+```ts
+type Person = {
+  name: string;
+  age: number;
+}
+
+type ABC = {
+  [k in keyof Person]: Person[k]; // type ABC = { name: string; age: number; }
+}
+```
+
+### extends
+`extends`关键字在TS中的两种用法，即接口继承和条件判断。
+
+1. 接口继承
+```ts
+   interface T1 {
+    name: string
+  }
+  
+  interface T2 {
+    sex: number
+  }
+  
+  // 多重继承，逗号隔开
+  interface T3 extends T1,T2 {
+    age: number
+  }
+  
+  // 合法
+  const t3: T3 = {
+    name: 'xiaoming',
+    sex: 1,
+    age: 18
+  }
+```
+示例中，T1和T2两个接口，分别定义了name属性和sex属性，T3则使用extends使用多重继承的方式，继承了T1和T2，同时定义了自己的属性age，此时T3除了自己的属性外，还同时拥有了来自T1和T2的属性。
+
+2. 条件判断
+```ts
+// 示例1
+interface Animal {
+  eat(): void
+}
+
+interface Dog extends Animal {
+  bite(): void
+}
+
+// A的类型为string
+type A = Dog extends Animal ? string : number
+
+const a: A = 'this is string'
+```
+`extends`用来条件判断的语法和JS的三元表达是很相似，如果问号前面的判断为真，则将第一个类型string赋值给A，否则将第二个类型number赋值给A。
+
+那么，接下来的问题就是，extends判断条件真假的逻辑是什么？
+
+很简单，**如果extends前面的类型能够赋值给extends后面的类型，那么表达式判断为真，否则为假。**
+
+上面的示例中，Dog是Animal的子类，父类比子类的限制更少，能满足子类，则一定能满足父类，Dog类型的值可以赋值给Animal类型的值，判断为真。
+
+```ts
+// 示例2
+interface A1 {
+  name: string
+}
+
+interface A2 {
+  name: string
+  age: number
+}
+
+// A的类型为string
+type A = A2 extends A1 ? string : number
+
+const a: A = 'this is string'
+```
+A1，A2两个接口，满足A2的接口一定可以满足A1，所以条件为真，A的类型取string。
+
+**泛型用法**
+* 分配条件类型
+```ts
+type A1 = 'x' extends 'x' ? string : number; // string
+type A2 = 'x' | 'y' extends 'x' ? string : number; // number
+
+type P<T> = T extends 'x' ? string : number;
+type A3 = P<'x' | 'y'> // string | number
+```
+A1和A2是`extends`条件判断的普通用法，和上面的判断方法一样。
+
+P是带参数T的泛型类型，其表达式和A1，A2的形式完全相同，A3是泛型类型P传入参数`'x' | 'y'`得到的类型，如果将`'x' | 'y'`带入泛型类的表达式，可以看到和A2类型的形式是完全一样的，那是不是说明，A3和A2的类型就是完全一样的呢？
+
+:::tip
+对于使用extends关键字的条件类型（即上面的三元表达式类型），如果extends前面的参数是一个泛型类型，当传入该参数的是联合类型，则使用分配律计算最终的结果。分配律是指，将联合类型的联合项拆成单项，分别代入条件类型，然后将每个单项代入得到的结果再联合起来，得到最终的判断结果。
+:::
+该例中，extends的前参为T，T是一个泛型参数。在A3的定义中，给T传入的是'x'和'y'的联合类型`'x' | 'y'`，满足分配律，于是'x'和'y'被拆开，分别代入`P<T>`
+
+`P<'x' | 'y'> => P<'x'> | P<'y'>`
+
+'x'代入得到
+
+`'x' extends 'x' ? string : number => string`
+
+'y'代入得到
+
+`'y' extends 'x' ? string : number => number`
+
+然后将每一项代入得到的结果联合起来，`得到string | number`
+
+总之，满足两个要点即可适用分配律：第一，参数是泛型类型，第二，代入参数的是联合类型。
+* 特殊的never
+* 防止条件判断中的分配

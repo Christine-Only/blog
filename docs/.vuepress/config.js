@@ -23,7 +23,11 @@ module.exports = {
       },
       {
         text: "TypeScript",
-        link: "/typescript/",
+        items: [
+          { text: "TypeScript介绍", link: "/typescript/" },
+          { text: "TypeScript基础", link: "/typescript/base/" },
+          { text: "TypeScript进阶", link: "/typescript/advance/" },
+        ],
       },
       {
         text: "React",
@@ -33,7 +37,6 @@ module.exports = {
     sidebar: {
       "/interview/": ["", "advance", "es6", "jsAsync", "promise", "eventLoop"],
       "/automate/": ["", "nginx"],
-      "/typescript/": ["", "base", "advance"],
       "/react/": ["", "advance"],
     },
   },
