@@ -33,6 +33,10 @@ module.exports = {
         text: "React",
         link: "/react/",
       },
+      {
+        text: "ESLint",
+        link: "/eslint/",
+      },
     ],
     sidebar: {
       "/interview/": ["", "advance", "es6", "jsAsync", "promise", "eventLoop"],
