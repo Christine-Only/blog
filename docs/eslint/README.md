@@ -1,7 +1,3 @@
----
-sidebar: auto
----
-
 # ESLint配置
 
 ## 安装eslint及依赖包
@@ -235,10 +231,16 @@ npx mrm lint-staged
 }
 
 // 指定下包含后缀的都会开启ESLint检测
+// 这里其实是不需要跑npm run lint的，因为如果这样在commit时会全量检测所有src下的文件，然而其实我们只需要检测修改的文件即可。
 "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx}": [
       "npm run lint"
+    ],
+
+    "src/**/*.{js,jsx,ts,tsx}": [
+      "eslint"
     ]
+    
 }
 
 ```

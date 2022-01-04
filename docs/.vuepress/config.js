@@ -34,7 +34,7 @@ module.exports = {
         link: "/react/",
       },
       {
-        text: "ESLint",
+        text: "前端项目规范",
         link: "/eslint/",
       },
     ],
@@ -42,6 +42,7 @@ module.exports = {
       "/interview/": ["", "advance", "es6", "jsAsync", "promise", "eventLoop"],
       "/automate/": ["", "nginx"],
       "/react/": ["", "advance"],
+      "/eslint/": ["", "stylelint"],
     },
   },
 };
