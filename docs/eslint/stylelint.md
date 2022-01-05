@@ -35,6 +35,8 @@ module.exports = {
     'plugin/declaration-block-no-ignored-properties': true,
     'selector-class-pattern': '^[a-z]+(-|[a-zA-Z0-9])*[a-zA-Z0-9]+$', // 类名兼容小驼峰和短横线
     'rule-empty-line-before': 'always-multi-line', // 在多行规则之前必须有一行空行
+    'declaration-block-trailing-semicolon': 'always', // 要求声明块后面有分号
+    'custom-property-no-missing-var-function': [true, { ignoreProperties: ['transition', 'transition-property'] }],
   },
   ignoreFiles: ['**/*.js', '**/*.jsx', '**/*.tsx', '**/*.ts'], // 忽略检查的文件
 }

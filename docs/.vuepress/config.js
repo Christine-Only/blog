@@ -34,7 +34,7 @@ module.exports = {
         link: "/react/",
       },
       {
-        text: "前端项目规范",
+        text: "前端规范",
         link: "/eslint/",
       },
     ],
