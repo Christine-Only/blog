@@ -1,5 +1,7 @@
 # ESLint配置
-
+:::tip
+前置条件：vscode安装并开启`eslint`插件
+:::
 ## 安装eslint及依赖包
 ```shell
 {

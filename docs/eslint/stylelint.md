@@ -1,14 +1,17 @@
 # styleLint配置
+:::tip
+前置条件：vscode安装并开启`stylelint`插件
+:::
 
 ## 安装stylelint及依赖包
 ```json
 "devDependencies": {
-    "stylelint": "^14.2.0",
-    "stylelint-config-css-modules": "^2.3.0",
+    "stylelint": "^13.13.1",
+    "stylelint-config-css-modules": "^2.2.0",
     "stylelint-config-idiomatic-order": "^8.1.0",
-    "stylelint-config-prettier": "^9.0.3",
-    "stylelint-config-standard": "^24.0.0",
-    "stylelint-declaration-block-no-ignored-properties": "^2.5.0",
+    "stylelint-config-prettier": "^8.0.1",
+    "stylelint-config-standard": "^20.0.0",
+    "stylelint-declaration-block-no-ignored-properties": "^2.1.0",
     "stylelint-order": "^5.0.0",
 }
 ```
@@ -36,7 +39,6 @@ module.exports = {
     'selector-class-pattern': '^[a-z]+(-|[a-zA-Z0-9])*[a-zA-Z0-9]+$', // 类名兼容小驼峰和短横线
     'rule-empty-line-before': 'always-multi-line', // 在多行规则之前必须有一行空行
     'declaration-block-trailing-semicolon': 'always', // 要求声明块后面有分号
-    'custom-property-no-missing-var-function': [true, { ignoreProperties: ['transition', 'transition-property'] }],
   },
   ignoreFiles: ['**/*.js', '**/*.jsx', '**/*.tsx', '**/*.ts'], // 忽略检查的文件
 }
