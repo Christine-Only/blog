@@ -1,3 +1,7 @@
+---
+sidebar: auto
+---
+
 # tsconfig.json介绍
 
 tsconfig.json 是 TypeScript 项目的配置文件。如果一个目录下存在一个 tsconfig.json 文件，那么往往意味着这个目录就是 TypeScript 项目的根目录。

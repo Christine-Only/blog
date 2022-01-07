@@ -27,6 +27,7 @@ module.exports = {
           { text: "TypeScript介绍", link: "/typescript/" },
           { text: "TypeScript基础", link: "/typescript/base/" },
           { text: "TypeScript进阶", link: "/typescript/advance/" },
+          { text: "tsconfig.json配置", link: "/typescript/tsconfig/" },
         ],
       },
       {
@@ -42,7 +43,7 @@ module.exports = {
       "/interview/": ["", "advance", "es6", "jsAsync", "promise", "eventLoop"],
       "/automate/": ["", "nginx"],
       "/react/": ["", "advance"],
-      "/eslint/": ["", "stylelint"],
+      "/eslint/": ["", "stylelint", "umi"],
     },
   },
 };
