@@ -72,14 +72,14 @@ chainWebpack: function (config) {
           cacheGroups: {
             vendor: {
               name: 'vendors',
-              test: /^.*node_modules[\\/](?!echarts|bizcharts|antd).*$/, //除去需要拆分的node_modules包
+              test: /^.*node_modules[\\/](?!echarts|bizcharts|antd|@ant-design).*$/, //除去需要拆分的node_modules包
               chunks: 'all',
               priority: 10,
             },
             antd: { // antdsign
                 name: 'antd',
                 chunks: 'all',
-                test: /[\\/]node_modules[\\/]@antd|antd|@ant-design[\\/]/,
+                test: /[\\/]node_modules[\\/]antd|@ant-design[\\/]/,
                 priority: 10,
             },
             echarts: {
@@ -115,7 +115,7 @@ chainWebpack: function (config) {
 
 ```ts
 // config.ts
-chunks: ['antd', 'vendors', 'umi'],
+chunks: ['antd', 'antPro', 'vendors', 'umi'],
 chainWebpack: function (config) {
     //过滤掉momnet的那些不使用的国际化文件
     config
@@ -152,15 +152,21 @@ chainWebpack: function (config) {
           cacheGroups: {
             vendor: {
               name: 'vendors',
-              test: /^.*node_modules[\\/](?!antd).*$/, //除去需要拆分的node_modules包
+              test: /^.*node_modules[\\/](?!antd|@ant-design).*$/, //除去需要拆分的node_modules包
               chunks: 'all',
               priority: 10,
             },
-            antd: { // antdsign
+            antd: {
                 name: 'antd',
                 chunks: 'all',
-                test: /[\\/]node_modules[\\/]@antd|antd|@ant-design[\\/]/,
+                test: /[\\/]node_modules[\\/]antd[\\/]/,
                 priority: 10,
+            },
+            antPro: {
+              name: 'antPro',
+              chunks: 'all',
+              test: /[\\/]node_modules[\\/]@ant-design[\\/]/,
+              priority: 10,
             },
           },
       },
@@ -182,5 +188,12 @@ scripts: [
   ],
 ```
 产物如下图：
-![alt 拆包后](/blog/enternals.png)
+![alt 拆包后](/blog/externals.png)
+由上图可以看出，antd和@ant-design组件包从vendors.js拆分出来了。这样在首屏加载时antd和、ant-design和vendors.js实现异步加载，来提升首屏加载速度。
+
+scripts引入的react和react-dom没有指定版本的话，在浏览器渲染时会重定向到指定版本，这样的话，首屏加载速度也会受到影响。
+![alt 拆包后](/blog/noVersion.png)
+
+scripts引入的react和react-dom有指定版本的话，在浏览器渲染时会直接加载指定版本，首屏加载速度会变快。
+![alt 拆包后](/blog/version.png)
 
