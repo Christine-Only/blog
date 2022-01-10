@@ -169,7 +169,7 @@ chainWebpack: function (config) {
 externals: {
     react: 'window.React',
     'react-dom': 'window.ReactDOM',
-    lodash: 'window.lodash',
+    lodash: 'window._',
     bizcharts: 'window.bizcharts',
     echarts: 'window.echarts',
   },

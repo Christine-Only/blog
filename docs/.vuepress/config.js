@@ -35,7 +35,7 @@ module.exports = {
         link: "/react/",
       },
       {
-        text: "前端规范",
+        text: "前端进阶",
         link: "/eslint/",
       },
     ],
@@ -43,7 +43,7 @@ module.exports = {
       "/interview/": ["", "advance", "es6", "jsAsync", "promise", "eventLoop"],
       "/automate/": ["", "nginx"],
       "/react/": ["", "advance"],
-      "/eslint/": ["", "stylelint", "umi"],
+      "/eslint/": ["", "stylelint", "webpack", "umi"],
     },
   },
 };
