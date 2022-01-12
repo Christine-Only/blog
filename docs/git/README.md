@@ -20,7 +20,7 @@ git push origin master or git push
 ```git
 git push --force | -f origin master
 ```
->删除主机的分支可以使用--delete或-d参数，一下命令表示删除origin主机的master分支
+>删除远程的分支可以使用--delete或-d参数，以下命令表示删除远程的master分支
 ```git
 git push --delete | -d origin master
 ```
