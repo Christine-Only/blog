@@ -29,6 +29,14 @@
 
 执行 `npm run analyze`，编译执行完成后以后，你可以查看 http://127.0.0.1:8888 包分析页面。可以看到大致如下图所示的页面。
 
+:::tip
+start size：原始没有经过 minify 处理的文件大小
+
+parse size：比如 webpack plugin 里用了 uglify，就是 minified 以后的文件大小
+
+gzip size：被压缩以后的文件大小
+:::
+
 ![alt 拆包前](/blog/init.png)
 
 这个是初始打包出来的 js 大小，可以清晰的看到，vendors.js 6.1M 真的超级大。这个时候我们想拆出来怎么办呢？

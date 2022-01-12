@@ -1,4 +1,9 @@
-### Git 查漏补缺
+---
+sidebar: auto
+---
+# Git
+
+## git push
 
 ```git
 git push <远程主机名> <本地分支名>:<远程分支名>
@@ -18,4 +23,18 @@ git push --force | -f origin master
 >删除主机的分支可以使用--delete或-d参数，一下命令表示删除origin主机的master分支
 ```git
 git push --delete | -d origin master
+```
+
+## git clone
+```shell
+git clone https://codeup.aliyun.com/xxx/xxx.git/
+```
+![alt git报403](/blog/git403.jpg)
+**错误原因**：
+git 客户端缓存了错误的密码，账号密码和本地存储的混淆。一般是多个git账号会导致这样的情况，比如自己的账号和公司的账号同时一起使用。
+
+**解决方案**：
+clone时，把账号和密码拼接在clone的url中。
+```shell
+git clone https://用户名:密码@codeup.aliyun.com/xxx/xxx.git/
 ```

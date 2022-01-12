@@ -1,7 +1,7 @@
 module.exports = {
   title: "Christine",
   head: [["link", { rel: "icon", herf: "logo.png" }]],
-  description: "欢迎来到我的博客👏🏻",
+  description: "欢迎来到我的技术博客👏🏻",
   base: "/blog/",
   themeConfig: {
     lastUpdated: "最后更新时间",
