@@ -38,6 +38,10 @@ module.exports = {
         text: "前端进阶",
         link: "/eslint/",
       },
+      {
+        text: "随手记",
+        link: "/other/",
+      },
     ],
     sidebar: {
       "/interview/": ["", "advance", "es6", "jsAsync", "promise", "eventLoop"],
