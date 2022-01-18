@@ -15,7 +15,6 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-import-resolver-typescript": "^2.5.0",
     "eslint-plugin-react": "^7.28.0", // 支持react语法
-    "prettier": "^2.2.0"
   }
 }
 ```
@@ -211,19 +210,39 @@ singleQuote = true
 }
 ```
 
-## 安装mrm
+## mrm
+`mrm`是一个自动化工具。
+
+它将根据package.json依赖项中的代码质量工具来安装和配置husky和lint-staged，因此请确保在此之前安装（npm install -D）并配置所有代码质量工具，如`Prettier`和`ESlint`。
+## lint-staged
+> lint-staged 是一个在git暂存文件上运行linters的工具，当然如果你觉得每次修改一个文件就给所有文件执行一次lint检查不恶心的话，这个工具对你来说就没有什么意义了，请直接关闭即可。
 ```shell
 npm i mrm -D
 npx mrm lint-staged
 ```
-这里package.json文件会多一项，如下：
+运行完上述命令你会发现：
+* `package.json`里多了两个开发依赖（`husky`和`lint-staged`）和一个`prepare`脚本：
 ```json
-"lint-staged": {
+{
+  "scripts": {
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "husky": "^7.0.4",
+    "lint-staged": "^12.1.7",
+    "mrm": "^3.0.10",
+    "prettier": "^2.5.1",
+  },
+  "lint-staged": {
     "*.js": "eslint --cache --fix",
     "*.{js,css,md}": "prettier --write"
+  }
 }
 ```
-可以按照项目的需要自行修改，比如可以改为：
+* 根目录多了一个`.husky`的文件
+
+可以根据项目的需要自行修改，比如可以改为：
+
 ```json
 // 所有目录下包含后缀的都会开启ESLint检测
 "lint-staged": {
@@ -246,4 +265,4 @@ npx mrm lint-staged
 }
 
 ```
-`git commit`的时候就会开启eslint检查啦!!!
+完成安装和配置后，当开发者完成代码，执行`git commit -m 'xxx'`时，会自动开启ESlint检查。

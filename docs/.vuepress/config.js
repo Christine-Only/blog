@@ -47,7 +47,7 @@ module.exports = {
       "/interview/": ["", "advance", "es6", "jsAsync", "promise", "eventLoop"],
       "/automate/": ["", "nginx"],
       "/react/": ["", "advance"],
-      "/eslint/": ["", "stylelint", "webpack", "umi"],
+      "/eslint/": ['prettier', "", "stylelint", "webpack", "umi"],
     },
   },
 };
