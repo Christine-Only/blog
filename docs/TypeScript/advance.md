@@ -1031,3 +1031,99 @@ type T21 = Bar<{ a: (x: string) => void; b: (x: number) => void }>; // string & 
 **逆变与协变：**
 * 协变(co-variant)：类型收敛。
 * 逆变(contra-variant)：类型发散。
+
+## 索引类型
+在实际开发中，我们经常能遇到这样的场景，在对象中获取一些属性的值，然后建立对应的集合。
+
+```ts
+const person = {
+  name: 'Christine',
+  age: 18
+}
+
+function getValues(person: any, keys: string[]) {
+  return keys.map(key => person[key])
+}
+
+console.log(getValues(person, ['name', 'age'])) // ['Christine', 18]
+console.log(getValues(person, ['gender'])) // [undefined]
+```
+在上述例子中，可以看到getValues(persion, ['gender'])打印出来的是[undefined]，但是ts编译器并没有给出报错信息，那么如何使用ts对这种模式进行类型约束呢？这里就要用到了索引类型,改造一下getValues函数，通过 `「索引类型查询」`和 `「索引访问」` 操作符：
+
+```ts
+function getValues<T, K extends keyof T>(person: T, keys: K[]): T[K][] {
+  return keys.map(key => person[key]);
+}
+
+interface Person {
+  name: string;
+  age: number;
+}
+
+const person: Person = {
+  name: 'Christine',
+  age: 18
+}
+
+getValues(person, ['name']) // ['Christine']
+getValues(person, ['gender']) // 报错：
+// Argument of Type '"gender"[]' is not assignable to parameter of type '("name" | "age")[]'.
+// Type "gender" is not assignable to type "name" | "age".
+```
+编译器会检查传入的值是否是Person的一部分。通过下面的概念来理解上面的代码：
+```ts
+T[K]表示对象T的属性K所表示的类型，在上述例子中，T[K][] 表示变量T取属性K的值的数组
+
+// 通过[]索引类型访问操作符, 我们就能得到某个索引的类型
+class Person {
+    name:string;
+    age:number;
+ }
+ type MyType = Person['name'];  //Person中name的类型为string type MyType = string
+```
+首先看泛型，这里有T和K两种类型，根据类型推断，第一个参数person就是person，类型会被推断为Person。而第二个数组参数的类型推断（K extends keyof T），keyof关键字可以获取T，也就是Person的所有属性名，即['name', 'age']。而extends关键字让泛型K继承了Person的所有属性名，即['name', 'age']。
+
+## 映射类型
+> 根据旧的类型创建出新的类型, 我们称之为映射类型
+
+```ts
+interface TestInterface {
+  name:string,
+  age:number
+}
+```
+
+假设需要把上面定义的接口里面的属性全部变成可选，该怎么实现呢？
+
+答案如下：
+```ts
+// 我们可以通过+/-来指定添加还是删除
+
+type OptionalTestInterface<T> = {
+  [p in keyof T]+?:T[p]
+}
+
+方法一：
+type newTestInterface = OptionalTestInterface<TestInterface>
+
+方法二：
+type newTestInterface = {
+  name?:string,
+  age?:number
+}
+```
+
+如果我们还想再加上只读属性呢？
+
+```ts
+type OptionalTestInterface<T> = {
+ +readonly [p in keyof T]+?:T[p]
+}
+
+type newTestInterface = OptionalTestInterface<TestInterface>
+
+type newTestInterface = {
+  readonly name?:string,
+  readonly age?:number
+}
+```
