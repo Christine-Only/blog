@@ -1,7 +1,3 @@
----
-sidebar: auto
----
-
 # TypeScript基础
 
 ## JS的八种内置类型

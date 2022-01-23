@@ -1,7 +1,3 @@
----
-sidebar: auto
----
-
 # TypeScript进阶
 
 ## 类型拓宽（Type Widening）
@@ -12,6 +8,7 @@ let str = 'this is string'; // 类型是 string
 let strFun = (str = 'this is string') => str; // 类型是 (str?: string) => string;
 const specifiedStr = 'hello world' // 'hello world'
 let newStr = specifiedStr // string
+
 ```
 第 1~2 行满足了 let、形参且未显式声明类型注解的条件，所以变量、形参的类型拓宽为 string（形参类型确切地讲是 string | undefined）。
 
@@ -75,7 +72,7 @@ const obj = { x: 1}
 obj.x = 6 //ok
 
 //Type 'string' is not assignable to type 'number'.(2322)
-obj.x = 'hi' 
+obj.x = 'hi'
 
 // Property 'name' does not exist on type '{ x: number; }'.(2339)
 obj.name = "christine"
@@ -994,3 +991,43 @@ P是带参数T的泛型类型，其表达式和A1，A2的形式完全相同，A3
 总之，满足两个要点即可适用分配律：第一，参数是泛型类型，第二，代入参数的是联合类型。
 * 特殊的never
 * 防止条件判断中的分配
+
+### Infer
+关键字用于条件中的类型推导
+
+```ts
+type ReturnType<T> = T extends (...args: any[]) => infer R ? R : any;
+```
+理解为：如果 T 继承了 extends (...args: any[]) => any 类型，则返回类型 R，否则返回 any。其中 R 是什么呢？R 被定义在 extends (...args: any[]) => infer R 中，即 R 是从传入参数类型中推导出来的。
+
+栗子：
+```ts
+type ArrayElementType<T> = T extends (infer E)[] ? E : T;
+// type of item1 is `number`
+type item1 = ArrayElementType<number[]>;
+// type of item2 is `{name: string}`
+type item2 = ArrayElementType<{ name: string }>;
+```
+
+item1是满足结构的，所以条件类型中的条件为true，因为 `numer[]` 匹配 `(infer E)[]`，所以返回的类型是 `E` 即为 `number` 类型。
+
+item2不满足结构的，所以条件类型的条件为false，因为 `{name: string}` 不匹配 `(infer E)[]`，所以返回的类型是 `T` 即为 `{name: string}`。
+
+```ts
+type item3 = ArrayElementType<[number, string]>; // number | string
+```
+我们用多个 `infer E（(infer E)[]` 相当于 `[infer E, infer E]...` 不就是多个变量指向同一个类型代词 E 嘛）同时接收到了 `number 和 string`，所以可以理解为 `E` 时而为 `number` 时而为 `string`，所以是或关系，这就是协变。
+
+那如果是函数参数呢？
+```ts
+type Bar<T> = T extends { a: (x: infer U) => void; b: (x: infer U) => void }
+  ? U : never
+type T21 = Bar<{ a: (x: string) => void; b: (x: number) => void }>; // string & number
+```
+发现结果是 `string & number`，也就是逆变。但这个例子也是同一个 `U` 时而为 `string` 时而为 `number` 呀，为什么是且的关系，而不是或呢？
+
+其实协变或逆变与 `infer` 参数位置有关。在 TypeScript 中，**对象、类、数组和函数的返回值类型都是协变关系，而函数的参数类型是逆变关系**，所以 `infer` 位置如果在函数参数上，就会遵循逆变原则。
+
+**逆变与协变：**
+* 协变(co-variant)：类型收敛。
+* 逆变(contra-variant)：类型发散。

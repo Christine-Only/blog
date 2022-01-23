@@ -23,12 +23,7 @@ module.exports = {
       },
       {
         text: "TypeScript",
-        items: [
-          { text: "TypeScript介绍", link: "/typescript/" },
-          { text: "TypeScript基础", link: "/typescript/base/" },
-          { text: "TypeScript进阶", link: "/typescript/advance/" },
-          { text: "tsconfig.json配置", link: "/typescript/tsconfig/" },
-        ],
+        link: '/typescript/'
       },
       {
         text: "React",
@@ -36,7 +31,7 @@ module.exports = {
       },
       {
         text: "前端进阶",
-        link: "/eslint/",
+        link: "/advance/",
       },
       {
         text: "随手记",
@@ -46,8 +41,9 @@ module.exports = {
     sidebar: {
       "/interview/": ["", "advance", "es6", "jsAsync", "promise", "eventLoop"],
       "/automate/": ["", "nginx"],
+      "/typescript/": ["", "base", "advance", "challenge", "tsconfig"],
       "/react/": ["", "advance"],
-      "/eslint/": ['prettier', "", "stylelint", "webpack", "umi"],
+      "/advance/": ['prettier', "", "stylelint", "webpack", "umi"],
     },
   },
 };

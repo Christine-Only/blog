@@ -1,7 +1,3 @@
----
-sidebar: auto
----
-
 # TypeScript介绍
 
 ## 为什么要使用TypeScript?

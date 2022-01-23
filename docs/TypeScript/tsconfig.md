@@ -1,7 +1,3 @@
----
-sidebar: auto
----
-
 # tsconfig.json介绍
 
 tsconfig.json 是 TypeScript 项目的配置文件。如果一个目录下存在一个 tsconfig.json 文件，那么往往意味着这个目录就是 TypeScript 项目的根目录。
@@ -18,7 +14,6 @@ tsconfig.json 包含 TypeScript 编译的相关配置，通过更改编译配置
 ```json
 {
   "compilerOptions": {
-  
     /* 基本选项 */
     "target": "es5",                       // 指定 ECMAScript 目标版本: 'ES3' (default), 'ES5', 'ES6'/'ES2015', 'ES2016', 'ES2017', or 'ESNEXT'
     "module": "commonjs",                  // 指定使用模块: 'commonjs', 'amd', 'system', 'umd' or 'es2015'
