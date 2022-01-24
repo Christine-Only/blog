@@ -1,7 +1,7 @@
 module.exports = {
   title: "Christine",
   head: [["link", { rel: "icon", herf: "logo.png" }]],
-  description: "欢迎来到我的技术博客👏🏻",
+  description: "我是Christine，一名前端开发工程师 👧🏻",
   base: "/blog/",
   themeConfig: {
     lastUpdated: "最后更新时间",
@@ -23,7 +23,7 @@ module.exports = {
       },
       {
         text: "TypeScript",
-        link: '/typescript/'
+        link: "/typescript/",
       },
       {
         text: "React",
@@ -43,7 +43,7 @@ module.exports = {
       "/automate/": ["", "nginx"],
       "/typescript/": ["", "base", "advance", "challenge", "tsconfig"],
       "/react/": ["", "advance"],
-      "/advance/": ['prettier', "", "stylelint", "webpack", "umi"],
+      "/advance/": ["prettier", "", "stylelint", "webpack", "umi"],
     },
   },
 };

@@ -879,15 +879,17 @@ console.log(`name = ${getCurrencyName(Currency.CNY, CurrencyName)}`); // "name =
 ### in
 `in` 用来遍历枚举类型：
 ```ts
-type Person = {
+type U = {
   name: string;
   age: number;
 }
 
 type ABC = {
-  [k in keyof Person]: Person[k]; // type ABC = { name: string; age: number; }
+  [P in keyof U]: U[P]; // type ABC = { name: string; age: number; }
 }
 ```
+**代码详解**：
+`[P in keyof U]`：这段代码表示遍历`U`中的每一个属性键，每次遍历时属性键取名为`P`。
 
 ### extends
 `extends`关键字在TS中的两种用法，即接口继承和条件判断。

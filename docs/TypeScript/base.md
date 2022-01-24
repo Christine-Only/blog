@@ -78,7 +78,7 @@ val1 = val3;
 val1 = val4;
 ```
 
-### void
+## void
 `void`表示没有任何类型，和其他类型是平等关系，不能直接赋值：
 
 ```ts
@@ -180,6 +180,14 @@ type Foo = string | number | boolean;
 ```
 然而忘记同时修改 `controlFlowAnalysisWithNever` 方法中的控制流程，这时候 else 分支的 foo 类型会被收窄为 `boolean` 类型，导致无法赋值给 `never` 类型，这时就会产生一个编译错误。通过这个方式，我们可以得出一个结论：使用 `never` 避免出现新增了联合类型没有对应的实现，目的就是写出类型绝对安全的代码。
 
+::: tip 注意
+如果一个联合类型中存在never，那么实际的联合类型并不会包含never。
+:::
+```ts
+// 'name' | 'age'
+type test = 'name' | 'age' | never
+
+```
 ## unknown
 就像所有类型都可以被归为 `any`，所有类型也都可以被归为 `unknown`。这使得 `unknown` 成为 TypeScript 类型系统的另一种顶级类型（另一种是 `any`）。
 
