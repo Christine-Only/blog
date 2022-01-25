@@ -1,8 +1,48 @@
 # TypeScript内置工具类型
 
 ## Partial
+> `Partial<T>`表示将某个类型里的属性全部变为可选项。
+
+用法：
+```ts
+type Person = {
+  name: string;
+  age?: number;
+}
+// { name?: string | undefined; age?: number | undefined }
+type PartialResult = Partial<Person>
+```
+
+代码实现：
+```ts
+type MyPartial<T> = {
+  [P in keyof T]?: T[P]
+}
+// { name?: string | undefined; age?: number | undefined }
+type PartialResult = MyPartial<Person>
+```
 
 ## Required
+> `Required<T>`表示将某个类型里的属性全部变为必填项。
+
+用法：
+```ts
+type Person = {
+  name: string;
+  age?: number;
+}
+// { name: string; age: number }
+type PartialResult = Required<Person>
+```
+
+代码实现：
+```ts
+type MyPartial<T> = {
+  [P in keyof T]-?: T[P]
+}
+// { name: string; age: number }
+type PartialResult = MyRequired<Person>
+```
 
 ## Readonly
 > `Readonly<T>` 表示将某个类型中的所有属性变为只读属性，也就意味着这些属性不能被重新赋值。
@@ -97,7 +137,38 @@ T extends U
 )
 => 'you' | 'and'
 ```
+
 ## Extract
+> `Extract<T, U>`表示用来取联合类型 `T` 和 `U` 的交集。
+
+用法：
+```ts
+type Person = {
+  name: string;
+  age: number;
+  address: string;
+}
+// 结果：'age'|'address'
+type ExtractResult = Extract<keyof Person, 'age'|'address'|'sex'>
+```
+
+代码实现：
+```ts
+type MyExtract<T, U> = T extends U ? T : never
+```
+
+代码详解：
+* `T extends U`：此代码会自动将`T`的子类型进行分发，例如：
+```ts
+T extends U
+=> 'name'|'age'|'address' extends 'age'|'address'|'sex' ? T : never
+=> (
+  'name' extends 'age'|'address'|'sex' ? 'name' : never |
+  'age' extends 'age'|'address'|'sex' ? 'age' : never |
+  'address' extends 'age'|'address'|'address' ? 'age' : never
+)
+=> 'age'|'address'
+```
 
 ## Omit
 
