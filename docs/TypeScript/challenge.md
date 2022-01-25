@@ -1,135 +1,4 @@
-# TypeScript内置工具类型
-
-## Partial
-
-## Required
-
-## Readonly
-> `Readonly<T>` 表示将某个类型中的所有属性变为只读属性，也就意味着这些属性不能被重新赋值。
-
-用法：
-```ts
-interface Todo {
-  title: string
-  description: string
-}
-
-const todo: Readonly<Todo> = {
-  title: "Hey",
-  description: "foobar"
-}
-```
-
-代码实现：
-```ts
-type MyReadonly<T> = {
-  readonly [P in keyof T]: T[P]
-}
-
-const todo: MyReadonly<Todo> = {
-  title: "Hey",
-  description: "foobar"
-}
-
-todo.title = '改名' // Cannot assign to 'title' because it is a read-only property.(2540)
-todo.description = '改不了嘿嘿' // Cannot assign to 'description' because it is a read-only property.(2540)
-```
-
-## Pick
-> `Pick<T, K extends keyof T>` 表示从某个类型中选取一些属性出来。
-
-用法：
-```ts
-interface Todo {
-    title: string
-    description: string
-    completed: boolean
-}
-
-type TodoPreview = Pick<Todo, 'title' | 'completed'> // { title: string, completed: boolean }
-```
-代码实现：
-```ts
-type MyPick<T, K extends keyof T> = {
-    [P in K]: T[P]
-}
-
-type TodoPreview = MyPick<Todo, 'title' | 'completed'>
-```
-
-代码详解：
-* `K extends keyof T`：表示 `K` 只能是 `keyof T` 的子类型，如果我们在使用 `Pick` 时，传递了一个不存在 `T` 类型的字段，会报错：
-```ts
-// Type '"title" | "phone"' does not satisfy the constraint 'keyof Todo'.
-// Type '"phone"' is not assignable to type 'keyof Todo'.(2344)
-type AAA = Pick<Todo, 'title' | 'phone'>
-```
-## Record
-
-## ReturnType
-
-## Exclude
-> `Exclude<T, U>`表示从联合类型T中排除U的类型成员，可以理解为取T和U的差集。
-
-用法：
-```ts
-type union = 'you' | 'and' | 'me'
-// 'you' | 'and'
-type result = Exclude<union, 'me'>
-```
-
-代码实现：
-```ts
-type MyExclude<T, U> = T extends U ? never : T
-// 'you' | 'and'
-type result = MyExclude<union, 'me'>
-```
-
-代码详解：
-* `T extends U`：这段代码会从T的子类型开始分发
-```ts
-T extends U
-=> 'you' | 'and' | 'me' extends 'me'
-=> (
-	'you' extends 'me' ? never : 'you' | 
-	'and' extends 'me' ? never : 'and' | 
-	'me' extends 'me' ? never : 'me'
-)
-=> 'you' | 'and'
-```
-## Extract
-
-## Omit
-
-## NonNullable
-
-## TupleToObject
-> `TupleToObject<T>`表示将一个元组类型转换为对象类型，这个对象类型的键/值都是从元组中遍历而出。
-
-用法：
-```ts
-const AA = ['hello', 'world'] as const
-
-// {hello: 'hello', world: 'world'}
-type result = TupleToObject<typeof AA> 
-```
-
-代码实现：
-```ts
-type MyTupleToObject<T extends readonly any[]> = {
-  [P in T[number]]: P
-}
-
-// {hello: 'hello', world: 'world'}
-type result = MyTupleToObject<typeof AA> 
-```
-
-代码详解：
-* `as const`：数组使用了`as const`断言，变成了**只读元组**，对象使用`as const`断言，对象的属性变成了**只读属性**。
-* `T[number]`：表示返回所有数字型索引的元素，形成一个联合类型，例如：`'hello'|'world'`。
-
-
-# 自定义工具类型
+# TypeScript自定义工具类型
 ## First
 > `First`表示用来返回数组的第一个元素。
 
@@ -243,13 +112,45 @@ type Concat<T extends any[], U extends any[]> = [...T, ...U]
 用法：
 ```ts
 type isPillarMen = Includes<['Kars', 'Esidisi', 'Wamuu', 'Santana'], 'Dio'> // false
+
+// 使用简单版：预期是false，实际是true
+type result = Includes<[{}], { a: 'A' }>
 ```
 
 代码实现：
 ```ts
+简单版
 type Includes<T extends readonly any[], U> = U extends T[number] ? true : false
+
+完整版
+type Equal<X, Y> =
+  (<T>() => T extends X ? 1 : 2) extends
+  (<T>() => T extends Y ? 1 : 2) ? true : false
+
+type Includes<T extends readonly any[], U> = 
+T extends [infer First , ...infer Rest] 
+  ? 
+    Equal<First,U> extends true 
+    ? 
+      true 
+    : Includes<Rest,U> 
+  : false;
+// false
+type result = Includes<[{}], { a: 'A' }>
 ```
 
+代码详解：
+```ts
+Equal<string, number>
+
+先分析T extends string ? 1 : 2，假定T为string, string extends string 为true， 结果() => 1
+<T>() => T extends string ? 1 : 2
+
+再分析string extends number ? 1 : 2，string extends number 为false，     结果() => 2
+<T>() => string extends number ? 1 : 2
+
+() => 1 extends () => 2 // false
+```
 ## Push
 > `Push<T, U>`表示将U类型添加到T类型，并作为T类型的最后一项。
 
@@ -280,6 +181,26 @@ type Result = Unshift<[1, 2], '3'>
 type Unshift<T extends readonly any[], U> = [U, ...T]
 ```
 
-## Parameters
-
 ## PromiseType
+> `PromiseType<T>`用来获取`Promise`包裹类型。
+
+用法：
+```ts
+function getInfo (): Promise<string|number> {
+  return Promise.resolve(1)
+}
+// 结果：(） => Promise<string|number>
+type funcType = typeof getInfo
+// 结果：Promise<string|number>
+type returnResult = ReturnType<funcType>
+// 结果：string|number
+type PromiseResult = PromiseType<returnResult>
+```
+
+代码实现：
+```ts
+type PromiseType<T> = T extends Promise<infer R> ? R : never
+```
+
+代码详解：
+* `T extends Promise<infer R>`：判断 `T` 是否是 `Promise<infer R>` 的子类型，也就是说T必须满足 `Promise<any>` 的形式。

@@ -41,7 +41,14 @@ module.exports = {
     sidebar: {
       "/interview/": ["", "advance", "es6", "jsAsync", "promise", "eventLoop"],
       "/automate/": ["", "nginx"],
-      "/typescript/": ["", "base", "advance", "challenge", "tsconfig"],
+      "/typescript/": [
+        "",
+        "base",
+        "advance",
+        "challengeBuildIn",
+        "challenge",
+        "tsconfig",
+      ],
       "/react/": ["", "advance"],
       "/advance/": ["prettier", "", "stylelint", "webpack", "umi"],
     },
