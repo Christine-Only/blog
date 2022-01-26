@@ -105,8 +105,45 @@ type TodoPreview = MyPick<Todo, 'title' | 'completed'>
 type AAA = Pick<Todo, 'title' | 'phone'>
 ```
 ## Record
+> `Record<K, T>`表示迭代联合类型K，将每个属性名作为key，T作为属性值组合成一个新的类型。
 
+用法：
+```ts
+type Person = {
+  name: string;
+  age: number
+}
+type Student = 'tom' | 'tony'
+// {tom: Person, tony: Person}
+type result = Record<Student, Person>
+```
+
+代码实现：
+```ts
+type MyRecord<K extends string | number | symbol, T> = {
+  [P in K]: T
+}
+// {tom: Person, tony: Person}
+type result = MyRecord<Student, Person>
+```
 ## ReturnType
+`ReturnType<T>`用来获取函数返回值的类型。
+
+用法：
+```ts
+const fn = (v: boolean) => {
+  if (v)
+    return 1
+  else
+    return 2
+}
+type a = ReturnType<typeof fn> // 1 | 2
+```
+
+代码实现：
+```ts
+type MyReturnType<T extends (...args: any) => any> = T extends (...args: any) => infer R ? R : never
+```
 
 ## Exclude
 > `Exclude<T, U>`表示从联合类型T中排除U的类型成员，可以理解为取T和U的差集。
@@ -171,7 +208,28 @@ T extends U
 ```
 
 ## Omit
+> `Omit<T, U>`表示从T类型中剔除U类型包含的字段。
 
+用法：
+```ts
+interface Todo {
+  title: string
+  description: string
+  completed: boolean
+}
+// { completed: boolean }
+type TodoPreview = Omit<Todo, 'description' | 'title'>
+```
+
+代码实现：
+```ts
+type MyOmit<T,K extends keyof T> = {
+  [P in Exclude<keyof T, K> ]: T[P]
+}
+```
+
+代码详解：
+* `Exclude<keyof T, K>` 取 `T` 类型和 `K` 类型的差集。
 ## NonNullable
 
 ## TupleToObject
