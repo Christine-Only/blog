@@ -204,3 +204,143 @@ type PromiseType<T> = T extends Promise<infer R> ? R : never
 
 代码详解：
 * `T extends Promise<infer R>`：判断 `T` 是否是 `Promise<infer R>` 的子类型，也就是说T必须满足 `Promise<any>` 的形式。
+
+## 按需Readonly
+> `Readonly<T, K>` K指定应设置为Readonly的T的属性集。如果未提供K，则应使所有属性都变为只读，就像普通的 `Readonly<T>` 一样。
+
+```ts
+interface Todo {
+  title: string
+  description: string
+  completed: boolean
+}
+
+const todo: MyReadonly2<Todo, 'title' | 'description'> = {
+  title: "Hey",
+  description: "foobar",
+  completed: false,
+}
+
+todo.title = "Hello" // Error: cannot reassign a readonly property
+todo.description = "barFoo" // Error: cannot reassign a readonly property
+todo.completed = true // OK
+```
+
+代码实现：
+```ts
+type MyReadonly2<T, K extends keyof T = keyof T> = T & {
+  readonly [P in K]: T[P]
+}
+```
+
+代码详解：
+* `K extends keyof T = keyof T`：如果不传递，则默认值为`keyof T`，意味着全部属性都添加readonly。
+
+## DeepReadonly
+> `DeepReadonly<T>`表示将T类型的每个参数及其子对象递归地设为只读。
+
+用法：
+```ts
+type X = {
+  x: {
+    a: 1
+    b: 'hi'
+  }
+  y: 'hey'
+}
+
+type Todo = DeepReadonly<X>
+
+期望的结果👇
+type Expected = {
+  readonly x: {
+    readonly a: 1
+    readonly b: 'hi'
+  }
+  readonly y: 'hey'
+}
+```
+
+代码实现：
+```ts
+type DeepReadonly<T> = {
+  [P in keyof T]: T[P] extends {[key: string]: any} ? DeepReadonly<T[P]> : T[P]
+}
+```
+
+代码详解：
+* `T[P] extends { [key: string]: any }`：这段表示T[P]是否是一个包含索引签名的字段，如果包含我们认为它是一个嵌套对象，就可以递归调用DeepReadonly。
+
+## TupleToUnion
+> `TupleToUnion<T>`用来将一个元组类型T转换成联合类型.
+
+用法：
+```ts
+type Arr = ['1', '2', '3']
+
+// "1" | "2" | "3"
+type Test = TupleToUnion<Arr>
+```
+
+代码实现：
+```ts
+方法一：
+type TupleToUnion<T extends any[]> = T[number]
+
+方法二：
+type TupleToUnion<T extends any[]> = T extends [infer L, ...infer R] ? L | TupleToUnion<R> : never
+```
+
+代码详解：
+* `T[number]`：它会自动迭代元组的数字型索引，然后将所以元素组合成一个联合类型。
+* `L | TupleToUnion<R>`：L表示每一次迭代中的第一个元素，它的迭代过程可以用下面伪代码表示：
+```ts
+// 第一次迭代
+const L = '1'
+const R = ['2', '3']
+const result = '1' | TupleToUnion<R>
+
+// 第二次迭代
+const L = '2'
+const R = ['3']
+const result = '1' | '2' | TupleToUnion<R>
+
+// 第三次迭代
+const L = '3'
+const R = ['']
+const result = '1' | '2' | '3'
+```
+
+## Last
+> `Last<T>`用来获取数组中的最后一个元素。
+
+用法：
+```ts
+type arr1 = ['a', 'b', 'c']
+type arr2 = [3, 2, 1]
+
+type tail1 = Last<arr1> // expected to be 'c'
+type tail2 = Last<arr2> // expected to be 1
+```
+
+代码实现：
+```ts
+// way1：索引思想
+type Last<T extends any[]> = [any, ...T][T['length']]
+
+// way2: 后占位思想
+type Last<T extends any[]> = T extends [...infer L, infer R] ? R : never
+```
+
+代码详解：
+* `[any, ...T]`：表示我们构建了一个新数组，并添加了一个新元素到第一个位置，然后把原数组T中的元素依次扩展到新数组中，可以用以下伪代码表示：
+```ts
+// 原数组
+const T = [1, 2, 3]
+
+// 新数组
+const arr = [any, 1, 2, 3]
+
+// 结果: 3
+const result = arr[T['length']]
+```

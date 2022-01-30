@@ -330,7 +330,6 @@ console.log(abc)
 接口名一般首字母大写。
 :::
 
-🌰
 ```ts
 interface Person {
   name: string;
