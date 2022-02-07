@@ -497,7 +497,6 @@ function add(x:Combinable, y: Combinable): Combinable {
     return x + y;
   }
   return String(x) + String(y)
-
 }
 console.log(add(1, 2)) // 3
 console.log(add("1", "2")) //"12"
@@ -515,20 +514,20 @@ Property 'split' does not exist on type 'number'.
 ```ts
 type Combinable = string | number;
 // 函数声明
-function add(a: number,b: number):number;
+function add(a: number, b: number): string;
 function add(a: string, b: string): string;
 function add(a: string, b: number): string;
 function add(a: number, b: string): string;
 
 //函数实现
 function add(a: Combinable, b: Combinable) {
-  if (typeof a === 'string' || typeof b === 'string') {
-    return a.toString() + b.toString();
+  if (typeof a === 'number' || typeof b === 'number') {
+    return a.toString() + ' ' + b.toString();
   }
   return a + b;
 }
-const result = add('Semlinker', ' Kakuqo');
-console.log(result.split(' ')) //["Semlinker", "Kakuqo"] 
+const result = add(1, '3');
+console.log(result.split(' ')) // ['1', '3']
 ```
 :::tip
 在有函数重载时，会优先从第一个进行逐一匹配，因此如果重载函数有包含关系，应该将最精准的函数定义写在最前面。
