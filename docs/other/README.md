@@ -164,5 +164,44 @@ const Index = () => {
 };
 
 export default Index;
+```
 
+## antd Form.Item
+> `Form.Item`中的tooltip替换icon
+```jsx
+<Form.Item
+  label="替换icon"
+  name="replace"
+  tooltip={{ title: '成功替换', icon: <InfoCircleOutlined /> }}
+>
+```
+
+## antd Anchor
+```jsx
+
+```
+
+## box-shadow
+> `box-shadow`: h-shadow, v-shadow, blur, spread, color, inset;
+
+::: details 属性值详细介绍
+h-shadow：必需的。水平阴影的位置。允许负值
+v-shadow：必需的。垂直阴影的位置。允许负值
+blur：可选。模糊距离
+spread：可选。阴影的大小
+color：可选。阴影的颜色。
+inset可选。默认外侧阴影，写入inset后默认内侧阴影。
+:::
+```css
+设置左边阴影：
+box-shadow：10px 0px 8px -8px darkgrey;
+
+设置右边阴影
+box-shadow：-6px 0px 5px -5px darkgrey;
+
+设置上方阴影：
+box-shadow：0px 6px 5px -5px darkgrey;
+
+设置下方阴影：
+box-shadow：0px -8px 5px -5px darkgrey;
 ```
