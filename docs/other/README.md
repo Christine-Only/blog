@@ -178,9 +178,29 @@ export default Index;
 
 ## antd Anchor
 ```jsx
-
+<div style={{ display: 'flex' }}>
+  <div style={{ width: '80vw' }}>
+    <div id="first" style={{ height: 800, border: '1px solid red' }}>
+      第一行
+    </div>
+    <div id="second" style={{ height: 600, border: '1px solid green' }}>
+      第二行
+    </div>
+    <div id="third" style={{ height: 480, border: '1px solid blue' }}>
+      第三行
+    </div>
+    <div id="fourth" style={{ height: 100, border: '1px solid pink' }}>
+      第四行
+    </div>
+  </div>
+  <Anchor>
+    <Link href="#first" title="第一行" />
+    <Link href="#second" title="第二行" />
+    <Link href="#third" title="第三行" />
+    <Link href="#fourth" title="第四行" />
+  </Anchor>
+</div>
 ```
-
 ## box-shadow
 > `box-shadow`: h-shadow, v-shadow, blur, spread, color, inset;
 
@@ -204,4 +224,11 @@ box-shadow：0px 6px 5px -5px darkgrey;
 
 设置下方阴影：
 box-shadow：0px -8px 5px -5px darkgrey;
+```
+
+## 修改光标颜色
+```css
+input{
+  caret-color: red;
+}
 ```
