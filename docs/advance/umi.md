@@ -196,9 +196,9 @@ externals: {
     react: 'window.React',
     'react-dom': 'window.ReactDOM',
     lodash: 'window._',
-    bizcharts: 'window.bizcharts',
+    bizcharts: 'window.BizCharts',
     echarts: 'window.echarts',
-  },
+},
 scripts: [
     'https://unpkg.com/browse/react@^17/umd/react.production.min.js',
     'https://unpkg.com/browse/react-dom@^17/umd/react-dom.production.min.js',
@@ -209,6 +209,7 @@ scripts: [
 ```
 :::tip
 项目中对lodash的引用使用的是`import _ from 'lodash'`，所以想要在浏览器访问时，可以通过`window._`拿到。
+例如：`BizCharts`库对外暴露的全局变量是BizCharts
 :::
 
 ::: warning 警告

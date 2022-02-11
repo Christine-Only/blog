@@ -69,3 +69,8 @@ module.exports = {
 :::tip
 这里其实是不需要跑`npm run lint:style`的，因为如果执行了`npm run lint:style`，在commit时会全量检测所有src下的样式，然而其实我们只需要检测修改的文件即可。
 :::
+
+## 修复单个文件
+```shell
+npx stylelint --fix ./src/components/xxx/index.less
+```

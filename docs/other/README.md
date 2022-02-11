@@ -5,19 +5,22 @@ sidebar: auto
 # 随手记
 
 ## less文件引入
+::: tip 注意
+在less文件中使用@import引用src内的文件时需要这样引入，因为 `CSS loader` 会把非根路径的url解释为相对路径， 加~前缀才会解释成模块路径。
+:::
 a.less 文件中引入公共文件 b.less
 * 使用@import引入文件
 * 语句末尾要加; 否则会报错
 ```less
 @import '../../config';
 
+@import "~@/assets/style/_mixin";
+
 .ceshi{
   //文件引入后可以直接使用公共变量
   color: @themeColor;  
 }
-
 ```
-
 ## antd
 ### Select
 
@@ -230,5 +233,87 @@ box-shadow：0px -8px 5px -5px darkgrey;
 ```css
 input{
   caret-color: red;
+}
+```
+
+## stylelint警告
+::: tip 注意
+sans-serif是一个通用字体关键字
+:::
+```css
+a { font-family: Helvetica; } // 报错禁止在字体名称列表中缺少通用字体关键字。
+
+a { font-family: Helvetica, sans-serif; } // ok
+```
+
+## 前端项目引入自定义字体包
+1. 在public文件放入第三方字体文件
+2. 在样式文件中引入自定义字体
+```css
+@font-face {
+  font-family: "PingFangSC Light";
+  src: url('@/assets/css/fonts/PingFang/PingFang-Light.ttf');
+}
+
+/* 引入多个自定义字体 */
+@font-face {
+  font-family: "PingFangSC Dark";
+  src: url('@/assets/css/fonts/PingFang/PingFang-Dark.ttf');
+}
+```
+3. 使用方式
+```css
+a { font-family: "PingFangSC Light", sans-serif; }
+```
+## Ant Design Pro中打包与加载otf自定义字体
+:::tip 注意
+使用 Webpack 打包字体文件的时候需要使用 file-loader 来处理打包文件，在ant design pro中可通过配置文件中的 chainWebpack 函数来自定义 Webpack 的配置。
+:::
+1. 安装 file-loader
+```shell
+npm install --save-dev file-loader
+```
+2. 编辑ant design pro的配置文件 `config/config.ts` 中的 `chainWebpack`
+```ts
+export default defineConfig({
+  // ...
+  chainWebpack(config){
+    config.module // 配置 file-loader
+      .rule('otf')
+      .test(/.otf$/)
+      .use('file-loader')
+      .loader('file-loader');
+  },
+});
+```
+
+## css文字垂直居中
+1. 使用`line-height`属性使文字垂直居中
+```css
+.box{
+  width: 300px;
+  height: 300px;
+  background: #ddd;
+  line-height:300px;
+}
+```
+2. 将外部块格式化为表格单元格
+```css
+.box{
+  width: 400px;
+  height: 200px;
+  background: #ddd;
+  display: table-cell;
+  vertical-align: middle;
+}
+```
+3. flex布局
+```css
+.box{
+  width: 300px;
+  height: 200px;
+  background: #ddd;
+  display: flex;
+  align-items: center;
 }
 ```
