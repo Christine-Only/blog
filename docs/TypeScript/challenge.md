@@ -344,3 +344,47 @@ const arr = [any, 1, 2, 3]
 // 结果: 3
 const result = arr[T['length']]
 ```
+
+## Chainable(可串联构造器)
+> `Chainable<T>` 用来让一个对象可以进行链式调用
+
+用法：
+```ts
+declare const config: Chainable<{}>
+
+const res = config
+  .options('foo', 123)
+  .options('bar', { value: 'Hello' })
+  .options('name', 'TypeScript')
+  .get()
+```
+
+代码实现：
+```ts
+type Chainable<T> = {
+  options<K extends string, V>(key: K, value: V): Chainable<T & {[k in K]: V}>
+  get(): T
+}
+```
+
+代码详解：
+* `{[k in K]: V}`：每次调用options时，把key/value构造成一个对象，例如：`{ foo: 123 }`。
+* `T & {[k in K]: V}`：此处使用到 `&` 关键词，用来合并 `T` 和 `{[k in K]: V}` 两个对象中的所有`key`。
+* `Chainable<>`：递归调用 `Chainable` ，赋予新对象以链式调用的能力。
+
+## Pop
+> `Pop<T>` 接收一个数组 `T` 并返回删除最后一个元素的新数组。
+
+用法：
+```ts
+type arr1 = []
+type arr2 = [3, 2, 1]
+
+type re1 = Pop<arr1> // expected to be []
+type re2 = Pop<arr2> // expected to be [3, 2]
+```
+
+代码实现：
+```ts
+type Pop<T extends readonly any[]> = T extends [...infer L, infer R] ? L : never
+```
