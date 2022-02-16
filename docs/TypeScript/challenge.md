@@ -388,3 +388,31 @@ type re2 = Pop<arr2> // expected to be [3, 2]
 ```ts
 type Pop<T extends readonly any[]> = T extends [...infer L, infer R] ? L : never
 ```
+## LookUp(查找)
+
+用法：
+```ts
+interface Cat {
+  type: 'cat'
+  color: 'black' | 'orange' | 'gray'
+}
+interface Dog {
+  type: 'dog'
+  color: 'white'
+  name: 'wang'
+}
+
+// 结果：Dog
+type result = LookUp<Cat | Dog, 'dog'>
+```
+
+代码实现：
+```ts
+type LookUp<
+  U extends { type: string; },
+  T extends string
+> = U extends { type: T } ? U : never
+```
+
+代码详解：
+* `U extends { type: string; }`：限制U的类型必须是具有属性为type的对象
