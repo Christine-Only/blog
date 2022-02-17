@@ -317,3 +317,27 @@ export default defineConfig({
   align-items: center;
 }
 ```
+
+## umi中的request二次封装
+```ts
+type Method = 'GET' | 'POST' | 'DELETE' | 'PUT' | 'PATCH';
+
+export function Request<T, Res>(url: string, method: Method = 'GET') {
+  return (params?: T, options?: Record<string, unknown>) => {
+    const key = method === 'GET' ? 'params' : 'data';
+
+    return request<
+      Promise<{
+        code: string;
+        ext: string;
+        msg: string;
+        result: Res;
+      }>
+    >(url, {
+      method,
+      [key]: params,
+      ...options,
+    });
+  };
+}
+```
