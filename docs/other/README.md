@@ -318,6 +318,9 @@ export default defineConfig({
 }
 ```
 
+## antd tabs 闪动
+> 记得查看是否是自己写的样式覆盖了自带的样式导致的！！！
+
 ## umi中的request二次封装
 ```ts
 type Method = 'GET' | 'POST' | 'DELETE' | 'PUT' | 'PATCH';
