@@ -344,3 +344,22 @@ export function Request<T, Res>(url: string, method: Method = 'GET') {
   };
 }
 ```
+
+## useState未设置初始值
+```tsx
+interface IObject {
+  num: number;
+}
+
+第一种写法
+const [count, setCount] = useState<IObject | null>(null);
+
+第二种写法
+const [count, setCount] = useState<IObject>({} as IObject);
+
+第三种写法
+const [count, setCount] = useState<IObject>({num: 0});
+```
+:::tip
+如果没有初始值,那么可以使用联合属性将初始值设置为null，例如`<number | null>`，但是在这里需要注意，后续使用state的时候需要进行空值判断,通常使用可选链来进行访问 a?.b -> a && a.b
+:::
