@@ -345,7 +345,7 @@ export function Request<T, Res>(url: string, method: Method = 'GET') {
 }
 ```
 
-## useState未设置初始值
+## useState
 ```tsx
 interface IObject {
   num: number;
