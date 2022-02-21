@@ -416,3 +416,25 @@ type LookUp<
 
 代码详解：
 * `U extends { type: string; }`：限制U的类型必须是具有属性为type的对象
+
+## PromiseAll返回类型
+> `PromiseAll`是用来取Promise.all()函数所有返回的类型
+
+用法：
+```ts
+// 结果：Promise<[number, number, number]>
+type result = typeof PromiseAll([1, 2, Promise.resolve(3)])
+```
+
+代码实现：
+与之前的例子不同，PromiseAll我们声明的是一个function而不是type。
+```ts
+type PromiseAllType<T> = Promise<{
+  [P in keyof T]: T[P] extends Promise<infer R> ? R : T[P]git
+}>
+declare function PromiseAll<T extends any[]>(values: readonly [...T]): PromiseAllType<T>
+```
+
+代码详解：
+* 因为`Promise.all()`函数接受的是一个数组，因此泛型`T`限制为一个`any[]`类型的数组。
+* `PromiseAllType`的实现思路有点像之前的`PromiseType`，只不过这里多了一层`Promise`的包裹，因为`Promise.all()`的返回类型也是一个`Promise`。

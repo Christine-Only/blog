@@ -715,15 +715,17 @@ interface Config {
 在上述代码中，我们限定了 size 属性为字符串字面量类型 'small' | 'big'，isEnable 属性为布尔字面量类型 true | false（布尔字面量只包含 true 和 false，true | false 的组合跟直接使用 boolean 没有区别），margin 属性为数字字面量类型 0 | 2 | 4。
 
 ### let和const分析
-const 🌰
+**const**
 ```ts
 const str = 'hello world'; // str: 'hello world'
 const num = 1; // num: 1
 const bool = true; // bool: true
+const arr = [1, 2]; // arr: number[]
+const arr = [1, '3', true]; // arr: (number | string | boolean)[]
 ```
 在上述代码中，我们将 const 定义为一个不可变更的常量，在缺省类型注解的情况下，TypeScript 推断出它的类型直接由赋值字面量的类型决定，这也是一种比较合理的设计。
 
-let 🌰
+**let**
 ```ts
 let str = 'this is string'; // str: string
 let num = 1; // num: number
