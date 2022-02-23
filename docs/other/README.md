@@ -363,3 +363,30 @@ const [count, setCount] = useState<IObject>({num: 0});
 :::tip
 如果没有初始值,那么可以使用联合属性将初始值设置为null，例如`<number | null>`，但是在这里需要注意，后续使用state的时候需要进行空值判断,通常使用可选链来进行访问 a?.b -> a && a.b
 :::
+
+## useRef
+```ts
+const inputEl = useRef<HTMLInputElement>(null);
+  const onButtonClick = () => {
+    if (inputEl.current) {
+      inputEl.current.focus()  // Works!
+    }
+    // ref?.current?.focus()
+    // inputEl.current!.focus() 或者用这种写法也可以解决编译报错的问题
+  };
+
+```
+
+## tsconfig.json
+typeRoots: 用来指定默认的类型声明文件查找路径，默认为node_modules/@types, 指定typeRoots后，TypeScript 编译器会从指定的路径去引入声明文件，而不是node_modules/@types, 比如以下配置会从typings路径下去搜索声明
+```json
+{
+  "compilerOptions": {
+    "typeRoots": ["./typings"]
+  }
+}
+```
+**总结**
+* typeRoots 是 tsconfig 中 compilerOptions 的一个配置项，typeRoots 下面的包会被 ts 编译器自动包含进来，typeRoots 默认指向 node_modules/@types。
+* @types 是 scoped packages，和@babel 类似。@types 下的所有包会默认被引入，你可以通过修改 compilerOptions 来修改默认策略。
+* types 和 typeRoots 一样也是 compilerOptions 的配置，指定 types 后，typeRoots 下只有被指定的包才会被引入。
