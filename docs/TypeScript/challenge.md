@@ -438,3 +438,25 @@ declare function PromiseAll<T extends any[]>(values: readonly [...T]): PromiseAl
 代码详解：
 * 因为`Promise.all()`函数接受的是一个数组，因此泛型`T`限制为一个`any[]`类型的数组。
 * `PromiseAllType`的实现思路有点像之前的`PromiseType`，只不过这里多了一层`Promise`的包裹，因为`Promise.all()`的返回类型也是一个`Promise`。
+
+## Trim、TrimLeft以及TrimRight
+> `Trim、TrimLeft以及TrimRight`都是用来去除空格的。
+
+用法：
+```ts
+const t1 = TrimLeft<' str'>  // 'str'
+const t2 = Trim<' str '>     // 'str'
+const t3 = TrimRight<'str '> // 'str'
+```
+
+代码实现：
+```ts
+type Space = ' ' | '\n' | '\t'
+type TrimLeft<S extends string> = S extends `${Space}${infer R}` ? TrimLeft<R> : S
+type Trim<S extends string> = S extends (`${Space}${infer R}` | `${infer R}${Space}`) ? Trim<R> : S
+type TrimRight<S extends string> = S extends `${infer R}${Space}` ? TrimRight<R> : S
+```
+
+代码详解：
+* `TrimLeft` 和 `TrimRight` 的实现思路是相同的，区别在于空白符的占位出现在左侧还是右侧。
+* `Trim` 的实现就是把 `TrimLeft` 和 `TrimRight` 所做的事情结合起来。
