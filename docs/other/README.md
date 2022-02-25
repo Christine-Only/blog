@@ -374,7 +374,6 @@ const inputEl = useRef<HTMLInputElement>(null);
     // ref?.current?.focus()
     // inputEl.current!.focus() 或者用这种写法也可以解决编译报错的问题
   };
-
 ```
 
 ## tsconfig.json
