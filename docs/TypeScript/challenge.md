@@ -460,3 +460,6 @@ type TrimRight<S extends string> = S extends `${infer R}${Space}` ? TrimRight<R>
 代码详解：
 * `TrimLeft` 和 `TrimRight` 的实现思路是相同的，区别在于空白符的占位出现在左侧还是右侧。
 * `Trim` 的实现就是把 `TrimLeft` 和 `TrimRight` 所做的事情结合起来。
+
+
+## Capitalize(首字母大写)和Uncapatilize(首字母小写)
