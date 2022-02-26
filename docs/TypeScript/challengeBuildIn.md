@@ -273,3 +273,19 @@ type MyParameters<T extends (...args: any[]) => any> = T extends (...args: infer
 // [a:number, b:string]
 type result = MyParameters<typeof add>
 ```
+
+## Capitalize(首字母大写)
+> `Capitalize<T>`是用来将一个字符串的首字母变成大写的。
+
+用法：
+```ts
+type t1 = Capitalize<'christine'>   // 'Christine'
+```
+
+代码实现：
+```ts
+type Capatilize<S extends string> = S extends `${infer firstLetter}${infer L}` ? `${Uppercase<firstLetter>}${L}` : S
+```
+
+代码详解：
+* `Uppercase<firstLetter>`: 我们只需要首字母用firstLetter占位，用工具函数 `Uppercase` 将首字母变成大写。

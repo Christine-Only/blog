@@ -462,4 +462,43 @@ type TrimRight<S extends string> = S extends `${infer R}${Space}` ? TrimRight<R>
 * `Trim` 的实现就是把 `TrimLeft` 和 `TrimRight` 所做的事情结合起来。
 
 
-## Capitalize(首字母大写)和Uncapatilize(首字母小写)
+## Uncapatilize(首字母小写)
+> `Uncapatilize<T>`是用来将一个字符串的首字母变成小写的。
+
+用法：
+```ts
+type t2 = Uncapatilize<'Christine'> // 'christine'
+```
+
+代码实现：
+```ts
+type Uncapatilize<S extends string> = S extends `${infer firstLetter}${infer L}` ? `${Lowercase<firstLetter>}${L}` : S
+```
+
+代码详解：
+* `Uncapatilize<firstLetter>`: 我们只需要首字母用firstLetter占位，用工具函数 `Uncapatilize` 将首字母变成小写。
+
+## Replace
+> `Replace<T>` 是用来将字符串中第一次出现的某段内容，使用指定的字符串进行替换。
+
+用法：
+```ts
+// 'IamPicker'
+type t = Replace<'IamChristine', 'Christine', 'Picker'>
+```
+
+代码实现：
+```ts
+type Replace<
+  S extends string,
+  from extends string,
+  to extends string
+> = S extends `${infer L}${from}${infer R}`
+      ? from extends ''
+        ? S
+        : `${L}${to}${R}`
+      : S
+```
+
+代码详解：
+* `${infer L}${from}${infer R}`: `infer L` 是 `Iam` 的占位，`form`是`Christine`，`infer R`是 `空字符串` 的占位。
