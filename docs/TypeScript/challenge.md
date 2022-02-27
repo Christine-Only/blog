@@ -502,3 +502,17 @@ type Replace<
 
 代码详解：
 * `${infer L}${from}${infer R}`: `infer L` 是 `Iam` 的占位，`form`是`Christine`，`infer R`是 `空字符串` 的占位。
+
+
+## ReplaceAll
+> `ReplaceAll<T>` 是用来将字符串中出现的某段内容，使用指定的字符串进行全局替换。
+
+用法：
+```ts
+// 'IamPicker，IamPickeryeah'
+type t = Replace<'IamChristine，IamChristineyeah', 'Christine', 'Picker'>
+```
+
+代码实现：
+```ts
+```
