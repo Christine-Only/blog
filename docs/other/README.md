@@ -389,3 +389,17 @@ typeRoots: 用来指定默认的类型声明文件查找路径，默认为node_m
 * typeRoots 是 tsconfig 中 compilerOptions 的一个配置项，typeRoots 下面的包会被 ts 编译器自动包含进来，typeRoots 默认指向 node_modules/@types。
 * @types 是 scoped packages，和@babel 类似。@types 下的所有包会默认被引入，你可以通过修改 compilerOptions 来修改默认策略。
 * types 和 typeRoots 一样也是 compilerOptions 的配置，指定 types 后，typeRoots 下只有被指定的包才会被引入。
+
+
+## 解决页面刷新，显示404
+
+```
+<!-- nginx.conf文件 -->
+server {
+  location / {
+    root html;
+    index index.html index.htm;
+    try_files $uri $uri/ /index.html;
+  }
+}
+```
