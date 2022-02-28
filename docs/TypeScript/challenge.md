@@ -515,4 +515,59 @@ type t = Replace<'IamChristine，IamChristineyeah', 'Christine', 'Picker'>
 
 代码实现：
 ```ts
+type ReplaceAll<T extends string, from extends string, to extends string> = T extends `${infer L}${from}${infer R}` 
+  ? from extends '' 
+    ? T
+    : `${ReplaceAll<L, from, to>}${to}${ReplaceAll<R, from ,to>}`
+  : T
 ```
+
+## AppendArgument（函数追加形参）
+> `AppendArgument<Fn, A>`对于给定的函数类型 Fn，以及一个任意类型 A，返回一个新的函数 G。G 拥有 Fn 的所有参数并在末尾追加类型为 A 的参数。
+
+用法：
+```ts
+type Fn = (a: number, b: string) => number;
+
+// (args_0: number, args_1: string, args_2: boolean) => number
+type Result = AppendArgument<Fn, boolean> 
+```
+
+代码实现：
+```ts
+type AppendArgument<T, A> = T extends (...args: infer Params) => infer Res ? (...args: [...Params, A]) => Res : never
+```
+
+## Permutation
+> `Permutation<T>`
+
+## LengthOfString
+> `LengthOfString<T extends string, U extends string[] = []>`用来计算一个字符串的长度。
+
+用法：
+```ts
+type result = LengthOfString<'Hello'> // 5
+```
+
+代码实现：
+```ts
+type LengthOfString<T extends string, U extends string[] = []> = T extends `${infer firstLetter}${infer R}`
+  ? LengthOfString<R, [...U, firstLetter]>
+  : U['length']
+```
+
+代码详解：
+* 我们通过一个泛型的辅助数组来帮计算字符串的长度，在第一次符合条件时，将其第一个字符添加到数组中，在后续的递归过程中，如果不符合条件，直接返回T['length']，这个过程可以用如下代码表示：
+```
+<!-- 第一次递归 -->
+T: 'Hello' firstLetter: 'H' R: 'ello' U: ['H']
+<!-- 第二次递归 -->
+T: 'ello'  firstLetter: 'e' R: 'llo'  U: ['H', 'e']
+<!-- 第三次递归 -->
+T: 'llo'   firstLetter: 'l' R: 'lo'   U: ['H', 'e', 'l']
+<!-- 第四次递归 -->
+T: 'lo'    firstLetter: 'l' R: 'o'    U: ['H', 'e', 'l', 'l']
+<!-- 第五次递归 -->
+T: 'o'     firstLetter: 'o' R: ''     U: ['H', 'e', 'l'， 'l', 'o']
+```
+当 `T` 为空时，infer 占位需要内容，`firstLetter` 和 `R` 需要有一个有内容，此时 T extends `${infer firstLetter}${infer R}`为false，所以会执行U['length']
