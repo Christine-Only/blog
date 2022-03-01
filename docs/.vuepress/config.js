@@ -31,11 +31,11 @@ module.exports = {
       },
       {
         text: "前端进阶",
-        link: "/advance/",
+        link: "/advance/prettier",
       },
       {
-        text: "随手记",
-        link: "/other/",
+        text: "常见问题",
+        link: "/other/css",
       },
     ],
     sidebar: {
@@ -51,6 +51,7 @@ module.exports = {
       ],
       "/react/": ["", "advance"],
       "/advance/": ["prettier", "", "stylelint", "webpack", "umi"],
+      "/other/": ["css", "react", "antd", "stylelint", "nginx", ""],
     },
   },
 };

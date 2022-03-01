@@ -64,6 +64,16 @@ tsconfig.json 包含 TypeScript 编译的相关配置，通过更改编译配置
     "emitDecoratorMetadata": true          // 为装饰器提供元数据的支持
   }
 }
-
-
 ```
+typeRoots: 用来指定默认的类型声明文件查找路径，默认为node_modules/@types, 指定typeRoots后，TypeScript 编译器会从指定的路径去引入声明文件，而不是node_modules/@types, 比如以下配置会从typings路径下去搜索声明
+```json
+{
+  "compilerOptions": {
+    "typeRoots": ["./typings"]
+  }
+}
+```
+**总结**
+* typeRoots 是 tsconfig 中 compilerOptions 的一个配置项，typeRoots 下面的包会被 ts 编译器自动包含进来，typeRoots 默认指向 node_modules/@types。
+* @types 是 scoped packages，和@babel 类似。@types 下的所有包会默认被引入，你可以通过修改 compilerOptions 来修改默认策略。
+* types 和 typeRoots 一样也是 compilerOptions 的配置，指定 types 后，typeRoots 下只有被指定的包才会被引入。

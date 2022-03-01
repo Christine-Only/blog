@@ -571,3 +571,23 @@ T: 'lo'    firstLetter: 'l' R: 'o'    U: ['H', 'e', 'l', 'l']
 T: 'o'     firstLetter: 'o' R: ''     U: ['H', 'e', 'l'， 'l', 'o']
 ```
 当 `T` 为空时，infer 占位需要内容，`firstLetter` 和 `R` 需要有一个有内容，此时 T extends `${infer firstLetter}${infer R}`为false，所以会执行U['length']
+
+## Flatten(数组降维)
+> `Flatten<T>` 将多维数组变为一维数组。
+
+用法：
+```ts
+// [1, 2, 3, 4, 5]
+type flatten = Flatten<[1, 2, [3, 4], [[[5]]]]> 
+```
+
+代码实现：
+```ts
+type Flatten<
+  T extends any[]
+> = T extends [infer L, ...infer Rest]
+      ? L extends any[]
+        ? [...Flatten<L>, ...Flatten<Rest>]
+        : [L, ...Flatten<Rest>]
+      : []
+```
