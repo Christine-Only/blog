@@ -183,5 +183,24 @@ export default Index;
 </div>
 ```
 
-## antd tabs 闪动
+## antd Tabs 闪动
 > 记得查看是否是自己写的样式覆盖了自带的样式导致的！！！
+
+## antd Select
+:::tip
+菜单渲染父节点。默认渲染到 body 上，如果遇到菜单滚动定位问题，修改滚动的区域的父元素，并设置相对其定位。
+:::
+```jsx
+<div style={{ padding: 100, height: 1000, background: '#eee', position: 'relative' }} id="area">
+  <h4>可滚动的区域 / scrollable area</h4>
+  <Select
+    defaultValue="lucy"
+    style={{ width: 120 }}
+    getPopupContainer={() => document.getElementById('area')}
+  >
+    <Option value="jack">Jack</Option>
+    <Option value="lucy">Lucy</Option>
+    <Option value="yiminghe">yiminghe</Option>
+  </Select>
+</div>
+```
