@@ -51,7 +51,7 @@ module.exports = {
       ],
       "/react/": ["", "advance"],
       "/advance/": ["prettier", "", "stylelint", "webpack", "umi"],
-      "/other/": ["css", "react", "antd", "stylelint", "nginx", "umi", ""],
+      "/other/": ["css", "react", "antd", "stylelint", "nginx", "vite", ""],
     },
   },
 };
