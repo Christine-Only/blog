@@ -6,7 +6,7 @@ actionText: 点我开始吧 👉
 actionLink: /interview/
 features:
 - title: 前端常用知识
-  details: react webpack typescript等。
+  details: React、Webpack、TypeScript等。
 - title: 踩坑记录
   details: 虽然我不够优秀，但我从未放弃过努力。
 - title: For Me

@@ -204,3 +204,9 @@ export default Index;
   </Select>
 </div>
 ```
+
+## Input 组件取消自动显示输入历史
+:::tip
+Form默认开启 autoComplete 功能，当submit时会记录输入历史，
+取消自动补充功能，只需在 `Form` 上加 `autoComplete="off"` 即可关闭自动提示输入历史
+:::
