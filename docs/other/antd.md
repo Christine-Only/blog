@@ -210,3 +210,29 @@ export default Index;
 Form默认开启 autoComplete 功能，当submit时会记录输入历史，
 取消自动补充功能，只需在 `Form` 上加 `autoComplete="off"` 即可关闭自动提示输入历史
 :::
+
+## Form
+:::tip
+Form.Item组件里面的<Select />，如果声明在FormSelect.tsx文件，会导致在父组件中通过 `form.validateFields()`获取不到该字段的值，应该把<Form.Item><Select /></Form.Item>FormSelect.tsx文件。
+:::
+
+```tsx
+// FormSelect.tsx
+const FormSelect = <Item name="types" label='性别' rules={[{ required: true, message: `请选择性别!` }]}>
+  <Select
+    placeholder='请选择性别'
+    style={{ width: 360 }}
+    showArrow
+    options={options}
+    mode="multiple"
+  />
+</Item>
+
+
+<Form form={form} autoComplete="off" labelCol={{ span: 5 }}>
+  <Item name="name" label="姓名" rules={[{ required: true, message: '请填写姓名!' }]}>
+    <Input placeholder="请填写姓名" style={{ width: 360 }} />
+  </Item>
+  <FormSelect form={form} />
+</Form>
+```

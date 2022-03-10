@@ -1,3 +1,6 @@
+---
+sidebar: 'auto'
+---
 # React hooks
 
 ## useContext
@@ -47,7 +50,7 @@ const App = () => {
 // b.jsx
 import { ThemeContext } from './a.jsx'
 const Toolbar = () => {
-  const theme = useContext(ThemeContext) 
+  const theme = useContext(ThemeContext)
   return (
     <div style={{ background: theme.background, color: theme.foreground }}>
       I am styled by theme context!
@@ -57,3 +60,50 @@ const Toolbar = () => {
 ```
 
 ## useRef
+
+首先， 我们要实现一个需求 -- 点击 button 的时候 input 设置焦点。
+
+**createRef API**
+```tsx
+const FocusInput = () => {
+  const inputElement = createRef();
+
+  const handleFocusInput = () => {
+    inputElement.current.focus();
+  };
+
+  return (
+    <>
+      <input type="text" ref={inputElement} />
+      <button onClick={handleFocusInput}>Focus Input</button>
+    </>
+  );
+};
+```
+同样的，我们可以使用 useRef 来实现完全相同的结果。
+
+**useRef**
+```tsx
+const FocusInputHook = () => {
+  const inputElement = useRef();
+
+  const handleFocusInput = () => {
+    inputElement.current.focus();
+  };
+
+  return (
+    <>
+      <input type="text" ref={inputElement} />
+      <button onClick={handleFocusInput}>Focus Input Hook</button>
+    </>
+  );
+};
+```
+
+### createRef 与 useRef 的区别
+* useRef 在 React Hooks 中的作用， 正如官网说的，它像一个变量， 类似于 this，它就像一个盒子，你可以存放任何东西。
+
+* createRef 每次渲染都会返回一个新的引用，而 useRef 每次都会返回相同的引用。
+
+
+
