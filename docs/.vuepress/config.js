@@ -1,7 +1,7 @@
 module.exports = {
   title: "Christine",
   head: [["link", { rel: "icon", herf: "logo.png" }]],
-  description: "我是Christine，一名前端开发工程师 👧🏻",
+  description: "一名专注前端开发的程序媛 👧🏻",
   base: "/blog/",
   themeConfig: {
     lastUpdated: "最后更新时间",
@@ -37,6 +37,10 @@ module.exports = {
         text: "常见问题",
         link: "/other/css",
       },
+      {
+        text: "前端书籍",
+        link: "/books",
+      },
     ],
     sidebar: {
       "/interview/": ["", "advance", "es6", "jsAsync", "promise", "eventLoop"],
@@ -52,6 +56,7 @@ module.exports = {
       "/react/": ["", "advance"],
       "/advance/": ["prettier", "", "stylelint", "webpack", "umi"],
       "/other/": ["css", "react", "antd", "stylelint", "nginx", "vite", ""],
+      "/books": [""]
     },
   },
 };
