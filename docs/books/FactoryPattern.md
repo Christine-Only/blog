@@ -5,94 +5,206 @@
 > 工厂模式根据抽象程度依次分为简单工厂模式、工厂方法模式、抽象工厂模式。
 
 ## 简单工厂模式
+> 又叫静态工厂方法，由一个工厂对象决定创建某一种产品对象类的实例。主要用来创建同一类对象。
 
-在我们的生活中很多时候就有这样的场景，像在网站中有的页面是需要根据账号等级来决定是否有浏览权限的；账号等级越高可浏览的就越多，反之就越少。
+### 对不同的类实例化
 
 ```js
-// JS设计模式之简单工厂
-function Factory(role){
-  function SuperAdmin(){
-    this.name="超级管理员";
-    this.viewPage=["首页","发现页","通讯录","应用数据","权限管理"];
-  }
-
-  function Admin(){
-    this.name="管理员";
-    this.viewPage=["首页","发现页","通讯录","应用数据"];
-  }
-
-  function User(){
-    this.name="普通用户";
-    this.viewPage=["首页","发现页","通讯录"];
-  }
-
-  switch(role){
-    case "superAdmin":
-        return new SuperAdmin();
-        break;
-
-    case "admin":
-        return new Admin();
-        break;
-
-    case "user":
-        return new User();
-        break;
+// 篮球基类
+function Basketball() {
+  this.intro = '篮球流行于美国';
+}
+Basketball.prototype = {
+  getBallsize: function(){
+    console.log('篮球很大');
   }
 }
 
-let superAdmin = Factory("superAdmin");
-console.log(superAdmin);
-let admin = Factory("admin");
-console.log(admin);
-let user = Factory("user");
-console.log(user);
-```
-
-上述代码中，Factory就是一个工厂，Factory有三个函数分别是对应不同的产品，switch中有三个选项，这三个选项相当于三个模具，当匹配到其中的模具之后，将会new一个构造函数去执行生产工厂中的function；但是我们发现上面的简单工厂模式会有一定的局限性，就是如果我们需要去添加新的产品的时候，我们需要去修改两处位置（需要修改function和switch）才能达到添加新产品的目的。
-
-**下面我们将简单工厂模式进行改良：**
-```js
-// JS设计模式之简单工厂改良版
-function Factory(role){
-  function User(opt){
-    this.name = opt.name;
-    this.viewPage = opt.viewPage;
-  }
-
-  switch(role){
-    case "superAdmin":
-        return new User({name:"superAdmin",viewPage:["首页","发现页","通讯录","应用数据","权限管理"]});
-        break;
-
-    case "admin":
-        return new User({name:"admin",viewPage:["首页","发现页","通讯录","应用数据"]});
-        break;
-
-    case "normal":
-        return new User({name:"normal",viewPage:["首页","发现页","通讯录"]});
+// 足球基类
+function Football() {
+  this.intro = '足球在世界范围内很流行';
+}
+Football.prototype = {
+  getBallsize: function(){
+    console.log('足球很大');
   }
 }
 
-let superAdmin = Factory("superAdmin");
-console.log(superAdmin);
-let admin = Factory("admin");
-console.log(admin);
-let normal = Factory("normal");
-console.log(normal);
+// 网球基类
+function Tennis() {
+  this.intro = '每年有很多网球系列赛';
+}
+Tennis.prototype = {
+  getBallsize: function(){
+    console.log('网球很小');
+  }
+}
+
+// 运动工厂
+function sportsFactory(name) {
+  switch(name) {
+    case 'NBA':
+      return new Basketball();
+
+    case 'wordcup':
+      return new Football();
+
+    case 'Frenchopen':
+      return new Tennis();
+  }
+}
+
+const basketball = sportsFactory('NBA')
+console.log(basketball); // { intro: '篮球流行于美国' }
+console.log(basketball.intro); // 篮球流行于美国
+basketball.getBallsize(); // 篮球很大
 ```
 
-经过上面的修改之后，我们工厂里面的函数相当于一个万能模具，switch里面给我什么，我就加工成什么样的；自然就解决了添加商品需要修改两处代码的问题.
+### 创建相似对象 (相似东西提取，不相似的针对性处理)
+> 你只需简单创建一个对象即可，然后通过对这个对象大量拓展方法和属性，并在最终将对象返回出来。
+```js
+// 工厂模式
+function sportsFactory(name, intro, detail) {
+  const o = new Object(); // 创建一个对象，并对对象拓展属性和方法
 
-**优点**
-* 调用者创建对象时只要知道其名称即可；
-* 扩展性高，如果要新增一个产品，直接扩展一个工厂类即可；
-* 隐藏产品的具体实现，只关心产品的接口。
+  o.intro = intro;
 
-**缺点**
-* 每次增加一个产品时，都需要增加一个具体类，这无形增加了系统内存的压力和系统的复杂度，也增加了具体类的依赖。
+  o.getBallsize = function() {
+    console.log(detail)
+  }
 
+  if (name === 'NBA') {
+    o.nba = true;
+  }
 
+  if (name === 'wordcup') {
+    o.wordcup = true;
+  }
+
+  if (name === 'Frenchopen') {
+    o.frenchopen = true;
+  }
+
+  return o
+}
+
+const arr = [
+  { name: 'NBA', intro: '篮球流行于美国', detail: '篮球很大'},
+  { name: 'wordcup', intro: '足球在世界范围内很流行', detail: '足球很大'},
+  { name: 'Frenchopen', intro: '每年有很多网球系列赛', detail: '网球很小'},
+]
+arr.forEach(item => {
+  const { name, intro, detail } = item
+  const balls = sportsFactory(name, intro, detail)
+  console.log(balls);
+})
+执行结果如下：
+{ intro: '篮球流行于美国', getBallsize: [Function (anonymous)], nba: true };
+{
+  intro: '足球在世界范围内很流行',
+  getBallsize: [Function (anonymous)],
+  wordcup: true
+};
+{
+  intro: '每年有很多网球系列赛',
+  getBallsize: [Function (anonymous)],
+  frenchopen: true
+}
+```
+
+**结论**：
+第一种是通过类实例化对象创建的，第二种是通过创建一个新对象然后包装增强其属性和功能来实现的。他们之间的差异性也造成前面通过类创建的对象，如果这些类继承同一父类，那么他们的父类原型上的方法是可以共用的。而后面寄生方式创建的对象都是一个新的个体，所以他们的方法就不能共用了。
 
 ## 工厂方法模式
-> 工厂方法模式是将创建对象的工作推到子类中进行；也就是相当于工厂总部不生产产品了，交给下辖分工厂进行生产；但是进入工厂之前，需要有个判断来验证你要生产的东西是否是属于我们工厂所生产范围，如果是，就丢给下辖工厂来进行生产，如果不行，那么要么新建工厂生产要么就生产不了。
+> 本意是说将实际创建对象工作推迟到子类当中。
+
+**new关键字的作用**：
+
+1. 创建一个对象，让对象有了类型；
+2. 让构造函数的this指向新创建的对象；
+3. 执行构造函数；
+4. 返回这个新创建的对象。
+### 安全模式类
+> 可以屏蔽对类的错误使用造成的错误。
+
+```js
+function Demo() {}
+Demo.prototype = {
+  show: function() {
+    console.log('成功获取！')
+  }
+}
+
+const d = new Demo();
+d.show(); // 成功获取！
+
+const d = Demo();
+d.show(); // TypeError: Cannot read property 'show' of undefined
+```
+解决上面报错的方式很简单，就是在构造函数开始时先判断当前对象this指代是不是类（Demo），如果是则通过new关键字创建对象，如果不是说明类在全局作用域中执行（通常情况下），那么既然在全局作用域中执行当然this就会指向window了（通常情况下，如非浏览器环境可为其他全局对象），这样我们就要重新返回新创建的对象了。
+
+```js
+function Demo() {
+  if(!(this instanceof Demo)) {
+    return new Demo();
+  }
+}
+Demo.prototype = {
+  show: function() {
+    console.log('成功获取！')
+  }
+}
+
+const d = Demo();
+d.show(); // 成功获取！
+```
+代码详解：
+```js
+if (this instanceof Factory) {
+  return new this[role]();
+}
+return new Factory(role);
+当构造函数没有使用new关键字调用时不仅不能创建实例，还会声明全局变量
+```
+
+### 安全的工厂方法
+```js
+// 安全模式创建的工厂类
+function SportsFactory(type, intro) {
+  if(this instanceof SportsFactory) {
+    return new this[type](intro);
+  }
+  return new SportsFactory(type, intro)
+}
+
+// 工厂原型中设置创建所有类型数据对象的基类
+SportsFactory.prototype = {
+  Basketball: function(intro) {
+    this.intro = intro
+  },
+  Football: function(intro) {
+    this.intro = intro
+  },
+  Tennis: function(intro) {
+    this.intro = intro
+  }
+}
+
+const sportsFactory = new SportsFactory('Basketball', '篮球流行于美国');
+console.log(sportsFactory.intro) // 篮球流行于美国
+
+const sportsFactory1 = SportsFactory('Basketball', '篮球流行于美国');
+console.log(sportsFactory1.intro) // 篮球流行于美国
+```
+
+:::tip
+不是所有的函数都可以当做箭头函数
+Factory.prototype = {
+  Basketball(intro) {
+    this.intro = intro;
+  }
+}
+new Basketball() // Basketball is not a constructor
+:::
+## 抽象工厂模式
+> 通过对类的工厂抽象，使其业务用于对产品类簇的抽象，而不负责某一类产品的实例。
