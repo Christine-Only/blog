@@ -208,3 +208,112 @@ new Basketball() // Basketball is not a constructor
 :::
 ## 抽象工厂模式
 > 通过对类的工厂抽象，使其业务用于对产品类簇的抽象，而不负责某一类产品的实例。
+
+### 抽象工厂方法
+抽象类说白了就是类的类，定义一个抽象类其实就相当于ts中定义了一个接口，然后让子类继承抽象类相当于用这个接口去约束子类。
+
+比如化妆品可以按品牌分为很多类。
+```ts
+// CHANEL
+function CHANEL(price, capacity) {
+  this.price = price
+  this.capacity = capacity
+}
+
+// Dior
+function Dior(price, capacity) {
+  this.price = price
+  this.capacity = capacity
+}
+
+// and so on
+```
+如果希望给所有品牌定义一个总的Toilet类（抽象类），约束这些子类都有共同的type和两个方法。
+```js
+function Toilet() {
+  this.type = 'toilet'
+}
+
+Toilet.prototype = {
+  getPrice() {
+    return new Error('抽象方法不能调用')
+  },
+  getCapacity() {
+    return new Error('抽象方法不能调用')
+  }
+}
+```
+抽象工厂方法就可以派上用场，它的作用就是使CHANEL、Dior这些子类去继承Toilet。
+
+首先定义抽象工厂方法以及抽象类Toilet。
+```js
+/**
+ * subType 需要继承父类的子类
+ * superType 父类的标识
+/
+function AbstructFactory(subType, superType){
+  // 判断抽象工厂中是否有该抽象类
+  if(typeof AbstructFactory[superType] === 'function') {
+    // 创建过渡类F
+    function F() {}
+
+    // 将父类的实例挂载到过渡类的原型上
+    F.prototype = new AbstructFactory[superType]()
+
+    // 将过渡类的实例挂载到子类的原型上
+    subType.prototype = new F()
+  } else {
+    return new new Error('抽象方法不能调用')
+  }
+}
+
+AbstructFactory.Toilet = function() {
+  this.type = 'toilet'
+}
+AbstructFactory.Toilet.getPrice = function() {
+  return new Error('抽象方法不能调用')
+}
+AbstructFactory.Toilet.getCapacity = function() {
+  return new Error('抽象方法不能调用')
+}
+
+// 普通CHANEL子类
+function CHANEL(price, capacity) {
+  this.price = price
+  this.capacity = capacity
+}
+
+AbstructFactory(CHANEL, 'Toilet')
+
+const chanel = new CHANEL(300, '50ML')
+console.log(chanel.__proto__.constructor) // F() {}
+```
+:::tip
+在最后一行console中发现一个问题，chanel实例原型对象的constructor指向的是过渡函数F，而不是其构造函数CHANEL。
+:::
+
+在抽象工厂方法中添加一行代码修正指向：
+```js
+function AbstructFactory(subType, superType){
+  // 判断抽象工厂中是否有该抽象类
+  if(typeof AbstructFactory[superType] === 'function') {
+    // 创建过渡类F
+    function F() {}
+
+    // 将父类的实例挂载到过渡类的原型上
+    F.prototype = new AbstructFactory[superType]()
+    // 修正子类原型对象constructor的指向
+    F.prototype.constructor = subType
+
+    // 将过渡类的实例挂载到子类的原型上
+    subType.prototype = new F()
+  } else {
+    return new new Error('抽象方法不能调用')
+  }
+}
+```
+
+```js
+// 指向正确
+console.log(chanel.__proto__.constructor) // CHANEL(price, capacity) {this.price = price;this.capacity = capacity}
+```
