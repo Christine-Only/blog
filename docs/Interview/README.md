@@ -138,7 +138,7 @@ console.log('hello world' instanceof PrimitiveString) // true
 | 函数| 字符串 | function(){} => "function(){}"|
 | 数组 | 字符串 | [1,2] => '1,2'、[] => ''|
 | 对象 | 字符串 | {age: 18} => '[object Object]'|
-| 字符串 | 数字 | '1' => 1、'a' => NaN、'0' => 0|
+| 字符串 | 数字 | '1' => 1、'a' => NaN、'0' => 0、'' => 0|
 | 数组 | 数字 | [] => 0、 存在一个元素且为数字的数组 => 数字，其它情况都为NaN |
 | null | 数字 |  0 |
 | undefined | 数字 | NaN|
@@ -202,4 +202,151 @@ if(a==1 && a==2 && a==3) {
 * 判断 `a==3` 时，第三次调用 `valueOf()` 方法，此时 `value` 等于3，判断3==3，if判断结束；
 * if条件判断为 `true && true && true` ，执行 `console.log('true')` ，打印true。
 
+## new关键字的作用
+
+1. 创建一个对象，让对象有了类型；
+2. 让构造函数的this指向新创建的对象；
+3. 执行构造函数；
+4. 返回这个新创建的对象。
+
 ## this
+
+在JS中 `this` 指向，写个栗子简单诠释下：
+
+```js
+var a = 1
+
+function foo() {
+  console.log(this.a)
+}
+
+const obj1 = {
+  a: 2,
+  foo: foo
+}
+
+const obj2 = {
+  a: 3
+}
+
+foo() // 1
+obj1.foo() // 2
+obj1.foo.apply(obj2) // 3
+const c = new foo() // undefined
+```
+
+代码详解：
+
+* `foo()`：对于直接调用foo来说，不管foo函数放在了什么地方，this一定是window；
+* `obj1.foo()`：对于 `obj1.foo()` 来说，我们只需要记住，谁调用了函数，`this` 就指向谁，所以在这个场景下 `foo` 函数中的 `this` 就是 `obj1` 对象；
+
+* `obj1.foo.apply(obj2)`：`call()`、`apply()` 和 `bind()` 改变上下文的方法，`this` 指向取决于这些方法的第一个参数，当第一个参数为 `null` 或者为 `空` 时，`this` 指向全局对象 `window`；
+
+* `new foo()`：`new` 构造函数调用，`this` 永远指向新创建的对象上，优先级最高。
+
+下面我们来看看箭头函数的 `this`
+
+```js
+function abc() {
+  return () => {
+    return () => {
+      console.log(this)
+    }
+  }
+}
+console.log(abc()()())
+```
+
+首先箭头函数其实是没有 `this` 的，箭头函数中的 `this` 只取决包裹箭头函数的第一个普通函数的 `this`。在这个例子中，因为包裹箭头函数的第一个普通函数是 `abc`，所以此时的 `this` 是 `window`。另外对箭头函数使用 `bind` 这类函数是无效的。
+
+那么说到 bind，不知道大家是否考虑过，如果对一个函数进行多次 bind，那么上下文会是什么呢？
+
+```js
+let a = {}
+let fn = function () { console.log(this) }
+fn.bind().bind(a)() // => window
+```
+
+如果你认为输出结果是 a，那么你就错了，其实我们可以把上述代码转换成另一种形式
+
+```js
+// fn.bind().bind(a) 等于
+let fn2 = function fn1() {
+  return function() {
+    return fn.apply()
+  }.apply(a)
+}
+fn2()
+```
+
+可以从上述代码中发现，不管我们给函数 `bind` 几次，`fn` 中的 `this` 永远由第一次 `bind` 决定，所以结果永远是 `window`。
+
+```js
+const a = { name: 'christine' }
+function foo() {
+  console.log(this.name)
+}
+foo.bind(a)() // => 'christine'
+```
+
+以上就是 `this` 的规则了，但是可能会发生多个规则同时出现的情况，这时候不同的规则之间会根据优先级最高的来决定 `this` 最终指向哪里。
+
+::: warning
+`new` 的方式优先级最高，接下来是 `bind` 这些函数，然后是 `obj1.foo()` 这种调用方式，最后是 `foo` 这种调用方式，同时，箭头函数的 `this` 一旦被绑定，就不会再被任何方式所改变。
+:::
+
+== VS ===
+
+假如我们需要对比 x 和 y 是否相同，就会进行如下判断流程：
+
+1.首先会判断两者类型是否相同，相同的话就比数值大小了；
+
+2.若类型不相同的话，那么就会进行类型转换；
+
+3.会先判断是否在对比 `null` 和 `undefined`，是的话就会返回 `true`；
+
+4.判断两者类型是否为 `string` 和 `number`，是的话就会将 `string` 转换为 `number`；
+
+```js
+1 == '1'
+      ↓
+1 ==  1
+```
+
+5.判断其中一方是否为 boolean，是的话就会把 boolean 转为 number 再进行判断；
+
+```js
+'1' == true
+        ↓
+'1' ==  1
+ ↓
+ 1  ==  1
+```
+
+6.判断其中一方是否为 `object` 且另一方为 `string`、`number` 或者 `symbol`，是的话就会把 `object` 转为基本数据类型再进行判断；
+
+```js
+'1' == { name: 'christine' }
+                  ↓
+'1' == '[object Object]'
+```
+
+看完了上面的步骤，对于 `[] == ![]` 你是否能正确写出答案呢？
+
+```js
+[] == ![] // true
+```
+
+代码详解：
+
+1. 左侧是一个 `[]`；
+
+2. 右侧是一个布尔值，`[]` 转换成布尔值 `true`，因为除了 `null` 之外的所有对象转换成布尔都是 `true`，所以 `![]` 结果为 `false`；
+
+3. 此时相当于 `[] == false`，依据类型转换规则，会把布尔转换成 `number` 再进行比较；`false` 转 `number` 结果为 `0`；
+
+4. 此时相当于 `[] == 0`，依据类型转换规则，会把 `[]` 转为基本数据类型，调用 `[].toString()`，将 [] 转换成了字符串，所以 `[]` 结果为 `''`；
+
+5. 此时相当于 `'' == 0`，依据类型转换规则，会把 `''` 转换为 `number`，结果为 `0`， 所以 `0 == 0`，结果为 `true`。
+
+## 闭包

@@ -1,10 +1,12 @@
 # 工厂模式
 
 ## 工场模式介绍
+
 > 所谓工厂模式就是像工厂一样重复的产生类似的产品，工厂模式只需要我们传入正确的参数，就能生产类似的产品；
 > 工厂模式根据抽象程度依次分为简单工厂模式、工厂方法模式、抽象工厂模式。
 
 ## 简单工厂模式
+
 > 又叫静态工厂方法，由一个工厂对象决定创建某一种产品对象类的实例。主要用来创建同一类对象。
 
 ### 对不同的类实例化
@@ -61,7 +63,9 @@ basketball.getBallsize(); // 篮球很大
 ```
 
 ### 创建相似对象 (相似东西提取，不相似的针对性处理)
+
 > 你只需简单创建一个对象即可，然后通过对这个对象大量拓展方法和属性，并在最终将对象返回出来。
+
 ```js
 // 工厂模式
 function sportsFactory(name, intro, detail) {
@@ -116,15 +120,11 @@ arr.forEach(item => {
 第一种是通过类实例化对象创建的，第二种是通过创建一个新对象然后包装增强其属性和功能来实现的。他们之间的差异性也造成前面通过类创建的对象，如果这些类继承同一父类，那么他们的父类原型上的方法是可以共用的。而后面寄生方式创建的对象都是一个新的个体，所以他们的方法就不能共用了。
 
 ## 工厂方法模式
+
 > 本意是说将实际创建对象工作推迟到子类当中。
 
-**new关键字的作用**：
-
-1. 创建一个对象，让对象有了类型；
-2. 让构造函数的this指向新创建的对象；
-3. 执行构造函数；
-4. 返回这个新创建的对象。
 ### 安全模式类
+
 > 可以屏蔽对类的错误使用造成的错误。
 
 ```js
@@ -141,6 +141,7 @@ d.show(); // 成功获取！
 const d = Demo();
 d.show(); // TypeError: Cannot read property 'show' of undefined
 ```
+
 解决上面报错的方式很简单，就是在构造函数开始时先判断当前对象this指代是不是类（Demo），如果是则通过new关键字创建对象，如果不是说明类在全局作用域中执行（通常情况下），那么既然在全局作用域中执行当然this就会指向window了（通常情况下，如非浏览器环境可为其他全局对象），这样我们就要重新返回新创建的对象了。
 
 ```js
@@ -158,7 +159,9 @@ Demo.prototype = {
 const d = Demo();
 d.show(); // 成功获取！
 ```
+
 代码详解：
+
 ```js
 if (this instanceof Factory) {
   return new this[role]();
@@ -168,6 +171,7 @@ return new Factory(role);
 ```
 
 ### 安全的工厂方法
+
 ```js
 // 安全模式创建的工厂类
 function SportsFactory(type, intro) {
@@ -206,13 +210,17 @@ Factory.prototype = {
 }
 new Basketball() // Basketball is not a constructor
 :::
+
 ## 抽象工厂模式
+
 > 通过对类的工厂抽象，使其业务用于对产品类簇的抽象，而不负责某一类产品的实例。
 
 ### 抽象工厂方法
+
 抽象类说白了就是类的类，定义一个抽象类其实就相当于ts中定义了一个接口，然后让子类继承抽象类相当于用这个接口去约束子类。
 
 比如化妆品可以按品牌分为很多类。
+
 ```ts
 // CHANEL
 function CHANEL(price, capacity) {
@@ -228,7 +236,9 @@ function Dior(price, capacity) {
 
 // and so on
 ```
+
 如果希望给所有品牌定义一个总的Toilet类（抽象类），约束这些子类都有共同的type和两个方法。
+
 ```js
 function Toilet() {
   this.type = 'toilet'
@@ -243,6 +253,7 @@ Toilet.prototype = {
   }
 }
 ```
+
 抽象工厂方法就可以派上用场，它的作用就是使CHANEL、Dior这些子类去继承Toilet。
 
 首先定义抽象工厂方法以及抽象类Toilet。
@@ -289,10 +300,12 @@ const chanel = new CHANEL(300, '50ML')
 console.log(chanel.__proto__.constructor) // F() {}
 ```
 :::tip
+
 在最后一行console中发现一个问题，chanel实例原型对象的constructor指向的是过渡函数F，而不是其构造函数CHANEL。
 :::
 
 在抽象工厂方法中添加一行代码修正指向：
+
 ```js
 function AbstructFactory(subType, superType){
   // 判断抽象工厂中是否有该抽象类
