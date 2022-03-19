@@ -350,3 +350,76 @@ foo.bind(a)() // => 'christine'
 5. 此时相当于 `'' == 0`，依据类型转换规则，会把 `''` 转换为 `number`，结果为 `0`， 所以 `0 == 0`，结果为 `true`。
 
 ## 闭包
+
+> 一个函数和对其周围状态（lexical environment，词法环境）的引用捆绑在一起（或者说函数被引用包围），这样的组合就是闭包（closure）。也就是说，闭包让你可以在一个内层函数中访问到其外层函数的作用域。
+
+```js
+function init() {
+  const name = "Mozilla"; // name 是一个被 init 创建的局部变量
+  function displayName() { // displayName() 是内部函数，一个闭包
+      alert(name); // 使用了父函数中声明的变量
+  }
+  displayName();
+}
+init();
+```
+
+在 JS 中，闭包存在的意义就是让我们可以间接访问函数内部的变量。
+
+```!
+经典面试题，循环中使用闭包解决 `var` 定义函数的问题
+```
+
+```js
+for (var i = 1; i <= 5; i++) {
+  setTimeout(function timer() {
+    console.log(i)
+  }, i * 1000)
+}
+```
+
+首先因为 `setTimeout` 是个异步函数，所以会先把循环全部执行完毕，这时候 `i` 就是 `6` 了，所以会输出一堆 `6`。
+
+解决办法有三种:
+
+1.使用闭包的方式
+
+```js
+for (var i = 1; i <= 5; i++) {
+  ;(function(j) {
+    setTimeout(function timer() {
+      console.log(j)
+    }, j * 1000)
+  })(i)
+}
+```
+
+在上述代码中，我们首先使用了立即执行函数将 `i` 传入函数内部，这个时候值就被固定在了参数 `j` 上面不会改变，当下次执行 `timer` 这个闭包的时候，就可以使用外部函数的变量 `j`，从而达到目的。
+
+2.使用 `setTimeout` 的第三个参数，这个参数会被当成 `timer` 函数的参数传入。
+
+```js
+for (var i = 1; i <= 5; i++) {
+  setTimeout(
+    function timer(j) {
+      console.log(j)
+    },
+    i * 1000,
+    i
+  )
+}
+```
+
+[setTimeout用法](https://developer.mozilla.org/zh-CN/docs/Web/API/setTimeout)
+
+3.使用 `let` 定义 `i`，这个也是最为推荐的方式。
+
+```js
+for (let i = 1; i <= 5; i++) {
+  setTimeout(function timer() {
+    console.log(i)
+  }, i * 1000)
+}
+```
+
+## 深浅拷贝
