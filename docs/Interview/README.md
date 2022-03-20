@@ -423,3 +423,71 @@ for (let i = 1; i <= 5; i++) {
 ```
 
 ## 深浅拷贝
+
+### 浅拷贝
+
+:::tip
+浅拷贝只会拷贝所有的属性值到新的对象中，如果属性值是对象的话，拷贝的是地址。
+:::
+
+浅拷贝的几种方式
+
+1.Object.assign
+
+```js
+const a = {
+  age: 18
+}
+const b = Object.assign({}, a)
+a.age = 20
+console.log(b.age) // 18
+```
+
+:::tip
+使用 `Object.assign` 方法有几点需要注意:
+
+* 它不会拷贝对象的继承属性；
+* 它不会拷贝对象的不可枚举属性；
+* 可以拷贝Symbol类型的属性。
+:::
+
+2.扩展运算符`...`
+
+```js
+const a = {
+  age: 18
+}
+const b = {...a}
+a.age = 20
+console.log(b.age) // 18
+```
+
+通常浅拷贝就能解决大部分问题了，但是当我们遇到如下情况时，可能需要使用深拷贝来解决。
+
+```js
+const a = {
+  age: 1,
+  jobs: {
+    first: 'FE'
+  }
+}
+const b = { ...a }
+a.jobs.first = 'native'
+console.log(b.jobs.first) // 'native'
+```
+
+### 深拷贝
+
+上面的问题，可以通过`JSON.parse(JSON.stringify(object))`来解决。
+
+```js
+const a = {
+  age: 1,
+  jobs: {
+    first: 'FE'
+  }
+}
+const b = JSON.parse(JSON.stringify(a))
+a.jobs.first = 'native'
+console.log(b.jobs.first) // 'FE'
+```
