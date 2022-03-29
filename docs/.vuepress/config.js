@@ -43,7 +43,7 @@ module.exports = {
       },
     ],
     sidebar: {
-      "/interview/": ["", "advance", "es6", "jsAsync", "promise", "eventLoop"],
+      "/interview/": ["html", "", "advance", "es6", "jsAsync", "promise", "eventLoop"],
       "/automate/": ["", "nginx"],
       "/typescript/": [
         "",

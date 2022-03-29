@@ -1,4 +1,4 @@
-# html部分
+# Html 部分
 
 ## 如何实现图片的懒加载
 
@@ -93,3 +93,95 @@ observer.observe(img);
 ```
 
 ## 浏览器中如何实现剪切板复制的功能
+
+方式一：使用第三方库 `clipboard-copy`
+方式二：最为推荐的方式是使用 Clipboard API 进行实现(不兼容IE浏览器)
+
+```js
+async function writeClipBoard() {
+  const res = await navigator.clipboard.writeText('Hi，Christine')
+  console.log('写入', res);
+}
+writeClipBoard()
+```
+
+方式三：选中: Selection API （兼容IE浏览器）
+
+```js
+const selection = window.getSelection();
+const range = document.createRange();
+const element = document.querySelector('div');
+
+// RangeAPI: 制造区域
+range.selectNodeContents(element);
+
+// Selection: 选中区域
+selection.addRange(range);
+
+selectedText = selection.toString();
+```
+
+## localhost:3000 与 localhost:5000 的 cookie 信息是否共享
+
+共享。
+
+:::tip
+Cookie 只区分域，不区分端口和协议，只要域相同，即使端口号或协议不同，cookie 也能共享。
+:::
+
+参考链接[Cookie属性详解](https://juejin.cn/post/6863377752939036679)
+
+## 什么是CSRF攻击
+
+跨站请求伪造。
+
+CSRF防御有以下几种方式：
+
+1. 使用 JSON API。当进行 CSRF 攻击时，请求体通过 `<form>` 构建，请求头为 application/www-form-urlencoded。它难以发送 JSON 数据被服务器所理解。
+2. CSRF Token。生成一个随机的 token，切勿放在 cookie 中，每次请求手动携带该 token 进行校验。
+3. SameSite Cookie。设置为 Lax 或者 Strict，禁止发送第三方 Cookie。
+4. 检验referrer头部。（如果这个请求的referrer头部不是你的服务器，则不能加载session）。
+
+参考链接[理解CSRF(跨站请求伪造)](https://github.com/pillarjs/understanding-csrf/blob/master/README_zh.md)
+
+## 如果把JSON数据转化为demo.json并下载
+
+### 方式一：json 视为字符串，可以利用 DataURL 进行下载
+
+```js
+function download(url, name) {
+  const a = document.createElement('a')
+  a.download = name
+  a.href = url
+  a.click();
+}
+
+const person = {
+  name: 'Christine',
+  age: 18,
+  gender: '女',
+}
+
+const dataUrl = `data:,${JSON.stringify(person)}`
+download(dataUrl, 'demo.json')
+```
+
+### 方式二：转化为 Object URL 进行下载
+
+```js
+function download(url, name) {
+  const a = document.createElement('a')
+  a.download = name
+  a.href = url
+  a.click();
+}
+
+const person = {
+  name: 'Christine',
+  age: 18,
+  gender: '女',
+}
+
+const url = URL.createObjectURL(new Blob([JSON.stringify(person)]))
+download(url, 'demo.json')
+```
