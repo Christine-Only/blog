@@ -491,3 +491,70 @@ const b = JSON.parse(JSON.stringify(a))
 a.jobs.first = 'native'
 console.log(b.jobs.first) // 'FE'
 ```
+
+## 防抖（debounce）
+
+>触发高频事件后 n 秒内函数只会执行一次，如果 n 秒内高频事件再次被触发，则重新计算时间。
+
+应用场景：
+
+1. 登录、发短信等按钮避免用户点击太快，以致于发送多次请求。
+2. 调整浏览器窗口大小时，resize次数过于频繁，造成计算过多，此时需要一次到位，就用到了防抖。
+3. 文本编辑器实时保存，当无任何更改操作一秒后进行保存。
+
+```js
+function debounce(fn, wait) {
+  let timerId;
+
+  return function() {
+    const _this = this
+    const args = arguments
+
+    if(timerId) {
+      clearTimeout(timerId)
+    }
+
+    timerId = setTimeout(() => {
+      fn.apply(_this, args)
+    }, wait)
+  }
+}
+
+window.onresize = debounce(function() {
+  console.log('onresize')
+}, 500)
+```
+
+## 节流（throttle）
+
+> 高频事件触发，但在 n 秒内只会执行一次，所以节流会稀释函数的执行频率。
+
+应用场景：
+
+1. `scroll` 事件，每隔 `wait` 秒计算一次位置信息等
+2. 浏览器播放事件，每隔 `wait` 秒计算一次进度信息等
+3. input框实时搜索并发送请求展示下拉列表，每隔 `wait` 秒发送一次请求（也可做防抖）
+
+```js
+// 延时器
+function throttle(fn, wait) {
+  let timerId
+  return function() {
+    const _this = this
+    const args = arguments
+
+    if(!timerId) {
+      timerId = setTimeout(() => {
+        timerId = null
+        clearTimeout(timerId)
+        fn.apply(_this, args)
+      }, wait)
+    }
+  }
+}
+```
+
+### 总结
+
+* 防抖：防止抖动，单位时间内事件触发会被重置，避免事件被误伤触发多次。**代码实现重在清零** `clearTimeout`。防抖可以比作等电梯，只要有一个人进来，就需要再等一会儿。业务场景有避免登录按钮多次点击的重复提交。
+* 节流：控制流量，单位时间内事件只能触发一次，与服务器端的限流 (Rate Limit) 类似。**代码实现重在开锁关锁** `timer=timeout; timer=null`。节流可以比作过红绿灯，每等一个红灯时间就可以过一批。
