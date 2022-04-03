@@ -14,8 +14,8 @@ module.exports = {
         link: "/interview/",
       },
       {
-        text: "前端自动化部署",
-        link: "/automate/",
+        text: "前端书籍",
+        link: "/books/",
       },
       {
         text: "Git",
@@ -34,17 +34,17 @@ module.exports = {
         link: "/advance/prettier",
       },
       {
-        text: "常见问题",
-        link: "/other/css",
+        text: "前端自动化部署",
+        link: "/automate/",
       },
       {
-        text: "前端书籍",
-        link: "/books",
-      },
+        text: "常见问题",
+        link: "/other/css",
+      }
     ],
     sidebar: {
       "/interview/": ["html", "", "advance", "es6", "jsAsync", "promise", "eventLoop"],
-      "/automate/": ["", "nginx"],
+      "/books": ["", "/factoryPattern"],
       "/typescript/": [
         "",
         "base",
@@ -55,8 +55,8 @@ module.exports = {
       ],
       "/react/": ["", "advance"],
       "/advance/": ["prettier", "", "stylelint", "webpack", "umi"],
+      "/automate/": ["", "nginx"],
       "/other/": ["css", "react", "antd", "stylelint", "nginx", "vite", ""],
-      "/books": [""]
     },
   },
 };

@@ -257,6 +257,7 @@ Toilet.prototype = {
 抽象工厂方法就可以派上用场，它的作用就是使CHANEL、Dior这些子类去继承Toilet。
 
 首先定义抽象工厂方法以及抽象类Toilet。
+
 ```js
 /**
  * subType 需要继承父类的子类
@@ -299,6 +300,7 @@ AbstructFactory(CHANEL, 'Toilet')
 const chanel = new CHANEL(300, '50ML')
 console.log(chanel.__proto__.constructor) // F() {}
 ```
+
 :::tip
 
 在最后一行console中发现一个问题，chanel实例原型对象的constructor指向的是过渡函数F，而不是其构造函数CHANEL。
