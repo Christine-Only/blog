@@ -492,6 +492,69 @@ a.jobs.first = 'native'
 console.log(b.jobs.first) // 'FE'
 ```
 
+但是该方法也是有局限性的：
+
+* 会忽略 `undefined`
+* 会忽略 `symbol`
+* 不能序列化函数
+* 不能解决循环引用的对象
+
+```js
+const a = {
+  age: undefined,
+  sex: Symbol('male'),
+  jobs: function() {},
+  name: 'Christine'
+}
+const b = JSON.parse(JSON.stringify(a))
+console.log(b) // {name: "Christine"}
+```
+
+### 手写深拷贝
+
+```js
+function isObject(o) {
+  return (typeof o === 'object' || typeof o === 'function') && o !== null
+}
+
+function deepClone(obj) {
+  if (!isObject(obj)) {
+    throw new Error('非对象')
+  }
+
+  let isArray = Array.isArray(obj)
+  let newObj = isArray ? [...obj] : { ...obj }
+  Reflect.ownKeys(newObj).forEach(key => {
+    newObj[key] = isObject(obj[key]) ? deepClone(obj[key]) : obj[key]
+  })
+
+  return newObj
+}
+
+const obj = {
+  a: [1, 2, 3],
+  b: {
+    c: 2,
+    d: 3
+  }
+}
+const newObj = deepClone(obj)
+newObj.b.c = 1
+console.log(obj.b.c) // 2
+
+const obj2 = {
+  age: undefined,
+  sex: Symbol('male'),
+  jobs: function() {},
+  name: 'Christine'
+}
+const newObj2 = deepClone(obj2)
+console.log(newObj2)
+```
+
+`obj2` 和 `newObj2`打印结果对比如下：
+![alt](/blog/deepClone.jpg)
+
 ## 防抖（debounce）
 
 >触发高频事件后 n 秒内函数只会执行一次，如果 n 秒内高频事件再次被触发，则重新计算时间。
@@ -558,3 +621,228 @@ function throttle(fn, wait) {
 
 * 防抖：防止抖动，单位时间内事件触发会被重置，避免事件被误伤触发多次。**代码实现重在清零** `clearTimeout`。防抖可以比作等电梯，只要有一个人进来，就需要再等一会儿。业务场景有避免登录按钮多次点击的重复提交。
 * 节流：控制流量，单位时间内事件只能触发一次，与服务器端的限流 (Rate Limit) 类似。**代码实现重在开锁关锁** `timer=timeout; timer=null`。节流可以比作过红绿灯，每等一个红灯时间就可以过一批。
+
+## 原型
+
+### 原型基本概念
+
+Javascript 规定，每一个构造函数都有一个 `prototype` 属性，指向原型对象。 这个对象的所有属性和方法，都会被构造函数的实例继承。
+
+这也就意味着，我们可以把所有对象实例需要共享的属性和方法直接定义在 `prototype` 对象上。
+
+```js
+function Person (name, age) {
+  this.name = name
+  this.age = age
+}
+
+Person.prototype.type = 'human'
+
+Person.prototype.sayName = function () {
+  console.log(this.name)
+}
+
+var p1 = new Person('Christine', 18)
+var p2 = new Person('Picker', 18)
+
+console.log(p1.sayName === p2.sayName) // => true
+```
+
+这时所有实例的 `type` 属性和 `sayName()` 方法， 其实都是同一个内存地址，指向 `prototype` 对象，因此就提高了运行效率。
+
+我们注意到，上面例子中每添加一个属性和方法就要敲一遍 `Person.prototype`。 为减少不必要的输入，更常见的做法是用一个包含所有属性和方法的对象字面量来重写整个原型对象：
+
+```js
+function Person (name, age) {
+  this.name = name
+  this.age = age
+}
+
+Person.prototype = {
+  type: 'human',
+  sayHello: function () {
+    console.log('我叫' + this.name + '，我今年' + this.age + '岁了')
+  }
+}
+```
+
+在该示例中，我们将一个新的对象赋值给了 `Person.prototype` 。 这样做的好处就是为 `Person.prototype` 添加成员简单了，但是也会带来一个问题，那就是原型对象丢失了 `constructor` 成员。
+所以，我们为了保持 `constructor` 的指向正确，建议的写法是：
+
+```js
+function Person (name, age) {
+  this.name = name
+  this.age = age
+}
+
+Person.prototype = {
+  constructor: Person, // => 手动将 constructor 指向正确的构造函数
+  type: 'human',
+  sayHello: function () {
+    console.log('我叫' + this.name + '，我今年' + this.age + '岁了')
+  }
+}
+```
+
+### 构造函数、实例、原型三者之间的关系
+
+构造函数：构造函数就是一个函数，配合new可以新建对象。
+
+实例：通过构造函数实例化出来的对象我们把它叫做构造函数的实例。一个构造函数可以有很多实例。
+
+原型：每一个构造函数都有一个属性prototype，这个属性就叫做原型属性。通过构造函数创建出来的实例能够直接使用原型上的属性和方法。
+
+### `__proto__`
+
+通过构造函数创建的对象，自带一个`__proro__`属性，这个属性指向了构造函数的 `prototype` 属性，也就是原型对象。
+
+获取原型对象：
+
+* 通过 `构造函数.prototype` 可以获取
+* 通过 `实例.__proto__` 可以获取（隐式原型）
+* 它们指向了同一个对象 `构造函数.prototype` === `实例.__proto__`
+
+:::tip
+`__proto__` 是浏览器的一个隐藏（私有）属性，早期的IE浏览器不支持，不要去修改它，如果要修改原型中的内容，使用 `构造函数.prototype` 去修改。
+:::
+
+总结：
+
+* 任何函数都具有一个 `prototype` 属性，该属性是一个对象；
+* 构造函数的 `prototype` 对象默认都有一个 `constructor` 属性，指向 `prototype` 对象所在函数；
+* 通过构造函数得到的实例对象内部会包含一个指向构造函数的 `prototype` 对象的指针 `__proto__`；
+* 所有实例都直接或间接继承了原型对象的成员。
+
+:::warning 警告
+如果重置了 `prototype` 记得修正 `constructor` 的指向。
+:::
+
+## 原型链
+
+### 原型链概念
+
+任何一个对象，都有原型对象，原型对象本身又是一个对象，所以原型对象也有自己的原型对象，这样一环扣一环就形成了一个链式结构，我们把这个链式结构称为：原型链。
+
+:::tip
+Object.prototype是原型链的尽头，Object.prototype的原型是null。
+:::
+
+### Object.prototype成员介绍
+
+* hasOwnProperty
+`hasOwnProperty()` 方法会返回一个布尔值，指示对象自身属性中是否具有指定的属性（也就是，是否有指定的键）。
+
+```js
+const obj = {
+  name:"zs"
+}
+//判断name属性是不是obj自己提供（非继承）的
+console.log(obj.hasOwnProperty("name"));//true
+console.log(obj.hasOwnProperty("toString"));//false
+```
+
+#### 思考：hasOwnProperty与in的区别？
+
+in操作符：如果属性不是自己提供的，是从原型上继承来的，也会返回true
+
+hasOwnProperty: 该属性必须是自己提供，才返回true，否则返回false。
+
+## 原型继承和 Class 继承
+
+首先先来讲下 `class`，其实在 JS 中并不存在类，`class` 只是语法糖，本质还是函数。
+
+```js
+class Person {}
+Person instanceof Function // true
+```
+
+### 组合继承
+
+```js
+function Car(color, money){
+  this.color = color
+  this.money = money
+}
+
+Car.prototype.speed = function() {
+  console.log('180km/h')
+}
+
+function BWM(seat, color, money){
+  this.seat = seat
+  Car.call(this, color, money)
+}
+
+BWM.prototype = new Car()
+
+const bwm = new BWM(7, 'blue', '100万')
+bwm.speed()
+console.log(bwm instanceof Car)
+console.log(bwm instanceof BWM)
+```
+
+以上继承的方式核心是在子类的构造函数中通过 `Car.call(this, color, money)` 继承父类的属性，然后改变子类的原型为 `new Car()` 来继承父类的函数。
+
+这种继承方式优点在于构造函数可以传参，不会与父类引用属性共享，可以复用父类的函数，但是也存在一个缺点就是在继承父类函数的时候调用了父类构造函数，导致子类的原型上多了不需要的父类属性，存在内存上的浪费。
+![alt](/blog/extend.jpg)
+
+### 寄生组合继承
+
+这种继承方式对组合继承进行了优化，组合继承缺点在于继承父类函数时调用了父类构造函数，我们只需要优化掉这点就行了。
+
+```js
+function Car(color, money){
+  this.color = color
+  this.money = money
+}
+
+Car.prototype.speed = function() {
+  console.log(`${this.color} 150km/h`)
+}
+
+function BWM(seat, color, money){
+  this.seat = seat
+  Car.call(this, color, money)
+}
+
+BWM.prototype = Object.create(Car.prototype)
+BWM.prototype.constructor = BWM
+
+const bwm1 = new BWM(7, 'blue', '100万')
+const bwm2 = new BWM(5, 'black', '50万')
+bwm1.speed() // "blue 150km/h"
+bwm2.speed() // "black 150km/h"
+```
+
+以上继承实现的核心就是将父类的原型赋值给了子类，并且将构造函数设置为子类，这样既解决了无用的父类属性问题，还能正确的找到子类的构造函数。
+![alt](/blog/extend1.jpg)
+
+### Class 继承
+
+以上两种继承方式都是通过原型去解决的，在 ES6 中，我们可以使用 `class` 去实现继承，并且实现起来很简单。
+
+```js
+class Car {
+  constructor(color, money){
+    this.color = color
+    this.money = money
+  }
+  speed() {
+    console.log(`${this.color} 150km/h`)
+  }
+}
+
+class BWM extends Car {
+  constructor(seat, color, money) {
+    super(color, money) // 需要写在构造函数的最顶部
+    this.seat = seat
+  }
+}
+
+const bwm1 = new BWM(7, 'blue', '100万')
+const bwm2 = new BWM(5, 'black', '50万')
+bwm1.speed() // "blue 150km/h"
+bwm2.speed() // "black 150km/h"
+```
+
+`class` 实现继承的核心在于使用 `extends` 表明继承自哪个父类，并且在子类构造函数中必须调用 `super`，因为这段代码可以看成 `Car.call(this, color, money)`。
