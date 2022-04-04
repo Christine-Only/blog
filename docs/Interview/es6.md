@@ -264,7 +264,7 @@ user.name // 'name' = 'Picker'
 > `Set` 和 `Map` 主要的应用场景在于 `数据重组` 和 `数据存储`。
 > `Set` 是一种叫做集合的数据结构，`Map` 是一种叫做字典的数据结构。
 
-### Set
+### Set（集合）
 
 ES6 新增的一种新的数据结构，类似于数组，但成员是唯一且无序的，没有重复的值。
 
@@ -378,3 +378,55 @@ console.log(arr.size) // 5
 * 向 `Set` 添加不同内存地址的"相同对象"时，会同时存在Set对象中；
 * `keys()` 和 `values()` 的行为完全一致，`entries()` 返回的遍历器同时包括键和值且两值相等。
 :::
+
+### WeakSet
+
+> `WeakSet` 对象允许你将弱引用对象存储在一个集合中。
+
+```js
+new WeakSet([iterable]);
+```
+
+WeakSet 与 Set 的区别：
+
+* WeakSet 只能储存对象引用，不能存放值，而 Set 对象都可以
+* 成员都是弱引用，垃圾回收机制不考虑WeakSet结构对此成员的引用
+* 其他对象不再引用成员时，垃圾回收机制会自动回收此成员所占用的内存，不考虑此成员是否还存在于WeakSet结构中
+
+属性：
+
+* constructor：构造函数，任何一个具有 Iterable 接口的对象，都可以作参数
+
+  ```js
+  const arr = [[1, 2], [3, 4]]
+
+  const weakSet = new WeakSet(arr)
+  console.log(weakSet)
+  ```
+
+  ![alt](/blog/weakSet.jpg)
+
+方法：
+
+* add(value)：在 WeakSet 对象的最后一个元素后添加新的对象。
+* has(value)：根据 WeakSet 是否存在相应对象返回布尔值。
+* delete(value)：从 WeakSet 对象中移除指定的元素。
+* ~~clear()：清空所有元素，注意该方法已废弃。~~
+
+  ```js
+  const ws = new WeakSet()
+
+  const obj = {}
+  const foo = {}
+
+  ws.add(window)
+  ws.add(obj)
+
+  ws.has(window) // true
+  ws.has(foo) // false
+
+  ws.delete(window) // true
+  ws.has(window) // false
+  ```
+
+### Map（字典）
