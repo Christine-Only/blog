@@ -212,3 +212,169 @@ b();报错
 ```
 
 :::
+
+## Proxy
+
+> `Proxy` 是ES6新增的功能，它可以用来自定义对象中的操作。
+
+```js
+const p = new Proxy(target, handler);
+```
+
+代码详解：
+
+* `target`代表需要添加代理的对象
+* `handler`用来自定义对象中的操作，比如可以用来自定义 `set` 和 `get` 函数。
+
+接下来我们通过Proxy来实现一个数据响应式
+
+```js
+const onWatch = (obj, setBind, getLogger) => {
+  const handler = {
+    get(target, property, receiver) {
+      getLogger(target, property)
+      return Reflect.get(target, property, receiver)
+    },
+    set(target, property, value, receiver) {
+      setBind(value, property)
+      return Reflect.set(target, property, value, receiver)
+    }
+  }
+
+  return new Proxy(obj, handler)
+}
+
+const user = { name: 'christine' }
+const p = onWatch(
+  user,
+  (value, property) => {
+    console.log(`监听到属性${property}改变为${value}`)
+  },
+  (target, property) => {
+    console.log(`'${property}' = ${target[property]}`)
+  }
+)
+
+user.name = 'Picker' // 监听到属性name改变为Picker
+user.name // 'name' = 'Picker'
+```
+
+## Set、WeakSet、Map、WeakMap
+
+> `Set` 和 `Map` 主要的应用场景在于 `数据重组` 和 `数据存储`。
+> `Set` 是一种叫做集合的数据结构，`Map` 是一种叫做字典的数据结构。
+
+### Set
+
+ES6 新增的一种新的数据结构，类似于数组，但成员是唯一且无序的，没有重复的值。
+
+Set本身是一种构造函数，用来生成Set数据结构。
+
+```js
+new Set([iterable])
+```
+
+🌰：
+
+```js
+const arr = new Set()
+[1,2,3,2,1].forEach(num => arr.add(num))
+console.log([...arr]) //[1,2,3]
+```
+
+`Set` 对象允许你存储任何类型的唯一值，无论是原始值or对象引用。
+
+```js
+const arr = new Set([1,2,3,2,1])
+const obj = {age: 18}
+arr.add(obj)
+arr.add(obj)
+console.log(arr.size) // 4
+
+arr.add({age: 18})
+console.log(arr.size) // 5
+```
+
+![alt](/blog/set.jpg)
+
+* Set 实例属性
+  * constructor： 构造函数，返回Set
+  * size：返回实例成员总数
+
+    ```js
+    const set = new Set([1, 2, 3, 2, 1])
+
+    console.log(set.length) // undefined
+    console.log(set.size) // 3
+    ```
+
+* Set 实例方法
+  * 操作方法
+    * add(value)：向一个 Set 对象的末尾添加一个指定的值。返回 `Set` 对象本身
+
+    * delete(value)：从一个 Set 对象中删除指定的元素。成功删除返回 true，否则返回 false。
+    * has(value)：返回一个布尔值来指示对应的值value是否存在Set对象中。
+    * clear()：用来清空一个 Set 对象中的所有元素。
+
+      ```js
+      const set = new Set()
+
+      set.add(1).add(2).add(1)
+
+      set.has(1) // true
+      set.has(3) // false
+      set.delete(1)
+      set.has(1) // false
+      ```
+
+      `Array.from` 和 `...`可以将Set对象转为数组
+
+      ```js
+      const set = new Set([1, 2, 3, 2, 1])
+      const array = Array.from(set)
+      console.log(array) // [1, 2, 3]
+
+      or
+
+      const arr = [...set]
+      console.log(arr) // [1, 2, 3]
+      ```
+
+  * 遍历方法
+    * keys()：按照元素插入顺序返回一个具有 Set 对象每个元素值的全新 Iterator 对象。
+    * values()：按照元素插入顺序返回一个具有 Set 对象每个元素值的全新 Iterator 对象。
+    * entries()：返回一个包含Set对象中所有元素得键值对迭代器
+    * forEach(callbackFn, thisArg)：用于对集合成员执行callbackFn操作，如果提供了 thisArg 参数，它便是回调函数执行过程中的 this。
+
+      ```js
+      let set = new Set([1, 2, 3])
+      console.log(set.keys()) // SetIterator {1, 2, 3}
+      console.log(set.values()) // SetIterator {1, 2, 3}
+      console.log(set.entries()) // SetIterator {1 => 1, 2 => 2, 3 => 3}
+
+      for (let item of set.keys()) {
+        console.log(item);
+      } // 1 2  3
+      for (let item of set.entries()) {
+        console.log(item);
+      } // [1, 1] [2, 2] [3, 3]
+
+      set.forEach((value, key) =>  {
+          console.log(key + ' : ' + value)
+      }) // 1 : 1 2 : 2  3 : 3
+      console.log([...set]) // [1, 2, 3]
+      ```
+
+      Set 可默认遍历，默认迭代器生成函数是 values() 方法
+
+      ```js
+      Set.prototype[Symbol.iterator] === Set.prototype.values // true
+      ```
+
+:::tip 总结
+
+* 向 `Set` 加入多个NaN时，只会存在一个`NaN`；
+* 向 `Set` 添加值时不会发生类型转换`(5 !== "5")`；
+* 向 `Set` 添加不同内存地址的"相同对象"时，会同时存在Set对象中；
+* `keys()` 和 `values()` 的行为完全一致，`entries()` 返回的遍历器同时包括键和值且两值相等。
+:::
