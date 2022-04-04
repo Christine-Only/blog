@@ -721,6 +721,8 @@ Person.prototype = {
 
 任何一个对象，都有原型对象，原型对象本身又是一个对象，所以原型对象也有自己的原型对象，这样一环扣一环就形成了一个链式结构，我们把这个链式结构称为：原型链。
 
+原型链可以实现一些属性和方法的公有化，通过原型链，自身没有的属性和方法可以在原型链中查找。
+
 :::tip
 Object.prototype是原型链的尽头，Object.prototype的原型是null。
 :::
@@ -844,3 +846,76 @@ bwm2.speed() // "black 150km/h"
 ```
 
 `class` 实现继承的核心在于使用 `extends` 表明继承自哪个父类，并且在子类构造函数中必须调用 `super`，因为这段代码可以看成 `Car.call(this, color, money)`。
+
+### 类的静态属性/方法
+
+> 通过关键字 `static` 可以声明一个静态属性/方法。和其他语言一样，静态属性/方法只会挂载到类中，而不会通过类创建的实例调用。
+
+```js
+class User {
+  static type = "女孩";
+
+  constructor(name) {
+    this.name = name;
+  }
+
+  show() {
+    console.log("show: " + this.name);
+  }
+
+  static print() {
+    console.log("static print by: " + this.type); // 静态方法里的 this 指向类本身
+  }
+}
+
+const user = new User("Christine");
+
+// 实例调用类方法
+user.print(); // 报错。找不到对象方法
+
+// 使用类方法
+User.print(); // static print by: 女孩
+```
+
+### super关键字
+
+在继承的过程中，经常会看到 `super` 关键字，它有两个作用：
+
+1. 子类调用构造函数 `constructor` 时，必须在构造函数先调用 `super` 关键字，然后才能使用`this`对象。
+2. 子类同名方法会覆盖父类方法，这是使用 `super` 关键字可以调用父类方法。
+
+```js
+class Child extends User {
+  constructor() {}
+}
+
+// 当子类调用了构造函数，却没有在内部使用super，新建实例会报错
+const child = new Child('Christine')
+```
+
+![alt](/blog/class.jpg)
+所以需要在使用 `this` 之前，调用一下 `super`。
+
+```js
+class Child extends User {
+  constructor(name, age) {
+    super(name)
+    this.age = age
+  }
+}
+```
+
+#### super 指向
+
+ES6 给我们提供的 `super` 会指向父级的原型。所以我们可以通过 `super` 找到其原型链中的所有属性/方法，但是无法找到 `static` 方法/属性。
+
+:::tip
+总结：
+
+1. `constructor` 是一个构造函数，创建对象时会自动调用。即使不写，它也会默认存在。
+2. 所有写在 `constructor` 内的属性都是实例属性，是定义在实例中的。在constructor之外的属性，都是定义在类中的，也就是原型属性。
+3. `constructor` 中的 `this` 指向的是调用的实例对象，静态方法中的this指向类本身。
+4. 子类使用构造器时，必须使用 `super` 关键字来扩展构造器，并且需要先调用 `super`。
+5. 使用 `static` 关键字标明类属性/方法，他们无法通过类创建的实例调用，只能通过类直接调用。
+6. 静态属性/方法是会被继承的。
+:::

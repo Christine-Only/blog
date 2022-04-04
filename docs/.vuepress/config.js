@@ -15,7 +15,9 @@ module.exports = {
       },
       {
         text: "前端书籍",
-        link: "/books/",
+        items: [
+          { text: 'JavaScript设计模式', link: '/books/' },
+        ]
       },
       {
         text: "Git",
