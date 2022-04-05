@@ -267,3 +267,51 @@ async function test() {
 ```
 
 ## 常用定时器函数
+
+常见的定时器函数有 setTimeout、setInterval、requestAnimationFrame。
+
+### setTimeout
+
+`setTimeout`延时执行某一段代码，但`setTimeout`由于EventLoop的存在，并不百分百是准时的，一个`setTimeout`可能会表示如下的形式：
+
+```js
+// 延时1s之后，打印hello,world
+setTimeout(() => {
+  console.log('hello,world');
+}, 1000)
+```
+
+### setInterval
+
+`setInterval`在指定的时间内，重复执行一段代码，与`setTimeout`类似，它也不是准时的，并且有时候及其不推荐使用`setInterval`定时器，因为它与某些耗时的代码配合使用的话，会存在执行积累的问题，它会等耗时操作结束后，一起一个或者多个执行定时器，存在性能问题。一个`setInterval`可能会表示如下的形式：
+
+```js
+setInterval(() => {
+  console.log('hello,world');
+}, 1000)
+```
+
+### requestAnimationFrame
+
+翻译过来就是请求动画帧，它是html5专门用来设计请求动画的API，它与`setTimeout`相比有如下优势：
+
+* 根据不同屏幕的刷新频率，自动调整执行回调函数的时机。
+* 当窗口处于未激活状态时，`requestAnimationFrame`会停止执行，而`setTimeout`不会
+* 自带函数节流功能
+
+```js
+let progress = 0;
+let timer = null;
+function render() {
+  progress += 1;
+  if (progress <= 100) {
+    console.log(progress);
+    timer = window.requestAnimationFrame(render);
+  } else {
+    cancelAnimationFrame(timer);
+  }
+}
+
+//第一帧渲染
+window.requestAnimationFrame(render);
+```
