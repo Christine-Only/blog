@@ -333,6 +333,7 @@ function create(F, ...args) {
 :::tip
 Object.create(null) 会造成创建的对象其 `__proto__` 指向为空
 :::
+
 ![alt](/blog/create.jpg)
 
 ### 实现instanceof
@@ -357,3 +358,31 @@ console.log(copyInstanceof(new String("111"), String)); // true
 console.log(copyInstanceof(Date, Function)); // true
 console.log(copyInstanceof(null, Object)); // false
 ```
+
+## 手写 Promise
+
+### 实现一个简易版 Promise
+
+```js
+const PENDING = 'pending'
+const RESOLVED = 'resolved'
+const REJECTED = 'rejected'
+
+function MyPromise(fn) {
+  const that = this
+  that.state = PENDING
+  that.value = null
+  that.resolvedCallbacks = []
+  that.rejectedCallbacks = []
+  // 待完善 resolve 和 reject 函数
+  // 待完善执行 fn 函数
+}
+```
+
+代码详解：
+
+* 首先我们创建了三个常量用于表示状态，对于经常使用的一些值都应该通过常量来管理，便于开发及后期维护
+* 在函数体内部首先创建了常量 `that`，因为代码可能会异步执行，用于获取正确的 `this` 对象
+* 一开始 `Promise` 的状态应该是 `pending`
+* `value` 变量用于保存 `resolve` 或者 `reject` 中传入的值
+* `resolvedCallbacks` 和 `rejectedCallbacks` 用于保存 `then` 中的回调，因为当执行完 `Promise` 时状态可能还是等待中，这时候应该把 `then` 中的回调保存起来用于状态改变时使用

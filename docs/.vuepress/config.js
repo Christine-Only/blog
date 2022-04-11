@@ -45,7 +45,7 @@ module.exports = {
       }
     ],
     sidebar: {
-      "/interview/": ["html", "", "advance", "es6", "jsAsync", "promise", "eventLoop"],
+      "/interview/": ["html", "", "advance", "es6", "jsAsync", "eventLoop"],
       "/books/": ["", "FactoryPattern"],
       "/typescript/": [
         "",
