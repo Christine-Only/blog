@@ -98,3 +98,38 @@ input{
 1. 修改大小：在 `svg` 标签中修改`width`、`height` 属性（默认单位是px）
 
 2. 修改颜色：在 `path` 标签中修改 `fill` 属性，值可以是 `currentValue` 或 `颜色值`
+
+## 自定义滚动条样式
+
+```less
+/*定义滚动条样式*/
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+/*定义滑块*/
+::-webkit-scrollbar-thumb {
+  background: #d8dfeb;
+  cursor: pointer;
+}
+
+/*定义滚动条轨道*/
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+/*定义水平方向滚动条样式*/
+::-webkit-scrollbar:horizontal {
+  height: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: @text-placeholder-color;
+}
+```
+
+## 解决滚动条scrollbar出现造成的页面宽度被挤压的问题
+
+```css
+overflow-y: overlay;
+```
