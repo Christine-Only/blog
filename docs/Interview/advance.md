@@ -401,6 +401,9 @@ class Promise {
   }
 
   then(onFulFilled, onRejected) {
+    onFulFilled = typeof onFulFilled === 'function' ? onFulFilled : value => value;
+    onRejected = typeof onRejected === 'function' ? onRejected : error => { throw error };
+
     const promise = new Promise((resolve, reject) => {
       // onFulFilled 如果成功了，应该被调用
       // onRejected  如果失败了，应该被调用
@@ -422,21 +425,27 @@ class Promise {
         setTimeout(() => {
           try {
             const result = onRejected(this.result)
-            rejectPromise(result, resolve, reject, promise)
+            resolvePromise(result, resolve, reject, promise)
           } catch (error) {
             reject(error)
           }
         }, 0);
       }
 
-      // 处理异步的情况
       if (this.state === PENDING_STATE) {
         this.onResolvedCallbacks.push(() => {
-          onFulFilled(this.result)
+          try {
+            onFulFilled(this.result)
+          } catch (error) {
+            reject(error)
+          }
         })
-
         this.onRejectedCallbacks.push(() => {
-          onRejected(this.result)
+          try {
+            onRejected(this.result)
+          } catch (error) {
+            reject(error)
+          }
         })
       }
     })
@@ -498,18 +507,6 @@ const resolvePromise = (result, resolve, reject, promise) => {
   }
 }
 
-const rejectPromise = (result, resolve, reject, promise) => {
-  if (result === promise) {
-    throw new TypeError('Chaining cycle detected for promise #<Promise>')
-  }
-
-  if (result instanceof Promise) {
-    result.then(res => resolve(res), error => reject(error))
-  } else {
-    reject(result)
-  }
-}
-
 // promiseA+ (resolve, reject) => {} 是executor
 const p = new Promise((resolve, reject) => {
   // resolve 和 reject 是 Promise 内部实现好的函数
@@ -519,7 +516,15 @@ const p = new Promise((resolve, reject) => {
   // setTimeout(() => {
   //   resolve(200); // 将状态从 pending 改成了 fulfilled
   // }, 1000);
-  reject(500)
+  reject('500')
+})
+
+p.then(null, err => {
+  throw new Error(err)
+}).then(res => {
+  console.log('res: ', res);
+}, error => {
+  console.log('error: ', error);
 })
 
 // onFulFilled => p成功后，调用的回调
@@ -582,8 +587,8 @@ const p6 = new Promise((resolve, reject) => {
   resolve(666)
 })
 
-Promise.all([p3, p4, p5, p6]).then(res => console.log('===', res))
-Promise.race([p3, p4, p5, p6]).then(res => console.log('===', res))
-Promise.race([Promise.reject('第一个被返回'), p3, p4, p5, p6]).then(res => console.log('===', res), error => console.log('error', error))
-Promise.race([Promise.resolve('第一个被返回'), p3, p4, p5, p6]).then()
+// Promise.all([p3, p4, p5, p6]).then(res => console.log('===', res))
+// Promise.race([p3, p4, p5, p6]).then(res => console.log('===', res))
+// Promise.race([Promise.reject('第一个被返回'), p3, p4, p5, p6]).then(res => console.log('===', res), error => console.log('error', error))
+// Promise.race([Promise.resolve('第一个被返回'), p3, p4, p5, p6]).then()
 ```
