@@ -361,113 +361,229 @@ console.log(copyInstanceof(null, Object)); // false
 
 ## 手写 Promise
 
-### 实现一个简易版 Promise
-
 ```js
-const PENDING = 'pending'
-const RESOLVED = 'resolved'
-const REJECTED = 'rejected'
+const PENDING_STATE = 'pending';
+const FULFILLED_STATE = 'fulfilled';
+const REJECTED_STATE = 'rejected';
 
-function MyPromise(fn) {
-  const that = this
-  that.state = PENDING
-  that.value = null
-  that.resolvedCallbacks = []
-  that.rejectedCallbacks = []
-  // 待完善 resolve 和 reject 函数
-  // 待完善执行 fn 函数
+class Promise {
+
+  constructor(executor) {
+    this.state = PENDING_STATE; // 初始化状态
+    this.result = undefined;
+    this.onResolvedCallbacks = []; // 存放当成功时，需要执行的函数列表
+    this.onRejectedCallbacks = []; // 存放当失败时，需要执行的函数列表
+
+    const resolve = (value) => {
+      if (this.state === PENDING_STATE) {
+        this.state = FULFILLED_STATE;
+        this.result = value;
+
+        this.onResolvedCallbacks.forEach(fn => fn())
+      }
+    };
+
+    const reject = (reason) => {
+      if (this.state === PENDING_STATE) {
+        this.state = REJECTED_STATE;
+        this.result = reason;
+
+        this.onRejectedCallbacks.forEach(fn => fn())
+      }
+    };
+
+    // 执行executor报错，直接reject
+    try {
+      executor(resolve, reject);
+    } catch (error) {
+      reject(error);
+    }
+  }
+
+  then(onFulFilled, onRejected) {
+    const promise = new Promise((resolve, reject) => {
+      // onFulFilled 如果成功了，应该被调用
+      // onRejected  如果失败了，应该被调用
+      if (this.state === FULFILLED_STATE) {
+        setTimeout(() => {
+          try {
+            const result = onFulFilled(this.result)
+            // 分析result
+            // 如果是promise对象 看promise是否成功 如果成功就resolve 如果失败就reject
+            // 如果是普通值，直接返回
+            resolvePromise(result, resolve, reject, promise)
+          } catch (error) {
+            reject(error)
+          }
+        }, 0);
+      }
+
+      if (this.state === REJECTED_STATE) {
+        setTimeout(() => {
+          try {
+            const result = onRejected(this.result)
+            rejectPromise(result, resolve, reject, promise)
+          } catch (error) {
+            reject(error)
+          }
+        }, 0);
+      }
+
+      // 处理异步的情况
+      if (this.state === PENDING_STATE) {
+        this.onResolvedCallbacks.push(() => {
+          onFulFilled(this.result)
+        })
+
+        this.onRejectedCallbacks.push(() => {
+          onRejected(this.result)
+        })
+      }
+    })
+    return promise
+  }
+
+  static resolve(val) {
+
+    return new Promise((resolve, reject) => {
+      resolve(val)
+    })
+  }
+
+  static reject(val) {
+
+    return new Promise((resolve, reject) => {
+      reject(val)
+    })
+  }
+
+  // 等待原则， 传入多个promise，等所有的promise都满足条件，拿到所有的成功结果
+  static all(promises) {
+    const arr = []
+    let i = 0 // 必须要用计数器判断，累计有多少次成功了， 如果结果的个数和promises个数相等，满足条件
+
+    return new Promise((resolve, reject) => {
+      promises.forEach((promise, index) => {
+        promise.then(res => {
+          arr[index] = res
+          i++
+          if (promises.length === i) { // 不能用promises.length === arr.length 原因是刚开始遇到异步的arr的数组长度等于promises.length，但是里面的异步的值为空
+            resolve(arr)
+          }
+        }, reject)
+      })
+    })
+  }
+
+  // 竞速原则，谁选满足条件，就先被.then处理，其它的就忽略，返回最快的结果
+  static race(promises) {
+
+    return new Promise((resolve, reject) => {
+      promises.forEach(promise => {
+        promise.then(resolve, reject)
+      })
+    })
+  }
 }
+
+const resolvePromise = (result, resolve, reject, promise) => {
+  if (result === promise) {
+    throw new TypeError('Chaining cycle detected for promise #<Promise>')
+  }
+
+  if (result instanceof Promise) {
+    result.then(res => resolve(res), error => reject(error))
+  } else {
+    resolve(result)
+  }
+}
+
+const rejectPromise = (result, resolve, reject, promise) => {
+  if (result === promise) {
+    throw new TypeError('Chaining cycle detected for promise #<Promise>')
+  }
+
+  if (result instanceof Promise) {
+    result.then(res => resolve(res), error => reject(error))
+  } else {
+    reject(result)
+  }
+}
+
+// promiseA+ (resolve, reject) => {} 是executor
+const p = new Promise((resolve, reject) => {
+  // resolve 和 reject 是 Promise 内部实现好的函数
+  // 这里的代码是立即执行的
+
+  // reject('失败'); // 将状态从 pending 改成了 rejected （状态凝固）
+  // setTimeout(() => {
+  //   resolve(200); // 将状态从 pending 改成了 fulfilled
+  // }, 1000);
+  reject(500)
+})
+
+// onFulFilled => p成功后，调用的回调
+// onRejected =>  p失败后，调用的回调
+// .catch可以全局捕获错误
+// p.then(onFulFilled, onRejected).catch()
+// p.then(res => {
+//   console.log('res: ', res);
+//   // return '成功'
+//   return new Promise((resolve, reject) => {
+//     resolve(200)
+//   })
+// }, err => {
+//   console.log('err: ', err);
+//   return '失败'
+//   return new Promise((resolve, reject) => {
+//     reject(404)
+//     // resolve(404)
+//   })
+// }).then(res => console.log('===', res), error => console.log(error));
+
+// 链式调用2个核心要点
+// 1. 上一个 .then 要返回一个 promise 对象
+// 2. 下一个 .then 的参数要拿到上一个 .then 回调的返回值
+
+
+// 循环引用
+// const p2 = p.then(res => {
+//   console.log('res: ', res);
+//   setTimeout(() => {
+//     return p2
+//   }, 0);
+// }, error => {
+//   console.log(error)
+//   return p2
+// });
+
+// Promise.resolve(4).then(res => console.log('===', res))
+// Promise.reject('静态方法reject').then(res => console.log('===', res), error => console.log('error', error))
+
+const p3 = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve(3000)
+  }, 3000);
+})
+
+const p4 = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve(1000)
+  }, 1000);
+})
+
+const p5 = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve(2000)
+  }, 2000);
+})
+
+const p6 = new Promise((resolve, reject) => {
+  resolve(666)
+})
+
+Promise.all([p3, p4, p5, p6]).then(res => console.log('===', res))
+Promise.race([p3, p4, p5, p6]).then(res => console.log('===', res))
+Promise.race([Promise.reject('第一个被返回'), p3, p4, p5, p6]).then(res => console.log('===', res), error => console.log('error', error))
+Promise.race([Promise.resolve('第一个被返回'), p3, p4, p5, p6]).then()
 ```
-
-代码详解：
-
-* 首先我们创建了三个常量用于表示状态，对于经常使用的一些值都应该通过常量来管理，便于开发及后期维护
-* 在函数体内部首先创建了常量 `that`，因为代码可能会异步执行，用于获取正确的 `this` 对象
-* 一开始 `Promise` 的状态应该是 `pending`
-* `value` 变量用于保存 `resolve` 或者 `reject` 中传入的值
-* `resolvedCallbacks` 和 `rejectedCallbacks` 用于保存 `then` 中的回调，因为当执行完 `Promise` 时状态可能还是等待中，这时候应该把 `then` 中的回调保存起来用于状态改变时使用
-
-接下来我们来完善 `resolve` 和 `reject` 函数，添加在 `MyPromise` 函数体内部
-
-```js
-function resolve(value) {
-  if (that.state === PENDING) {
-    that.state = RESOLVED
-    that.value = value
-    that.resolvedCallbacks.map(cb => cb(that.value))
-  }
-}
-
-function reject(value) {
-  if (that.state === PENDING) {
-    that.state = REJECTED
-    that.value = value
-    that.rejectedCallbacks.map(cb => cb(that.value))
-  }
-}
-```
-
-这两个函数代码类似，就一起解析了
-
-* 首先两个函数都得判断当前状态是否为等待中，因为规范规定只有等待态才可以改变状态
-* 将当前状态更改为对应状态，并且将传入的值赋值给 `value`
-* 遍历回调数组并执行
-
-完成以上两个函数以后，我们就该实现如何执行 `Promise` 中传入的函数了
-
-```js
-try {
-  fn(resolve, reject)
-} catch (e) {
-  reject(e)
-}
-```
-
-* 实现很简单，执行传入的参数并且将之前两个函数当做参数传进去
-* 要注意的是，可能执行函数过程中会遇到错误，需要捕获错误并且执行 `reject` 函数
-
-最后我们来实现较为复杂的 `then` 函数
-
-```js
-MyPromise.prototype.then = function(onFulfilled, onRejected) {
-  const that = this
-  onFulfilled = typeof onFulfilled === 'function' ? onFulfilled : v => v
-  onRejected =
-    typeof onRejected === 'function'
-      ? onRejected
-      : r => {
-          throw r
-        }
-  if (that.state === PENDING) {
-    that.resolvedCallbacks.push(onFulfilled)
-    that.rejectedCallbacks.push(onRejected)
-  }
-  if (that.state === RESOLVED) {
-    onFulfilled(that.value)
-  }
-  if (that.state === REJECTED) {
-    onRejected(that.value)
-  }
-}
-```
-
-* 首先判断两个参数是否为函数类型，因为这两个参数是可选参数
-* 当参数不是函数类型时，需要创建一个函数赋值给对应的参数，同时也实现了透传，比如如下代码
-
-  ```js
-  // 该代码目前在简单版中会报错
-  // 只是作为一个透传的例子
-  Promise.resolve(4).then().then((value) => console.log(value))
-  ```
-
-* 接下来就是一系列判断状态的逻辑，当状态不是等待态时，就去执行相对应的函数。如果状态是等待态的话，就往回调函数中 `push` 函数，比如如下代码就会进入等待态的逻辑
-
-  ```js
-  new MyPromise((resolve, reject) => {
-    setTimeout(() => {
-      resolve(1)
-    }, 0)
-  }).then(value => {
-    console.log(value)
-  })
-  ```
