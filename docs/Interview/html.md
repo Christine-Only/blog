@@ -131,19 +131,6 @@ Cookie 只区分域，不区分端口和协议，只要域相同，即使端口�
 
 参考链接[Cookie属性详解](https://juejin.cn/post/6863377752939036679)
 
-## 什么是CSRF攻击
-
-跨站请求伪造。
-
-CSRF防御有以下几种方式：
-
-1. 使用 JSON API。当进行 CSRF 攻击时，请求体通过 `<form>` 构建，请求头为 application/www-form-urlencoded。它难以发送 JSON 数据被服务器所理解。
-2. CSRF Token。生成一个随机的 token，切勿放在 cookie 中，每次请求手动携带该 token 进行校验。
-3. SameSite Cookie。设置为 Lax 或者 Strict，禁止发送第三方 Cookie。
-4. 检验referrer头部。（如果这个请求的referrer头部不是你的服务器，则不能加载session）。
-
-参考链接[理解CSRF(跨站请求伪造)](https://github.com/pillarjs/understanding-csrf/blob/master/README_zh.md)
-
 ## 如果把JSON数据转化为demo.json并下载
 
 ### 方式一：json 视为字符串，可以利用 DataURL 进行下载
