@@ -1,6 +1,6 @@
 module.exports = {
   title: "Christine",
-  head: [["link", { rel: "icon", herf: "logo.png" }]],
+  head: [["link", { rel: "icon", href: "logo.png" }]],
   description: "一名专注前端开发的程序媛 👧🏻",
   base: "/blog/",
   themeConfig: {
@@ -45,7 +45,7 @@ module.exports = {
       }
     ],
     sidebar: {
-      "/interview/": ["html", "", "advance", "es6", "jsAsync", "eventLoop", "browser", "safetyProtection"],
+      "/interview/": ["html", "", "advance", "es6", "jsAsync", "eventLoop", "browser", "safetyProtection", "webpack"],
       "/books/": ["", "FactoryPattern"],
       "/typescript/": [
         "",
