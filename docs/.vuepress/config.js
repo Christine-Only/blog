@@ -20,16 +20,12 @@ module.exports = {
         ]
       },
       {
-        text: "Git",
-        link: "/git/",
+        text: "React",
+        link: "/react/",
       },
       {
         text: "TypeScript",
         link: "/typescript/",
-      },
-      {
-        text: "React",
-        link: "/react/",
       },
       {
         text: "前端进阶",
@@ -40,13 +36,18 @@ module.exports = {
         link: "/automate/",
       },
       {
+        text: "Git",
+        link: "/git/",
+      },
+      {
         text: "常见问题",
         link: "/other/css",
       }
     ],
     sidebar: {
-      "/interview/": ["html", "", "advance", "es6", "jsAsync", "eventLoop", "browser", "safetyProtection", "webpack"],
+      "/interview/": ["html", "", "advance", "es6", "jsAsync", "eventLoop", "browser", "safetyProtection", "webpack", "http"],
       "/books/": ["", "FactoryPattern"],
+      "/react/": ["", "hooks", "advance"],
       "/typescript/": [
         "",
         "base",
@@ -55,7 +56,6 @@ module.exports = {
         "challenge",
         "tsconfig",
       ],
-      "/react/": ["", "advance"],
       "/advance/": ["prettier", "", "stylelint", "webpack", "umi"],
       "/automate/": ["", "nginx"],
       "/other/": ["css", "react", "antd", "stylelint", "nginx", "vite", ""],
