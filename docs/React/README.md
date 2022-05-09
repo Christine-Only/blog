@@ -10,7 +10,7 @@ React从v16.3的版本开始， 对生命周期的钩子进行了渐进式的调
 
 挂载
 
-* constructor：加载的时候调用一次，可以初始化state
+* constructor：组件挂载之前被调用，可以初始化state，为事件处理函数 绑定实例
 * componentWillMount：组件加载时调用，组件更新不调用，整个生命周期只调用一次，此时可以修改state
 * render：react最重要的步骤，创建虚拟dom，进行diff算法，更新dom树都在此进行
 * componentDidMount：组件渲染之后调用，只调用一次
@@ -74,14 +74,14 @@ export default class OldReactComponent extends Component {
 
 挂载
 
-* constructor：加载的时候调用一次，可以初始化state
-* getDerivedStateFromProps(props, state)：组件每次被rerender的时候，包括在组件构建之后(虚拟dom之后，实际dom挂载之前)，每次获取新的`props`或`state`之后；每次接收新的props之后都会返回一个对象作为新的`state`，返回null则说明不需要更新`state`；配合componentDidUpdate，可以覆盖componentWillReceiveProps的所有用法
+* constructor：组件挂载之前被调用，可以初始化state，为事件处理函数 绑定实例
+* getDerivedStateFromProps(nextProps, state)：接收父组件传递过来的 `props` 和组件之前的状态，返回一个对象来更新 `state` 或者返回 `null` 来表示接收到的 `props` 没有变化，不需要更新 `state` ；配合 `componentDidUpdate` ，可以覆盖 `componentWillReceiveProps` 的所有用法
 * render：react最重要的步骤，创建虚拟dom，进行diff算法，更新dom树都在此进行
 * componentDidMount：组件渲染之后调用，只调用一次
 
 更新
 
-* getDerivedStateFromProps(props, state)：组件每次被rerender的时候，包括在组件构建之后(虚拟dom之后，实际dom挂载之前)，每次获取新的`props`或`state`之后；每次接收新的props之后都会返回一个对象作为新的`state`，返回null则说明不需要更新`state`；配合componentDidUpdate，可以覆盖componentWillReceiveProps的所有用法
+* getDerivedStateFromProps(nextProps, state)：接收父组件传递过来的 `props` 和组件之前的状态，返回一个对象来更新 `state` 或者返回 `null` 来表示接收到的 `props` 没有变化，不需要更新 `state` ；配合 `componentDidUpdate` ，可以覆盖 `componentWillReceiveProps` 的所有用法
 * shouldComponentUpdate(nextProps, nextState)：组件接收到新的props或者state时调用，return true就会更新dom（使用diff算法更新），return false能阻止更新（不调用render）
 * render：react最重要的步骤，创建虚拟dom，进行diff算法，更新dom树都在此进行
 * getSnapshotBeforeUpdate(prevProps, prevState)：触发时间: update发生的时候，在render之后，在组件dom渲染之前；返回一个值，作为componentDidUpdate的第三个参数；配合componentDidUpdate, 可以覆盖componentWillUpdate的所有用法
@@ -143,5 +143,9 @@ export default class NewReactComponent extends Component {
 3. React16并没有删除这三个钩子函数，但是不能和新增的钩子函数（getDerivedStateFromProps、getSnapshotBeforeUpdate）混用
 4. 新增了对错误的处理（`componentDidCatch`）
 :::
+
+参考链接：
+
+* [你真的了解 React 生命周期吗](<https://juejin.cn/post/6844904021233238024#comment>)
 
 ## setState
