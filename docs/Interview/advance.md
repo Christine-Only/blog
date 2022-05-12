@@ -377,7 +377,11 @@ class Promise {
     const resolve = (value) => {
       if (this.state === PENDING_STATE) {
         this.state = FULFILLED_STATE;
-        this.result = value;
+        if (value instanceof Promise) {
+          value.then(res => this.result = res, error => reject(error))
+        } else {
+          this.result = value;
+        }
 
         this.onResolvedCallbacks.forEach(fn => fn())
       }
@@ -386,7 +390,11 @@ class Promise {
     const reject = (reason) => {
       if (this.state === PENDING_STATE) {
         this.state = REJECTED_STATE;
-        this.result = reason;
+        if (reason instanceof Promise) {
+          reason.then(res => this.result = reason, error => this.result = error)
+        } else {
+          this.result = reason;
+        }
 
         this.onRejectedCallbacks.forEach(fn => fn())
       }
@@ -516,16 +524,23 @@ const p = new Promise((resolve, reject) => {
   // setTimeout(() => {
   //   resolve(200); // 将状态从 pending 改成了 fulfilled
   // }, 1000);
-  reject('500')
+  // reject('500')
+  resolve(new Promise((resolve, reject) => {
+    resolve(200)
+  }))
 })
 
-p.then(null, err => {
-  throw new Error(err)
-}).then(res => {
+p.then(res => {
   console.log('res: ', res);
-}, error => {
-  console.log('error: ', error);
 })
+
+// p.then(null, err => {
+//   throw new Error(err)
+// }).then(res => {
+//   console.log('res: ', res);
+// }, error => {
+//   console.log('error: ', error);
+// })
 
 // onFulFilled => p成功后，调用的回调
 // onRejected =>  p失败后，调用的回调
@@ -565,27 +580,27 @@ p.then(null, err => {
 // Promise.resolve(4).then(res => console.log('===', res))
 // Promise.reject('静态方法reject').then(res => console.log('===', res), error => console.log('error', error))
 
-const p3 = new Promise((resolve, reject) => {
-  setTimeout(() => {
-    resolve(3000)
-  }, 3000);
-})
+// const p3 = new Promise((resolve, reject) => {
+//   setTimeout(() => {
+//     resolve(3000)
+//   }, 3000);
+// })
 
-const p4 = new Promise((resolve, reject) => {
-  setTimeout(() => {
-    resolve(1000)
-  }, 1000);
-})
+// const p4 = new Promise((resolve, reject) => {
+//   setTimeout(() => {
+//     resolve(1000)
+//   }, 1000);
+// })
 
-const p5 = new Promise((resolve, reject) => {
-  setTimeout(() => {
-    resolve(2000)
-  }, 2000);
-})
+// const p5 = new Promise((resolve, reject) => {
+//   setTimeout(() => {
+//     resolve(2000)
+//   }, 2000);
+// })
 
-const p6 = new Promise((resolve, reject) => {
-  resolve(666)
-})
+// const p6 = new Promise((resolve, reject) => {
+//   resolve(666)
+// })
 
 // Promise.all([p3, p4, p5, p6]).then(res => console.log('===', res))
 // Promise.race([p3, p4, p5, p6]).then(res => console.log('===', res))
