@@ -100,5 +100,3 @@ function Story(props) {
 ```
 
 ![alt](/blog/vdom2.jpg)
-
-### 虚拟DOM转换为真实DOM

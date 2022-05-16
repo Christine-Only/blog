@@ -149,3 +149,42 @@ export default class NewReactComponent extends Component {
 * [你真的了解 React 生命周期吗](<https://juejin.cn/post/6844904021233238024#comment>)
 
 ## setState
+
+### `setState`是同步还是异步的，为什么有的时候不能立即拿到更新结果而有的时候可以?
+
+#### 钩子函数和React合成事件中的`setState`
+
+* 调用`setState`不会立即更新
+* 所有组件使用的是同一套更新机制，当所有子组件`DidMount`后，父组件`DidMount`，然后执行更新
+* 更新时会把每个组件的更新合并，每个组件只会触发一次更新的生命周期。
+
+#### 异步函数和原生事件中的`setState`
+
+* 在父组件`DidMount`后执行
+* 调用`setState`同步更新
+
+### 为什么有时连续两次setState只有一次生效？
+
+```js
+componentDidMount() {
+  this.setState({ index: this.state.index + 1 }, () => {
+    console.log(this.state.index); // 1
+  })
+  this.setState({ index: this.state.index + 1 }, () => {
+    console.log(this.state.index); //1
+  })
+}
+```
+
+```js
+componentDidMount() {
+  this.setState((preState) => ({ index: preState.index + 1 }), () => {
+    console.log(this.state.index); // 2
+  })
+  this.setState(preState => ({ index: preState.index + 1 }), () => {
+    console.log(this.state.index); // 2
+  })
+}
+```
+
+* 参考文章[【React深入】setState的执行机制](https://juejin.cn/post/6844903781813993486)

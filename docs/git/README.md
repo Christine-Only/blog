@@ -3,6 +3,18 @@ sidebar: auto
 ---
 # Git
 
+## git checkout
+
+### 基于远程分支创建本地新分支
+
+格式：
+
+`git checkout -b 新的分支名 远程仓库别名/远程仓库分支名`
+
+```shell
+git checkout -b christine origin/detail
+```
+
 ## git push
 
 ```git
