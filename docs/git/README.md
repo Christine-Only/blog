@@ -124,3 +124,10 @@ git revert -n commit-id
 ```
 
 撤销某个提交，但执行命令后不进入编辑界面，更改的文件会移至暂存区，需要手动提交，这与 `git revert commit-id` 的差别就是撤销和提交分开了。
+
+## git pull报错error: error: cannot lock ref 'refs/remotes/origin/xxx': 'refs/remotes/origin/c' exists; cannot create 'refs/remotes/origin/xxx'
+
+```shell
+git remote prune origin
+```
+有些分支在远程其实早就被删除了，但是在你本地依然可以看见这些被删除的分支，在根目录下运行 git remote prune origin刷新本地仓库与远程仓库的保持这些改动的同步，这样就不会报错了
