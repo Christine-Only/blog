@@ -15,6 +15,19 @@ sidebar: auto
 git checkout -b christine origin/detail
 ```
 
+### 用于检出某一个指定文件或文件夹
+
+格式：
+`git checkout [<commit id>] [--] <paths>`
+
+* <commit> commit id，默认是暂存区
+* -- 用于分隔文件路径和commit
+* <paths> 文件路径
+
+如果不填写commit id，则默认会从暂存区检出该文件，如果暂存区为空，则该文件会回滚到最近一次的提交状态。
+
+如果填写commit id（既可以是commit hash也可以是分支名称还可以是tag，其本质上都是commit hash），则会从指定commit hash中检出该文件。用于恢复某一个文件到某一个提交状态。
+
 ## git push
 
 ```git
@@ -131,3 +144,5 @@ git revert -n commit-id
 git remote prune origin
 ```
 有些分支在远程其实早就被删除了，但是在你本地依然可以看见这些被删除的分支，在根目录下运行 git remote prune origin刷新本地仓库与远程仓库的保持这些改动的同步，这样就不会报错了
+
+
