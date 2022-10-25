@@ -42,8 +42,21 @@ module.exports = {
 * bracketSpacing. 圆括号之间添加空格，如{ a: b }
 * arrowParens. 箭头函数，参数添加圆括号，如(x)=>y
 * parser. 指定解析器，我们一般不需要默认的就行
+* trailingComma:'es5'
 * 等等
 更详细的介绍可查看文档[Perttier](https://prettier.io/docs/en/options.html)
+
+:::tip
+`trailingComma: "es5":` 只会在多行对象的最后一个属性加上逗号，单行的对象不会加。
+
+```
+const obj1 = {
+  a: 1,
+  b: 2   // 会加逗号
+}
+const obj2 = { a: 1, b: 2 } // 不会加逗号
+```
+:::
 
 ## Git集成
 目前，我们已经配置好了prettier的项，接下来就剩运行格式化的时机了，什么运行最好呢？*当然是代码提交的时候*。
