@@ -911,3 +911,47 @@ ES6 给我们提供的 `super` 会指向父类的原型。所以我们可以通�
 5. 使用 `static` 关键字标明类属性/方法，他们无法通过类创建的实例调用，只能通过类直接调用。
 6. 静态属性/方法是会被继承的。
 :::
+
+## Element.getBoundingClientRect()
+```html
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+  }
+  .box {
+    width: 400px;
+    height: 200px;
+    margin: 100px auto;
+    border: 1px solid #ccc;
+  }
+  .child {
+    width: 200px;
+    height: 100px;
+    margin: 20px;
+    border: 1px solid #ccc;
+  }
+</style>
+<body>
+  <div class="box">
+    <div class="child">
+      child
+    </div>
+  </div>
+</body>
+<script>
+  const childDom = document.querySelector('.child');
+  console.log(childDom.getBoundingClientRect());
+  // --- 相对于视口左上角的位置，均是 numer ---
+  // top: 100     --- 盒子上边框距离视口顶部的距离
+  // bottom: 302  --- 盒子底边框距离视口顶部的距离 = top + height
+  // left: 394    --- 盒子左边框距离视口左侧的距离
+  // right: 796   --- 盒子右边框距离视口左侧的距离 = left + width
+  // x: 394       --- 盒子左上角相对于视口左侧的距离
+  // y: 100       --- 盒子左上角相对于视口顶部的距离
+
+  // 盒子的宽高
+  // width: 402
+  // height: 202
+</script>
+```
