@@ -138,11 +138,39 @@ git revert -n commit-id
 
 撤销某个提交，但执行命令后不进入编辑界面，更改的文件会移至暂存区，需要手动提交，这与 `git revert commit-id` 的差别就是撤销和提交分开了。
 
-## git pull报错error: error: cannot lock ref 'refs/remotes/origin/xxx': 'refs/remotes/origin/c' exists; cannot create 'refs/remotes/origin/xxx'
+## git pull 报错error
+error: cannot lock ref 'refs/remotes/origin/xxx': 'refs/remotes/origin/c' exists; cannot create 'refs/remotes/origin/xxx'
 
 ```shell
 git remote prune origin
 ```
-有些分支在远程其实早就被删除了，但是在你本地依然可以看见这些被删除的分支，在根目录下运行 git remote prune origin刷新本地仓库与远程仓库的保持这些改动的同步，这样就不会报错了
+有些分支在远程其实早就被删除了，但是在你本地依然可以看见这些被删除的分支，在根目录下运行 git remote prune origin刷新本地仓库与远程仓库的保持这些改动的同步，这样就不会报错了。
 
+## git branch
 
+1. 查看本地分支
+```git
+git branch
+```
+
+2. 查看所有分支
+```git 
+git branch -a
+```
+:::tip
+使用 `git branch -a` 命令可以查看所有本地分支和远程分支，发现远程的remote分支已经删除了，但本地还显示。
+:::
+
+3. 查看远程分支
+```git
+git branch -r
+or 
+git remote show origin
+```
+:::tip
+使用命令 `git remote show origin`，可以查看remote地址，远程分支，还有本地分支与之相对应关系等信息。
+:::
+4. 同步本地分支
+```git
+git remote prune origin
+```
