@@ -179,7 +179,7 @@ const a = {
 
 ## 对象转原始类型应用
 
-如何使if(a==1&&a==2&&a==3) {console.log('true')}; 正确打印'true'
+如何使`if ( a==1 && a==2 && a==3 ) {console.log('true')};` 正确打印'true'
 
 ```js
 const a = {
@@ -189,7 +189,7 @@ const a = {
     return this.value;
   }
 }
-if(a==1 && a==2 && a==3) {
+if ( a==1 && a==2 && a==3 ) {
   console.log('true'); // 输出true
 }
 ```
@@ -233,7 +233,7 @@ const c = new foo() // undefined
 * `foo()`：对于直接调用foo来说，不管foo函数放在了什么地方，this一定是window；
 * `obj1.foo()`：对于 `obj1.foo()` 来说，我们只需要记住，谁调用了函数，`this` 就指向谁，所以在这个场景下 `foo` 函数中的 `this` 就是 `obj1` 对象；
 
-* `obj1.foo.apply(obj2)`：`call()`、`apply()` 和 `bind()` 改变上下文的方法，`this` 指向取决于这些方法的第一个参数，当第一个参数为 `null` 或者为 `空` 时，`this` 指向全局对象 `window`；
+* `obj1.foo.apply(obj2)`：`call()`、`apply()` 和 `bind()` 是改变上下文的方法，`this` 指向取决于这些方法的第一个参数，当第一个参数为 `null` 或者为 `空` 时，`this` 指向全局对象 `window`；
 
 * `new foo()`：`new` 构造函数调用，`this` 永远指向新创建的对象上，优先级最高。
 
@@ -288,7 +288,7 @@ foo.bind(a)() // => 'christine'
 `new` 的方式优先级最高，接下来是 `bind` 这些函数，然后是 `obj1.foo()` 这种调用方式，最后是 `foo` 这种调用方式，同时，箭头函数的 `this` 一旦被绑定，就不会再被任何方式所改变。
 :::
 
-== VS ===
+## == VS ===
 
 假如我们需要对比 x 和 y 是否相同，就会进行如下判断流程：
 
@@ -306,7 +306,7 @@ foo.bind(a)() // => 'christine'
 1 ==  1
 ```
 
-5.判断其中一方是否为 boolean，是的话就会把 boolean 转为 number 再进行判断；
+5.判断其中一方是否为 `boolean`，是的话就会把 `boolean` 转为 `number` 再进行判断；
 
 ```js
 '1' == true
@@ -559,19 +559,22 @@ console.log(newObj2)
 3. 文本编辑器实时保存，当无任何更改操作一秒后进行保存。
 
 ```js
-function debounce(fn, wait) {
+/**
+ * fn: 需要进行防抖处理的函数
+ * wait: 参数是延迟时间，默认为3000ms
+ */
+function debounce(fn, wait = 3000) {
   let timerId;
 
-  return function() {
-    const _this = this
-    const args = arguments
+  return function(...args) {
 
-    if(timerId) {
+    if (timerId) {
       clearTimeout(timerId)
     }
 
     timerId = setTimeout(() => {
-      fn.apply(_this, args)
+      // 使用apply改变fn的this，同时将参数传递给fn
+      fn.apply(this, args)
     }, wait)
   }
 }
@@ -593,17 +596,16 @@ window.onresize = debounce(function() {
 
 ```js
 // 延时器
-function throttle(fn, wait) {
+function throttle(fn, wait = 3000) {
   let timerId
-  return function() {
-    const _this = this
-    const args = arguments
+
+  return function(...args) {
 
     if(!timerId) {
       timerId = setTimeout(() => {
         timerId = null
         clearTimeout(timerId)
-        fn.apply(_this, args)
+        fn.apply(this, args)
       }, wait)
     }
   }
@@ -614,6 +616,8 @@ function throttle(fn, wait) {
 
 * 防抖：防止抖动，单位时间内事件触发会被重置，避免事件被误伤触发多次。**代码实现重在清零** `clearTimeout`。防抖可以比作等电梯，只要有一个人进来，就需要再等一会儿。业务场景有避免登录按钮多次点击的重复提交。
 * 节流：控制流量，单位时间内事件只能触发一次，与服务器端的限流 (Rate Limit) 类似。**代码实现重在开锁关锁** `timer=timeout; timer=null`。节流可以比作过红绿灯，每等一个红灯时间就可以过一批。
+
+[JS手写题-防抖-节流](https://juejin.cn/post/7032905194736189477)
 
 ## 原型和原型链
 
@@ -687,7 +691,7 @@ Person.prototype = {
 
 ### `__proto__`
 
-通过构造函数创建的对象，自带一个`__proro__`属性，这个属性指向了构造函数的 `prototype` 属性，也就是原型对象。
+通过构造函数创建的对象，自带一个`__proto__`属性，这个属性指向了构造函数的 `prototype` 属性，也就是原型对象。
 
 获取原型对象：
 
@@ -913,6 +917,7 @@ ES6 给我们提供的 `super` 会指向父类的原型。所以我们可以通�
 :::
 
 ## Element.getBoundingClientRect()
+
 ```html
 <style>
   * {
@@ -942,7 +947,7 @@ ES6 给我们提供的 `super` 会指向父类的原型。所以我们可以通�
 <script>
   const childDom = document.querySelector('.child');
   console.log(childDom.getBoundingClientRect());
-  // --- 相对于视口左上角的位置，均是 numer ---
+  // --- 相对于视口左上角的位置，均是 number ---
   // top: 100     --- 盒子上边框距离视口顶部的距离
   // bottom: 302  --- 盒子底边框距离视口顶部的距离 = top + height
   // left: 394    --- 盒子左边框距离视口左侧的距离
