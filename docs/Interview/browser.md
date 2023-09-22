@@ -103,7 +103,7 @@ document.getElementById("sun").addEventListener("click", function (e) {
 
 ::: tip 总结
 
-* 如果是协议和端口造成的跨域问题“前台”是无能为力的。
+* 如果是协议和端口造成的跨域问题“前端”是无能为力的。
 * 在跨域问题上，仅仅是通过“URL的首部”来识别而不会根据域名对应的IP地址是否相同来判断。“URL的首部”可以理解为“协议, 域名和端口必须匹配”。
 :::
 
@@ -117,15 +117,15 @@ document.getElementById("sun").addEventListener("click", function (e) {
   * 原理：利用 `<script>` 标签没有跨域限制的漏洞，网页可以得到从其他来源动态产生的 JSON 数据。JSONP请求一定需要对方的服务器做支持才可以。
 
   ```html
-  <script src="http://domain/api?param1=a&param2=b&callback=jsonp"></script>
+  <script src="http://domain/api?param1=a&param2=b&callback=show"></script>
   <script>
-      function jsonp(data) {
+      function show(data) {
       console.log(data)
   }
   </script>
   ```
 
-  * JSONP和Ajax对比：JSONP和AJAX相同，都是客户端向服务器端发送请求，从服务器端获取数据的方式。但AJAX属于同源策略，JSONP属于非同源策略（跨域请求）
+  * JSONP和AJAX对比：JSONP和AJAX相同，都是客户端向服务器端发送请求，从服务器端获取数据的方式。但AJAX属于同源策略，JSONP属于非同源策略（跨域请求）
   * 优缺点：JSONP优点是简单兼容性好，可用于解决主流浏览器的跨域数据访问的问题。缺点是仅支持get方法具有局限性，不安全可能会遭受XSS攻击。
   * 实现流程
     * 声明一个回调函数，其函数名(如show)当做参数值，要传递给跨域请求数据的服务器，函数形参为要获取目标数据(服务器返回的data)。
@@ -143,12 +143,12 @@ document.getElementById("sun").addEventListener("click", function (e) {
           resolve(data)
           document.body.removeChild(script)
         }
-        params = { ...params, callback } // name=Christine&callback=show
-        let arrs = []
+        params = { ...params, callback }
+        const newParams = []
         for (let key in params) {
-          arrs.push(`${key}=${params[key]}`)
+          newParams.push(`${key}=${params[key]}`)
         }
-        script.src = `${url}?${arrs.join('&')}`
+        script.src = `${url}?${newParams.join('&')}`
         document.body.appendChild(script)
       })
     }
@@ -163,6 +163,7 @@ document.getElementById("sun").addEventListener("click", function (e) {
     ```
 
 * CORS
+
 CORS 需要浏览器和后端同时支持。IE 8 和 9 需要通过 `XDomainRequest` 来实现。
 
 浏览器会自动进行 CORS 通信，实现 CORS 通信的关键是后端。只要后端实现了 CORS，就实现了跨域。

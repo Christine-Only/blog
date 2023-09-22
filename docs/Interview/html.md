@@ -81,7 +81,7 @@ const observer = new IntersectionObserver((changes) => {
   });
 });
 
-observer.observe(img);
+observer.observe(img); //监听一个目标元素。
 ```
 
 ### 方案四： LazyLoading 属性
@@ -95,6 +95,7 @@ observer.observe(img);
 ## 浏览器中如何实现剪切板复制的功能
 
 方式一：使用第三方库 `clipboard-copy`
+
 方式二：最为推荐的方式是使用 Clipboard API 进行实现(不兼容IE浏览器)
 
 ```js
@@ -120,16 +121,6 @@ selection.addRange(range);
 
 selectedText = selection.toString();
 ```
-
-## localhost:3000 与 localhost:5000 的 cookie 信息是否共享
-
-共享。
-
-:::tip
-Cookie 只区分域，不区分端口和协议，只要域相同，即使端口号或协议不同，cookie 也能共享。
-:::
-
-参考链接[Cookie属性详解](https://juejin.cn/post/6863377752939036679)
 
 ## 如果把JSON数据转化为demo.json并下载
 
@@ -172,3 +163,204 @@ const person = {
 const url = URL.createObjectURL(new Blob([JSON.stringify(person)]))
 download(url, 'demo.json')
 ```
+
+## 如何找到当前页面出现次数最多的 HTML 标签
+
+```js
+function getMostFrequentTag() {
+  const counter = {};
+
+  document.querySelectorAll("*").forEach((element) => {
+    counter[element.tagName] = counter[element.tagName]
+      ? counter[element.tagName] + 1
+      : 1;
+  });
+
+  const orderedTags = Object.entries(counter).sort((tag1, tag2) => tag2[1] - tag1[1]);
+
+  const result = [];
+  for (const tag of orderedTags) {
+    if (tag[1] < orderedTags[0][1]) {
+      break;
+    }
+    result.push(tag[0]);
+  }
+  return result;
+}
+```
+
+优化方案
+
+```js
+function getMostFrequentTag() {
+  const map = new Map();
+  let maxArray = [];
+  let maxCount = 0;
+
+  document.querySelectorAll("*").forEach((element) => {
+    const {tagName} = element
+    let count = map.get(tagName) ?? 0;
+    count++;
+    if (count > maxCount) {
+      maxCount = count;
+      maxArray = [tagName];
+    } else if (count === maxCount) {
+      maxArray.push(tagName)
+    }
+    map.set(tagName, count)
+  });
+
+  return maxArray;
+}
+```
+
+## 如何封装一个支持过期时间的 localStorage
+
+```js
+(function() {
+  localStorage.setItem = function (key, value, time = Infinity) { // Infinity是一个数值，表示无穷大
+    const payload = Number.isFinite(time) ? {
+      __value: value,
+      __expiresTime: Date.now() + time
+    } : value;
+    Storage.prototype.setItem.call(localStorage, key, JSON.stringify(payload))
+  }
+  localStorage.getItem = function (key) {
+    const value = JSON.parse(Storage.prototype.getItem.call(localStorage, key) || '{}')
+    if (Date.now() < value['__expiresTime']) {
+      return value['__value']
+    } else {
+      return void 0;
+    }
+  }
+})()
+```
+
+## Cookie 属性
+
+* Domain
+* Path
+* Expire/MaxAge
+* HttpOnly: 是否允许被 JavaScript 操作
+* Secure: 只能在 HTTPS 连接中配置
+* SameSite
+
+### Cookie maxAge
+
+如果没有 maxAge，则 cookie 的有效时间为会话时间。即浏览器关闭就没了。
+
+### Cookie SameSite
+
+SameSite中有以下三个值：
+
+* None: 任何情况下都会向第三方网站请求发送 Cookie
+* Lax: 只有导航到第三方网站的 Get 链接会发送 Cookie，跨域的图片、iframe、form表单都不会发送 Cookie
+* Strict: 任何情况下都不会向第三方网站请求发送Cookie
+
+目前，主流浏览器 `Same-Site` 的默认值为 `Lax`，而在以前是 `None`，将会预防大部分 CSRF 攻击，如果需要手动指定 `Same-Site` 为 None，需要指定 Cookie 属性 `Secure`，即在 https 下发送。
+
+### Cookie HttpOnly
+
+如果这个属性设置为true，就不能通过js脚本来获取cookie的值，能有效的防止xss攻击。
+
+### 关于js操作Cookie
+
+```js
+//读取浏览器中的cookie
+console.log(document.cookie);
+//写入cookie
+document.cookie='name=christine;path=/;domain=.baidu.com';
+
+// cookie 的过期时间改为过去时即可删除成功
+// max-age 设置为 -1 即可成功
+document.cookie = 'name=christine; max-age=-1'
+
+// 或者使用最新的Cookie操作API
+cookieStore.delete('name');
+```
+
+参考文章[把cookie聊清楚](https://juejin.cn/post/6844903501869350925)[阮一峰JavaScript教程](https://javascript.ruanyifeng.com/bom/cookie.html)
+
+## localhost:3000 与 localhost:5000 的 cookie 信息是否共享
+
+共享。
+
+:::tip
+Cookie 只区分域，不区分端口和协议，只要域相同，即使端口号或协议不同，cookie 也能共享。
+:::
+
+参考链接[Cookie属性详解](https://juejin.cn/post/6863377752939036679)
+
+## 什么是事件委托，e.currentTarget 与 e.target 有何区别
+
+> 事件委托指当有大量子元素触发事件时，将事件监听器绑定在父元素进行监听，此时数百个事件监听器变为了一个监听器，提升了网页性能。
+
+`Event` 接口的只读属性 `currentTarget` 表示的，标识是当事件沿着 DOM 触发时事件的当前目标。它总是指向事件绑定的元素，而 `Event.target` 则是事件触发的元素。
+
+## 异步加载 JS 脚本时，async 与 defer 有何区别
+
+![alt](/blog/deferandasync.jpg)
+
+在正常情况下，即 `<script>` 没有任何额外属性标记的情况下，有几点共识
+
+1. JS 的脚本分为`加载`、`解析`、`执行`几个步骤，简单对应到图中就是 fetch (加载) 和 execution (解析并执行)
+2. `JS 的脚本加载(fetch)且执行(execution)会阻塞 DOM 的渲染`，因此 JS 一般放到最后头
+
+而 `defer` 与 `async` 的区别如下:
+
+* 相同点: `异步加载 (fetch)`
+* 不同点:
+
+  * async 加载(fetch)完成后立即执行 (execution)，因此可能会阻塞 DOM 解析；
+  * defer 加载(fetch)完成后延迟到 DOM 解析完成后才会执行(execution)，但会在事件 `DomContentLoaded` 之前执行
+
+🌰
+若以下 js 加载时，属性是 `async` 与 `defer` 时，输出有何不同？
+
+```html
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title></title>
+  </head>
+  <body>
+    <script src="./defer.js" defer></script>
+    <script src="./async.js" async></script>
+    <script>
+      console.log("Start");
+      document.addEventListener("DOMContentLoaded", () => {
+        console.log("DCL");
+      });
+    </script>
+  </body>
+</html>
+```
+
+defer.js
+
+```js
+console.log("Defer Script");
+```
+
+async.js
+
+```js
+console.log("Async Script");
+```
+
+应该是 `Start` => `Defer Script` => `DCL`，async script是脱离DOM的，和加载自身文件的大小有关，文件比较小的，加载快，然后执行；文件大的加载慢，然后执行。
+
+## React/Vue 中的 router 实现原理如何
+
+前端路由有两种实现方式:
+
+### history API
+
+通过 `history.pushState()` 跳转路由
+通过 `popstate/window.onpopstate event` 监听路由变化，但无法监听到 history.pushState() 时的路由变化
+
+### hash
+
+通过 `location.hash` 跳转路由
+通过 `hashchange/window.onhashchange event` 监听路由变化

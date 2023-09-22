@@ -1,5 +1,15 @@
 # React 进阶
 
+## JSX到底是什么
+
+JSX代码在执行前，会被Babel转换为React.createElement方法的调用，该方法在调用后会返回Virtual DOM对象，然后React再将Virtual DOM对象转换为真实的DOM对象，再将真实DOM渲染在页面上。
+
+## Virtual DOM 如何提升效率
+
+精准找出发生变化的 DOM 对象，只更新发生变化的部分。
+
+在 React 第一次创建 DOM 对象后，会为每个 DOM 对象创建其对应的 Virtual DOM 对象，在 DOM 对象发生更新之前，React 会先更新所有的 Virtual DOM 对象，然后 React 会将更新后的 Virtual DOM 和 更新前的 Virtual DOM 进行比较，从而找出发生变化的部分，React 会将发生变化的部分更新到真实的 DOM 对象中，React 仅更新必要更新的部分。
+
 ## 虚拟DOM实现原理
 
 ![alt](/blog/vdom.png)
