@@ -299,7 +299,10 @@ Cookie 只区分域，不区分端口和协议，只要域相同，即使端口�
 
 ## 异步加载 JS 脚本时，async 与 defer 有何区别
 
+如果没有 `defer` 或 `async` 属性，浏览器会立即加载并执行相应的脚本。它不会等待后续加载的文档元素，读取到就会开始加载和执行，这样就阻塞了后续文档的加载。
+
 ![alt](/blog/deferandasync.jpg)
+
 
 在正常情况下，即 `<script>` 没有任何额外属性标记的情况下，有几点共识
 
@@ -312,7 +315,7 @@ Cookie 只区分域，不区分端口和协议，只要域相同，即使端口�
 * 不同点:
 
   * async 加载(fetch)完成后立即执行 (execution)，因此可能会阻塞 DOM 解析；
-  * defer 加载(fetch)完成后延迟到 DOM 解析完成后才会执行(execution)，但会在事件 `DomContentLoaded` 之前执行
+  * defer 加载(fetch)完成后需要等到DOM 解析完成后，事件 `DomContentLoaded` 触发执行之前执行(execution)。
 
 🌰
 若以下 js 加载时，属性是 `async` 与 `defer` 时，输出有何不同？
