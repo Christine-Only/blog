@@ -292,35 +292,7 @@ console.log(p.name) // undefined
 
 ### 实现new操作符
 
-`new` 操作符的几个作用：
-
-* `new` 操作符会返回一个对象，我们需要在内部创建一个空对象
-* 这个对象可以访问构造函数原型上的属性，所以需要将对象和构造函数连接起来
-* 构造函数中的 `this` 指向这个新创建的对象，可以访问到挂载在 `this` 上的任意属性
-* 执行构造函数内部的代码
-* 构造函数返回原始值会被忽略，返回对象会被正常使用。
-
-```js
-function create(F, ...args) {
-  // F不是函数或F是箭头函数
-  if(typeof F !== 'function' || !F.prototype) {
-    throw new Error('Error')
-  }
-
-  const obj = {}
-  Object.setPrototypeOf(obj, F.prototype)
-  const result = F.apply(obj, args)
-  return result instanceof Object ? result : obj
-}
-```
-
-代码解析：
-
-1. 首先函数接收不定量的参数，第一个参数为构造函数，接下来的参数被构造函数使用
-2. 然后内部创建一个空对象 `obj`
-3. 因为 `obj` 对象需要访问到构造函数原型链上的属性，所以我们通过 `setPrototypeOf` 将两者联系起来。这段代码等同于 `obj.__proto__ = F.prototype`
-4. 将 `obj` 绑定到构造函数上，并且传入剩余的参数后执行构造函数
-5. 判断构造函数返回值是否为对象，如果为对象就使用构造函数返回的值，否则使用 `obj`，这样就实现了忽略构造函数返回的原始值
+[new 操作符实现](https://codepen.io/tangshiya/pen/KKboaxV)
 
 ## instanceof
 
