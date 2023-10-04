@@ -370,9 +370,19 @@ otherWindow.postMessage(message, targetOrigin, [transfer]);
 
 通常浏览器缓存策略分为两种：**强缓存**和**协商缓存**，并且缓存策略都是通过设置 `HTTP Header` 来实现的。
 
+当客户端发出一个请求到服务器，服务器希望你把资源缓存起来，于是在 `Response Headers` 中加入了以下缓存指令：
+
+```js
+Cache-Control: max-age=3600 我希望你把这个资源缓存起来，缓存时间是3600秒（1小时）
+Expires: Thu, 10 Nov 2020 08:45:11 GMT 到达指定时间过期
+Date: Thu, 30 Apr 2020 12:39:56 GMT
+Etag:W/"121-171ca289ebf"，(后面协商缓存内容)这个资源的编号是W/"121-171ca289ebf"
+Last-Modified:Thu, 30 Apr 2020 08:16:31 GMT，(后面协商缓存内容)这个资源的上一次修改时间
+```
+
 ### 强缓存
 
-强缓存可以通过设置两种 `HTTP Header` 的 `Expires` 和 `Cache-Control` 来实现 。强缓存表示在缓存期间不需要请求，`state code` 为 200。
+强缓存可以通过设置两种 `HTTP Response Headers` 的 `Expires` 和 `Cache-Control` 来实现 。强缓存表示在缓存期间不需要请求，`status code` 为 200。
 
 #### Expires
 
@@ -396,24 +406,31 @@ Cache-control: max-age=30
 
 ### 协商缓存
 
-如果缓存过期了，就需要发起请求验证资源是否有更新。协商缓存可以通过设置 HTTP Header 的 `Last-Modified` 和 `ETag` 来实现。
+如果缓存过期了，就需要发起请求验证资源是否有更新。协商缓存可以通过设置 **HTTP Request Headers** 的 `If-Modified-Since: Last-Modified的值` 和 `If-None-Match: Etag的值` 来实现。`Last-Modified` 和 `Etag` 是服务器响应头添加的缓存指令。
+
+所谓带缓存的请求，无非就是加入以下请求头：
+
+```js
+If-Modified-Since: Thu, 30 Apr 2020 08:16:31 GMT  亲，你曾经告诉我，这个资源的上一次修改时间是格林威治时间2020-04-30 08:16:31，请问这个资源在这个时间之后有发生变动吗？
+If-None-Match: W/"121-171ca289ebf"  亲，你曾经告诉我，这个资源的编号是W/"121-171ca289ebf，请问这个资源的编号发生变动了吗？
+```
 
 当浏览器发起请求验证资源时，如果资源没有做改变，那么服务端就会返回 `304` 状态码，并且更新浏览器缓存有效期。
 
 #### Last-Modified 和 If-Modified-Since
 
-`Last-Modified` 表示本地文件最后修改日期，`If-Modified-Since` 会将 `Last-Modified` 的值发送给服务器，询问服务器在该日期后资源是否有更新，有更新的话就会将新的资源发送回来，否则返回 304 状态码。
+`Last-Modified` 表示本地文件最后修改日期，`If-Modified-Since` 会将 `Last-Modified` 的值发送给服务器，服务器会将请求头中的 `If-Modified-Since` 值和服务器上该资源的**上次修改时间**进行比较，如果资源最后修改时间比 `If-Modified-Since` 时间晚，那么资源过期，状态码为 `200`，响应体为请求资源，响应头中加入最新的 `Last-Modified` 的值。没过期就返回状态码 `304 Not Modified`，命中协商缓存，响应体为空，响应头不需要 `Last-Modified` 值。
 
-但是 `Last-Modified` 存在一些弊端：
+`Last-Modified` 精确到秒存在两个问题：
 
-* 如果本地打开缓存文件，即使没有对文件进行修改，但还是会造成 `Last-Modified` 被修改，服务端不能命中缓存导致发送相同的资源
-* 因为 `Last-Modified` 只能以秒计时，如果在不可感知的时间内修改完成文件，那么服务端会认为资源还是命中了，不会返回正确的资源
+* 资源在 1 秒内更新，并且在该一秒内访问，使用 last-modified 处理协商缓存无法获取最新资源。本质上的原因还是因为 `Last-Modified` 是精确到秒的，无法反映在 1 秒内的变化。
+* 当资源多次被修改后内容不变，使用 `Last-Modified` 来处理有点浪费。多次修改资源，其 `Last-Modified` 值肯定是会变的，但是如果内容不变我们其实不需要服务器返回最新资源，直接使用本地缓存。使用 `Etag` 就没这个问题，因为同一个资源多次修改，内容一样， hash 值也一样。
 
-因为以上这些弊端，所以在 HTTP / 1.1 出现了 `ETag` 。
+#### Etag 和 If-None-Match
 
-#### ETag 和 If-None-Match
+`Etag` 类似于文件指纹，`If-None-Match` 会将当前 `Etag` 发送给服务器，服务器根据`If-None-Match`值来判断是否命中缓存。当服务器返回 `304 Not Modified` 的响应时，由于 `Etag` 重新生成过，`Response headers` 中还会把这个`Etag`返回，即使这个`Etag`跟之前的没有变化。`If-None-Match` 的优先级高于 `If-Modified-Since`。
 
-`ETag` 类似于文件指纹，`If-None-Match` 会将当前 `ETag` 发送给服务器，询问该资源 `ETag` 是否变动，有变动的话就将新的资源发送回来。并且 `ETag` 优先级比 `Last-Modified` 高。
+[传送门：](<https://github.com/Christine-Only/cache>)
 
 **如果什么缓存策略都没设置，那么浏览器会怎么处理？**
 
@@ -423,7 +440,7 @@ Cache-control: max-age=30
 
 #### 频繁变动的资源
 
-对于频繁变动的资源，首先需要使用 `Cache-Control: no-cache` 使浏览器每次都请求服务器，然后配合 `ETag` 或者 `Last-Modified` 来验证资源是否有效。这样的做法虽然不能节省请求数量，但是能显著减少响应数据大小。
+对于频繁变动的资源，首先需要使用 `Cache-Control: no-cache` 使浏览器每次都请求服务器，然后配合 `Etag` 或者 `Last-Modified` 来验证资源是否有效。这样的做法虽然不能节省请求数量，但是能显著减少响应数据大小。
 
 #### 代码文件
 
@@ -544,4 +561,4 @@ Cache-control: max-age=30
 
 参考链接：
 
-* 强缓存和协商缓存(<https://juejin.cn/post/6974529351270268958>)
+* [面试精选之http缓存](https://juejin.cn/post/6844903634002509832)
