@@ -63,6 +63,8 @@ document.getElementById("sun").addEventListener("click", function (e) {
 阻止事件冒泡可以在目标元素的监听事件中添加 `event.stopPropagation()`即可。
 :::
 
+**在线 Demo**：(<https://codepen.io/tangshiya/pen/poqxNLN>)
+
 ## 跨域
 
 ### 什么是跨域？
@@ -486,6 +488,12 @@ If-None-Match: W/"121-171ca289ebf"  亲，你曾经告诉我，这个资源的�
 ::: tip
 渲染树只包含可见的节点。
 :::
+
+:::tip 总结
+浏览器进程中的网络线程请求获取到 HTML 数据后，通过 IPC 将数据传给渲染器进程的主线程，主线程将 HTML 解析构造成 DOM 树，然后进行样式计算，根据 DOM 树和生成好的样式生成 Layout Tree，通过遍历 Layout Tree生成绘制顺序表，接着遍历 Layout Tree 生成了 Layer Tree， 然后主线程将 Layer Tree 和 绘制顺序信息一起传给合成器线程，合成器线程按规则进行分图层，并把图层分为更小的图块（tiles）传给栅格线程进行栅格化，栅格化完成后，合成器线程会获得栅格线程传过来的“draw quads”图块信息，根据这些信息合成器线程合成了一个合成器帧，然后将该合成器帧通过 IPC 传回给浏览器进程，浏览器进程再传到 GPU 进行渲染，之后就展示到你的屏幕上了。
+:::
+
+[参考教程：](<https://www.bilibili.com/video/BV1x54y1B7RE/?vd_source=43bb13bad2aa1d4f33cc41601de11c25>)
 
 ### 回流与重绘
 
