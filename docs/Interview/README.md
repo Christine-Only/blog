@@ -506,47 +506,153 @@ console.log(b) // {name: "Christine"}
 ### 手写深拷贝
 
 ```js
-function isObject(o) {
-  return (typeof o === 'object' || typeof o === 'function') && o !== null
+function deepClone(target) {
+    // WeakMap作为记录对象Hash表（用于防止循环引用）
+    const map = new WeakMap()
+
+    // 判断是否为object类型的辅助函数，减少重复代码
+    function isObject(target) {
+        return (target && typeof target === 'object') || typeof target === 'function'
+    }
+
+    function clone(data) {
+
+        // 基础类型直接返回值
+        if (!isObject(data)) {
+            return data
+        }
+
+        // 日期或者正则对象则直接构造一个新的对象返回
+        if ([Date, RegExp].includes(data.constructor)) {
+            return new data.constructor(data)
+        }
+
+        // 处理函数对象
+        if (typeof data === 'function') {
+            return new Function('return ' + data.toString())()
+        }
+
+        // 如果该对象已存在，则直接返回该对象
+        const exist = map.get(data)
+        if (exist) {
+            return exist
+        }
+
+        // 处理Map对象
+        if (data instanceof Map) {
+            const result = new Map()
+            map.set(data, result)
+            data.forEach((val, key) => {
+                // 注意：map中的值为object的话也得深拷贝
+                if (isObject(val)) {
+                    result.set(key, clone(val))
+                } else {
+                    result.set(key, val)
+                }
+            })
+            return result
+        }
+
+        // 处理Set对象
+        if (data instanceof Set) {
+            const result = new Set()
+            map.set(data, result)
+            data.forEach(val => {
+                // 注意：set中的值为object的话也得深拷贝
+                if (isObject(val)) {
+                    result.add(clone(val))
+                } else {
+                    result.add(val)
+                }
+            })
+            return result
+        }
+
+        // 利用 Object 的 getOwnPropertyDescriptors 方法可以获得对象的所有属性以及对应的属性描述
+        const allDesc = Object.getOwnPropertyDescriptors(data)
+        // 结合 Object 的 create 方法创建一个新对象，并继承传入原对象的原型链， 这里得到的result是对data的浅拷贝
+        const result = Object.create(Object.getPrototypeOf(data), allDesc)
+
+        // 新对象加入到map中，进行记录
+        map.set(data, result)
+        
+        // Object.create()是浅拷贝，所以要判断并递归执行深拷贝
+        for(const key in data) {
+          const val = data[key]
+            if (isObject(val)) {
+                // 属性值为 对象类型 或 函数对象 的话也需要进行深拷贝
+                result[key] = clone(val)
+            } else {
+                result[key] = val
+            }
+        }
+        return result
+    }
+
+    return clone(target)
 }
 
-function deepClone(obj) {
-  if (!isObject(obj)) {
-    throw new Error('非对象')
-  }
-
-  let isArray = Array.isArray(obj)
-  let newObj = isArray ? [...obj] : { ...obj }
-  Reflect.ownKeys(newObj).forEach(key => {
-    newObj[key] = isObject(obj[key]) ? deepClone(obj[key]) : obj[key]
-  })
-
-  return newObj
-}
-
+// 测试的obj对象
 const obj = {
-  a: [1, 2, 3],
-  b: {
-    c: 2,
-    d: 3
-  }
-}
-const newObj = deepClone(obj)
-newObj.b.c = 1
-console.log(obj.b.c) // 2
+    // =========== 1.基础数据类型 ===========
+    num: 666, // number
+    str: 'Christine', // string
+    bool: true, // boolean
+    unf: undefined, // undefined
+    nul: null, // null
+    sym: Symbol('sym'), // symbol
+    bign: BigInt(1n), // bigint
 
-const obj2 = {
-  age: undefined,
-  sex: Symbol('male'),
-  jobs: function() {},
-  name: 'Christine'
-}
-const newObj2 = deepClone(obj2)
-console.log(newObj2)
+    // =========== 2.Object类型 ===========
+    // 普通对象
+    obj: {
+        name: '我是一个对象',
+        id: 1
+    },
+    // 数组
+    arr: [0, 1, 2],
+    // 函数
+    func: function () {
+        console.log('我是一个函数')
+    },
+    // 日期
+    date: new Date(0),
+    // 正则
+    reg: new RegExp('/我是一个正则/ig'),
+    // Map
+    map: new Map().set('mapKey', 1),
+    // Set
+    set: new Set().add('set'),
+    // =========== 3.其他 ===========
+    [Symbol('1')]: 1  // Symbol作为key
+};
+
+// 4.添加不可枚举属性
+Object.defineProperty(obj, 'innumerable', {
+    enumerable: false,
+    value: '不可枚举属性'
+});
+
+// 5.设置原型对象
+Object.setPrototypeOf(obj, {
+    proto: 'proto'
+})
+
+// 6.设置loop成循环引用的属性
+obj.loop = obj
+
+// 测试
+console.log('obj==========>', obj)
+const clonedObj = deepClone(obj)
+console.log('clonedObj==========>', clonedObj)
+console.log(clonedObj === obj)  // false，返回的是一个新对象
+console.log(clonedObj.arr === obj.arr)  // false，说明拷贝的不是引用
+console.log(clonedObj.func === obj.func) // false，说明function也复制了一份
+console.log(clonedObj.proto)  // proto，可以取到原型的属性
 ```
 
-`obj2` 和 `newObj2`打印结果对比如下：
-![alt](/blog/deepClone.jpg)
+[参考文章：](https://blog.csdn.net/qq_25257229/article/details/117969685)
+[传送门：](https://codepen.io/tangshiya/pen/BavbNXG?editors=0010)
 
 ## 防抖（debounce）
 
@@ -565,16 +671,12 @@ console.log(newObj2)
  */
 function debounce(fn, wait = 3000) {
   let timerId;
-
-  return function(...args) {
-
+  return (...args) => {
     if (timerId) {
       clearTimeout(timerId)
     }
-
     timerId = setTimeout(() => {
-      // 使用apply改变fn的this，同时将参数传递给fn
-      fn.apply(this, args)
+      fn(args)
     }, wait)
   }
 }
@@ -598,14 +700,12 @@ window.onresize = debounce(function() {
 // 延时器
 function throttle(fn, wait = 3000) {
   let timerId
-
-  return function(...args) {
-
+  return (...args) => {
     if(!timerId) {
       timerId = setTimeout(() => {
         timerId = null
         clearTimeout(timerId)
-        fn.apply(this, args)
+        fn(args)
       }, wait)
     }
   }
