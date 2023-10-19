@@ -1,3 +1,7 @@
+---
+sidebarDepth: 2
+---
+
 # JS基础知识点
 
 ## 基本数据类型
@@ -844,16 +848,83 @@ in操作符：如果属性不是自己提供的，是从原型上继承来的，
 
 hasOwnProperty: 该属性必须是自己提供，才返回true，否则返回false。
 
-## 原型继承和 Class 继承
+## 继承
 
-首先先来讲下 `class`，其实在 JS 中并不存在类，`class` 只是语法糖，本质还是函数。
+### 原型继承
 
 ```js
-class Person {}
-Person instanceof Function // true
+function Parent() {
+  this.name = 'Christine'
+  this.colors = ['red', 'blue', 'green']
+}
+
+Parent.prototype.sayHi = function() {
+  return this.name
+}
+
+function Son() {
+  this.age = 0.8
+}
+
+Son.prototype = new Parent()
+
+Son.prototype.getAge = function() {
+  return this.age
+}
+
+const son = new Son()
+console.log(son.sayHi())
+son.colors.push('pink')
+console.log(son.colors) // ["red","blue","green","pink"]
+
+const son2 = new Son()
+console.log(son2.colors) // ["red","blue","green","pink"]
 ```
 
+### 借用构造函数继承
+
+使用父类的构造函数来增强子类实例，等同于复制父类的实例给子类（不使用原型）
+
+```js
+function Parent() {
+  this.name = 'Christine'
+  this.colors = ['red', 'blue', 'green']
+  this.swim = function() {
+    console.log(`${this.name} likes swim.`)
+  }
+}
+
+Parent.prototype.sayHi = function() {
+  return this.name
+}
+
+Parent.prototype.lover = 'Picker'
+
+function Son() {
+  this.age = 0.8
+  Parent.call(this)
+}
+
+const son = new Son()
+son.colors.push('pink')
+console.log(son.colors) // ["red","blue","green","pink"]
+
+const son2 = new Son()
+console.log(son2.colors) // ["red","blue","green"]
+```
+
+核心代码是 `Parent.call(this)`，创建子类实例时调用 `Parent` 构造函数，于是 `Son` 的每个实例都会将 `Parent` 中的属性复制一份。
+
+**缺点：**
+
+* 只能继承父类的实例属性和方法，不能继承原型属性/方法
+* 无法实现复用，每个子类都有父类实例函数的副本，影响性能
+
+![alt](/blog/extends2.jpg)
+
 ### 组合继承
+
+组合上述两种方法就是组合继承。用原型链实现对原型属性和方法的继承，用借用构造函数技术来实现实例成员的继承。
 
 ```js
 function Car(color, money){
@@ -871,21 +942,26 @@ function BWM(seat, color, money){
 }
 
 BWM.prototype = new Car()
+// 重写BWM.prototype的constructor属性，指向自己的构造函数BWM
+BWM.prototype.constructor = BWM
+BWM.prototype.run = function() {
+  console.log('run fast')
+}
 
 const bwm = new BWM(7, 'blue', '100万')
 bwm.speed()
-console.log(bwm instanceof Car)
-console.log(bwm instanceof BWM)
+console.log(bwm instanceof Car) // true
+console.log(bwm instanceof BWM) // true
 ```
 
-以上继承的方式核心是在子类的构造函数中通过 `Car.call(this, color, money)` 继承父类的属性，然后改变子类的原型为 `new Car()` 来继承父类的函数。
+以上继承的方式核心是在子类的构造函数中通过 `Car.call(this, color, money)` 继承父类的实例属性和方法，然后改变子类的原型为 `new Car()` 来继承父类的原型属性和方法。
 
-这种继承方式优点在于构造函数可以传参，不会与父类引用属性共享，可以复用父类的函数，但是也存在一个缺点就是在继承父类函数的时候调用了父类构造函数，导致子类的原型上多了不需要的父类属性，存在内存上的浪费。
-![alt](/blog/extend.jpg)
+这种继承方式优点在于构造函数可以传参，不会与父类引用属性共享，可以复用父类的函数，但是也存在一个缺点就是在继承父类原型属性和方法时调用了父类构造函数，导致子类的原型上多了不需要的父类属性，存在内存上的浪费。
+![alt](/blog/extends3.jpg)
 
 ### 寄生组合继承
 
-这种继承方式对组合继承进行了优化，组合继承缺点在于继承父类函数时调用了父类构造函数，我们只需要优化掉这点就行了。
+这种继承方式对组合继承进行了优化，组合继承缺点在于继承父类原型属性和方法时调用了父类构造函数，我们只需要优化掉这点就行了。
 
 ```js
 function Car(color, money){
@@ -912,7 +988,7 @@ bwm2.speed() // "black 150km/h"
 ```
 
 以上继承实现的核心就是将父类的原型赋值给了子类，并且将构造函数设置为子类，这样既解决了无用的父类属性问题，还能正确的找到子类的构造函数。
-![alt](/blog/extend1.jpg)
+![alt](/blog/extends4.jpg)
 
 ### Class 继承
 
@@ -944,7 +1020,7 @@ bwm2.speed() // "black 150km/h"
 
 `class` 实现继承的核心在于使用 `extends` 表明继承自哪个父类，并且在子类构造函数中必须调用 `super`，因为这段代码可以看成 `Car.call(this, color, money)`。
 
-### 类的静态属性/方法
+#### 类的静态属性/方法
 
 > 通过关键字 `static` 可以声明一个静态属性/方法。和其他语言一样，静态属性/方法只会挂载到类中，而不会通过类创建的实例调用。
 
@@ -974,7 +1050,7 @@ user.print(); // 报错。找不到对象方法
 User.print(); // static print by: 女孩
 ```
 
-### super关键字
+#### super关键字
 
 在继承的过程中，经常会看到 `super` 关键字，它有两个作用：
 
@@ -1015,6 +1091,8 @@ ES6 给我们提供的 `super` 会指向父类的原型。所以我们可以通�
 5. 使用 `static` 关键字标明类属性/方法，他们无法通过类创建的实例调用，只能通过类直接调用。
 6. 静态属性/方法是会被继承的。
 :::
+
+[参考连接：](https://juejin.cn/post/6844903696111763470#heading-0)
 
 ## Element.getBoundingClientRect()
 
