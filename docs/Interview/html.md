@@ -303,7 +303,6 @@ Cookie 只区分域，不区分端口和协议，只要域相同，即使端口�
 
 ![alt](/blog/deferandasync.jpg)
 
-
 在正常情况下，即 `<script>` 没有任何额外属性标记的情况下，有几点共识
 
 1. JS 的脚本分为`加载`、`解析`、`执行`几个步骤，简单对应到图中就是 fetch (加载) 和 execution (解析并执行)
@@ -353,6 +352,8 @@ console.log("Async Script");
 ```
 
 应该是 `Start` => `Defer Script` => `DCL`，async script是脱离DOM的，和加载自身文件的大小有关，文件比较小的，加载快，然后执行；文件大的加载慢，然后执行。
+
+[文章：](https://juejin.cn/post/6894629999215640583)
 
 ## React/Vue 中的 router 实现原理如何
 
