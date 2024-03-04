@@ -453,6 +453,9 @@ class Promise {
 
     return new Promise((resolve, reject) => {
       promises.forEach((promise, index) => {
+        if (!(promise instanceof Promise)) {
+          promise = Promise.resolve(promise);
+        }
         promise.then(res => {
           arr[index] = res
           i++

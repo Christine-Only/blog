@@ -9,6 +9,6 @@
   "scripts": {
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs",
-    "deploy-gh": "GH=1 yarn docs:build && bash deploy.sh"
+    "deploy": "GH=1 yarn docs:build && bash deploy.sh"
   }
 }

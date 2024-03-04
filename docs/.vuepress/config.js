@@ -15,9 +15,7 @@ module.exports = {
       },
       {
         text: "前端书籍",
-        items: [
-          { text: 'JavaScript设计模式', link: '/books/' },
-        ]
+        items: [{ text: "JavaScript设计模式", link: "/books/" }],
       },
       {
         text: "React",
@@ -42,10 +40,24 @@ module.exports = {
       {
         text: "常见问题",
         link: "/other/css",
-      }
+      },
     ],
     sidebar: {
-      "/interview/": ["css", "html", "", "advance", "es6", "jsAsync", "eventLoop", "browser", "safetyProtection", "webpack", "http", "url"],
+      "/interview/": [
+        "css",
+        "html",
+        "",
+        "advance",
+        "es6",
+        "jsAsync",
+        "eventLoop",
+        "browser",
+        "safetyProtection",
+        "webpack",
+        "http",
+        "url",
+        "handWrite",
+      ],
       "/books/": ["", "FactoryPattern"],
       "/react/": ["", "hooks", "advance"],
       "/typescript/": [
@@ -55,6 +67,7 @@ module.exports = {
         "challengeBuildIn",
         "challenge",
         "tsconfig",
+        "interview",
       ],
       "/advance/": ["prettier", "", "stylelint", "webpack", "umi"],
       "/automate/": ["", "nginx"],

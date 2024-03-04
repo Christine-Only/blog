@@ -873,13 +873,24 @@ Son.prototype.getAge = function() {
 }
 
 const son = new Son()
+const son2 = new Son()
+console.log(son) // Son {age: 0.8}
 console.log(son.sayHi())
 son.colors.push('pink')
 console.log(son.colors) // ["red","blue","green","pink"]
 
-const son2 = new Son()
 console.log(son2.colors) // ["red","blue","green","pink"]
+
+// 直接修改对象上的属性，相当于直接给本对象新增属性
+son.name = "berry"
+console.log(son) // Son {age: 0.8, name: "berry"}
+console.log(son2.name) // "Christine"
 ```
+
+缺点：
+
+* 继承的属性看不到
+* 获取引用，修改引用中的值，会互相影响
 
 ### 借用构造函数继承
 
@@ -1085,7 +1096,7 @@ ES6 给我们提供的 `super` 会指向父类的原型。所以我们可以通�
 :::tip 总结
 
 1. `constructor` 是一个构造函数，创建对象时会自动调用。即使不写，它也会默认存在。
-2. 所有写在 `constructor` 内的属性都是实例属性，是定义在实例中的。在constructor之外的属性，都是定义在类中的，也就是原型属性。
+2. 所有写在 `constructor` 内的属性都是实例属性，是定义在实例中的。在`constructor`之外的属性，都是定义在类中的，也就是原型属性。
 3. `constructor` 中的 `this` 指向的是调用的实例对象，静态方法中的this指向类本身。
 4. 子类使用构造器时，必须使用 `super` 关键字来扩展构造器，并且需要先调用 `super`。
 5. 使用 `static` 关键字标明类属性/方法，他们无法通过类创建的实例调用，只能通过类直接调用。

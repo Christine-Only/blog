@@ -7,6 +7,7 @@
 :::
 
 ## 搭建TypeScript学习环境
+
 ::: tip 注意
 TypeScript版本：V4.5.3
 
@@ -14,15 +15,29 @@ JavaScript版本：ES2020
 :::
 
 ### 安装最新版TypeScript
+
 ```shell
 npm i -g typescript
 ```
-### 安装ts-node
+
+### 验证安装
+
+```shell
+tsc --version
+```
+
+安装成功会显示版本号
+
+### 安装 ts-node
+
 ```shell
 npm i -g ts-node
 ```
+
 ### 创建一个 tsconfig.json 文件
+
 ```shell
 tsc --init
 ```
+
 然后新建index.ts，输入相关练习代码后，执行`ts-node index.ts`即可。

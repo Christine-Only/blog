@@ -150,3 +150,9 @@ class ErrorBoundary extends Component {
 
 * `static getDerivedStateFromError`: 在出错后有机会修改 state 触发最后一次错误 fallback 的渲染。
 * `componentDidCatch`: 用于出错时副作用代码，比如错误上报等。
+
+## React Hooks原理
+
+## useLayoutEffect 和 useEffect 区别
+
+`useLayoutEffect` 和 `useEffect` 调用时机不同，`useLayoutEffect`当 dom 改变以后同步执行，`useEffect`当 dom 改变以后异步执行。
