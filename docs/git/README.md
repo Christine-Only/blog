@@ -139,38 +139,86 @@ git revert -n commit-id
 撤销某个提交，但执行命令后不进入编辑界面，更改的文件会移至暂存区，需要手动提交，这与 `git revert commit-id` 的差别就是撤销和提交分开了。
 
 ## git pull 报错error
+
 error: cannot lock ref 'refs/remotes/origin/xxx': 'refs/remotes/origin/c' exists; cannot create 'refs/remotes/origin/xxx'
 
 ```shell
 git remote prune origin
 ```
+
 有些分支在远程其实早就被删除了，但是在你本地依然可以看见这些被删除的分支，在根目录下运行 git remote prune origin刷新本地仓库与远程仓库的保持这些改动的同步，这样就不会报错了。
 
 ## git branch
 
 1. 查看本地分支
+
 ```git
 git branch
 ```
 
 2. 查看所有分支
-```git 
+
+```git
 git branch -a
 ```
+
 :::tip
 使用 `git branch -a` 命令可以查看所有本地分支和远程分支，发现远程的remote分支已经删除了，但本地还显示。
 :::
 
 3. 查看远程分支
+
 ```git
 git branch -r
 or 
 git remote show origin
 ```
+
 :::tip
 使用命令 `git remote show origin`，可以查看remote地址，远程分支，还有本地分支与之相对应关系等信息。
 :::
+
 4. 同步本地分支
+
 ```git
 git remote prune origin
+```
+
+## 如何保持本地代码与 fork 仓库远程代码一致
+
+1. 添加上游仓库：
+
+* 在本地仓库中，添加原始仓库作为上游（upstream）。
+
+```shell git remote add upstream <https://github.com/original-author/repository.git>
+```
+
+* 现在你有两个远程仓库：origin（指向你的fork）和upstream（指向原始仓库）。
+
+2. 保持更新：
+
+* 定期从上游仓库拉取更新到你的本地仓库。
+
+```shell
+git fetch upstream
+```
+
+* 如果有更新，使用git merge或git rebase将这些更新合并到你的本地分支中。
+
+```shell
+git merge upstream/main
+# 或者
+git rebase upstream/main
+```
+
+3. 处理冲突：
+
+* 如果在合并过程中出现冲突，你需要手动解决这些冲突，并提交解决后的代码。
+
+4. 推送更新到你的Fork：
+
+* 将合并后的更新推送到你的GitHub仓库。
+
+```shell
+git push origin main
 ```

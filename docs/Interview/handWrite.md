@@ -2,7 +2,7 @@
 
 ## 实现 new 操作符
 
-```js
+```javascript
 function myNew(fn, ...args) {
   // 创建一个新对象，该对象的原型指向构造函数的原型
   const obj = Object.create(fn.prototype);
@@ -17,7 +17,7 @@ function myNew(fn, ...args) {
 
 ### 🌰
 
-```js
+```javascript
 // 构造函数
 function Person(name, age) {
   this.name = name;
@@ -43,9 +43,11 @@ console.log("person1.age: ", person.age);
 // person1.say();
 ```
 
+<a name="m3xbk"></a>
+
 ## 实现 call
 
-```js
+```javascript
 Function.prototype.myCall = function (context, ...args) {
   if (!context) {
     context = window;
@@ -61,7 +63,7 @@ Function.prototype.myCall = function (context, ...args) {
 
 ### 🌰
 
-```js
+```javascript
 function say(value) {
   console.log(`${this.name} ${value}`);
 }
@@ -73,7 +75,7 @@ say.myCall(person, "你好呀");
 
 ## 实现 apply
 
-```js
+```javascript
 Function.prototype.myApply = function (context, args) {
   if (!context) {
     context = window;
@@ -92,7 +94,7 @@ Function.prototype.myApply = function (context, args) {
 
 ### 🌰
 
-```js
+```javascript
 const arr = [1, 2, 3, 4];
 console.log(Math.max.apply(null, arr));
 console.log(Math.max.myApply(arr, arr));
@@ -100,7 +102,7 @@ console.log(Math.max.myApply(arr, arr));
 
 ## 实现 bind
 
-```js
+```javascript
 Function.prototype.myBind = function (context, ...args) {
   if (!context) {
     context = window;
@@ -131,7 +133,7 @@ Function.prototype.myBind = function (context, ...args) {
 
 ### 🌰
 
-```js
+```javascript
 function Person(name, age) {
   console.log(name); //'我是参数传进来的name'
   console.log(age); //'我是参数传进来的age'
@@ -166,7 +168,7 @@ bindFun1("我是参数传进来的age");
 
 ## 实现 flat
 
-```js
+```javascript
 // 递归方式实现
 function flatter(arr) {
   if (!arr.length) return [];
@@ -189,16 +191,210 @@ function myFlatter(arr) {
 
 ### 🌰
 
-```js
-console.log(flatter([1, 2, [1, [2, 3, [4, 5, [6]]]]]));
+```javascript
+const arr = [1, 2, [1, [2, 3, [4, 5, [6]]]]]
+console.log(arr.flat(4));
 console.log(myFlatter([1, 2, [1, [2, 3, [4, 5, [6]]]]]));
 ```
 
 ## 实现 Promise 及相关方法
 
+```javascript
+class Promise {
+  constructor(executor) {
+    this.state = "pending";
+    this.value = undefined;
+    this.callbacks = [];
+
+    const resolve = (value) => {
+      if (this.state === "pending") {
+        this.state = "fulfilled";
+        this.value = value;
+        this.callbacks.forEach((callback) => callback.onFulfilled(value));
+      }
+    };
+    const reject = (reason) => {
+      if (this.state === "pending") {
+        this.state = "rejected";
+        this.value = reason;
+        this.callbacks.forEach((callback) => callback.onRejected(reason));
+      }
+    };
+
+    try {
+      executor(resolve, reject);
+    } catch (err) {
+      reject(err);
+    }
+  }
+
+  then(onFulfilled, onRejected) {
+    return new Promise((resolve, reject) => {
+      const fulfilledCallback = (value) => {
+        try {
+          if (typeof onFulfilled === "function") {
+            const result = onFulfilled(value);
+            resolve(result);
+          }
+        } catch (err) {
+          reject(err);
+        }
+      };
+      const rejectedCallback = (reason) => {
+        try {
+          if (typeof onRejected === "function") {
+            const result = onRejected(reason);
+            resolve(result);
+          }
+        } catch (err) {
+          reject(err);
+        }
+      };
+      if (this.state === "fulfilled") {
+        setTimeout(() => {
+          fulfilledCallback(this.value);
+        }, 0);
+      } else if (this.state === "rejected") {
+        setTimeout(() => {
+          rejectedCallback(this.value);
+        }, 0);
+      } else {
+        this.callbacks.push({
+          onFulfilled: fulfilledCallback,
+          onRejected: rejectedCallback,
+        });
+      }
+    });
+  }
+  static all(promises) {
+    const result = [];
+    let fulfilledCount = 0;
+    return new Promise((resolve, reject) => {
+      promises.forEach((promise, index) => {
+        if (!(promise instanceof Promise)) {
+          promise = Promise.resolve(promise);
+        }
+        promise
+          .then((value) => {
+            result[index] = value;
+            fulfilledCount++;
+            if (fulfilledCount === promises.length) {
+              resolve(result);
+            }
+          })
+          .catch(reject);
+      });
+    });
+  }
+  static race(promises) {
+    return new Promise((resolve, reject) => {
+      promises.forEach((promise) => {
+        promise.then(resolve).catch(reject);
+      });
+    });
+  }
+}
+```
+
+### 🌰
+
+```javascript
+// promiseA+ (resolve, reject) => {} 是executor
+const p = new Promise((resolve, reject) => {
+  // resolve 和 reject 是 Promise 内部实现好的函数
+  // 这里的代码是立即执行的
+
+  // reject('失败'); // 将状态从 pending 改成了 rejected （状态凝固）
+  // setTimeout(() => {
+  //   resolve(200); // 将状态从 pending 改成了 fulfilled
+  // }, 1000);
+  // reject('500')
+  resolve(new Promise((resolve, reject) => {
+    resolve(200)
+  }))
+})
+
+p.then(res => {
+  console.log('res: ', res);
+})
+
+// p.then(null, err => {
+//   throw new Error(err)
+// }).then(res => {
+//   console.log('res: ', res);
+// }, error => {
+//   console.log('error: ', error);
+// })
+
+// onFulFilled => p成功后，调用的回调
+// onRejected =>  p失败后，调用的回调
+// .catch可以全局捕获错误
+// p.then(onFulFilled, onRejected).catch()
+// p.then(res => {
+//   console.log('res: ', res);
+//   // return '成功'
+//   return new Promise((resolve, reject) => {
+//     resolve(200)
+//   })
+// }, err => {
+//   console.log('err: ', err);
+//   return '失败'
+//   return new Promise((resolve, reject) => {
+//     reject(404)
+//     // resolve(404)
+//   })
+// }).then(res => console.log('===', res), error => console.log(error));
+
+// 链式调用2个核心要点
+// 1. 上一个 .then 要返回一个 promise 对象
+// 2. 下一个 .then 的参数要拿到上一个 .then 回调的返回值
+
+
+// 循环引用
+// const p2 = p.then(res => {
+//   console.log('res: ', res);
+//   setTimeout(() => {
+//     return p2
+//   }, 0);
+// }, error => {
+//   console.log(error)
+//   return p2
+// });
+
+// Promise.resolve(4).then(res => console.log('===', res))
+// Promise.reject('静态方法reject').then(res => console.log('===', res), error => console.log('error', error))
+
+// const p3 = new Promise((resolve, reject) => {
+//   setTimeout(() => {
+//     resolve(3000)
+//   }, 3000);
+// })
+
+// const p4 = new Promise((resolve, reject) => {
+//   setTimeout(() => {
+//     resolve(1000)
+//   }, 1000);
+// })
+
+// const p5 = new Promise((resolve, reject) => {
+//   setTimeout(() => {
+//     resolve(2000)
+//   }, 2000);
+// })
+
+// const p6 = new Promise((resolve, reject) => {
+//   resolve(666)
+// })
+
+// Promise.all([p3, p4, p5, p6]).then(res => console.log('===', res))
+// Promise.race([p3, p4, p5, p6]).then(res => console.log('===', res))
+// Promise.race([Promise.reject('第一个被返回'), p3, p4, p5, p6]).then(res => console.log('===', res), error => console.log('error', error))
+// Promise.race([Promise.resolve('第一个被返回'), p3, p4, p5, p6]).then()
+```
+
 ## 实现 reduce
 
-```js
+```javascript
 Array.prototype.myReduce = function (callBack, initialValue) {
   if (!Array.isArray(this)) {
     throw new TypeError("调用者类型错误");
@@ -221,7 +417,7 @@ Array.prototype.myReduce = function (callBack, initialValue) {
 
 ### 🌰
 
-```js
+```javascript
 // 使用 myReduce 求和
 const sum = numbers.myReduce((acc, current) => acc + current);
 const sum1 = numbers.myReduce((acc, current) => acc + current, 0);
@@ -237,7 +433,7 @@ console.log(product1); // 输出: 120
 
 ## 实现深拷贝
 
-```js
+```javascript
 function deepClone(obj, clones = new WeakMap()) {
   // 基本数据类型或者 null 或者函数直接返回
   const type = typeof obj;
@@ -274,13 +470,13 @@ function deepClone(obj, clones = new WeakMap()) {
     }
   }
 
-  return clones;
+  return cloneObj;
 }
 ```
 
 ### 🌰
 
-```js
+```javascript
 const obj = {
   age: 18,
   name: "Christine",
@@ -309,7 +505,7 @@ console.log(clonedObj);
 
 > 用途：用户输入搜索，只在用户停止输入一段时间后执行搜索请求。
 
-```js
+```javascript
 // 防抖
 function debounce(fn, delay) {
   // 默认 300 毫秒
@@ -323,12 +519,11 @@ function debounce(fn, delay) {
     }, delay);
   };
 }
-
 ```
 
 ### 🌰
 
-```js
+```javascript
 // 假设有一个需要防抖的函数
 function handleInput() {
   console.log("Input event handled");
@@ -351,7 +546,7 @@ debouncedInputHandler(); // 会在最后一次输入后的500毫秒执行
 
 > 用途：滚动事件，确保滚动事件不会以过快的速度触发；窗口大小改变的事件可能在短时间内频繁触发，因此通常会选择使用节流来限制触发的频率
 
-```js
+```javascript
 function throttle(fn, delay) {
   let flag = true;
   let timer = null;
@@ -370,7 +565,7 @@ function throttle(fn, delay) {
 
 ### 🌰
 
-```js
+```javascript
 const throttledResizeHandler = throttle(function () {
   // 处理窗口大小改变的操作
   console.log("Window resized");
@@ -381,7 +576,7 @@ window.addEventListener("resize", throttledResizeHandler);
 
 ## 实现 compose
 
-```js
+```javascript
 function compose(...fns) {
   if (fns.length === 0) {
     return (v) => v;
@@ -401,7 +596,7 @@ function compose(...fns) {
 
 ### 🌰
 
-```js
+```javascript
 function fn1(x) {
   return x + 1;
 }
@@ -424,7 +619,7 @@ result(1);
 
 ## 实现发布订阅模式
 
-```js
+```javascript
 class EventEmitter {
   constructor() {
     this.events = {};
@@ -468,7 +663,7 @@ class EventEmitter {
 
 ### 🌰
 
-```js
+```javascript
 const eventEmitter = new EventEmitter();
 const handler = (...rest) => {
   console.log(rest);
@@ -500,8 +695,8 @@ eventEmitter.emit("scroll", "Hi Picker");
 ## 实现 Scheduler
 >
 > Scheduler 是一个带并发限制的异步调度器，保证同时运行的任务最多有n个，n 为可配置的
->
-### 题目描述
+
+## 题目描述
 
 ```yaml
 解释下完整的执行流程：一开始1、2两个任务开始执行；
@@ -511,7 +706,7 @@ eventEmitter.emit("scroll", "Hi Picker");
 1200ms时，4任务执行完毕，输出4。
 ```
 
-```js
+```javascript
 class Scheduler {
   constructor(limit) {
     this.queue = [];
@@ -552,9 +747,11 @@ class Scheduler {
 }
 ```
 
+<a name="edc2783b-11"></a>
+
 ### 🌰
 
-```js
+```javascript
 const scheduler = new Scheduler(2);
 
 const addTask = (time, value) => {
@@ -569,7 +766,7 @@ scheduler.taskStart();
 
 ## 模拟实现 setInterval
 
-```js
+```javascript
 function simulateSetInterval(callback, timeout) {
   let timer = null;
   function fn() {
@@ -585,7 +782,7 @@ function simulateSetInterval(callback, timeout) {
 
 ### 🌰
 
-```js
+```javascript
 const a = simulateSetInterval(() => {
   console.log("Hi Christine");
 }, 1000);
@@ -597,7 +794,7 @@ const b = simulateSetInterval(() => {
 
 ## 模拟实现 settimeout
 
-```js
+```javascript
 function simulateSetTimeout(callback, timeout) {
   const timer = setInterval(() => {
     clearInterval(timer);
@@ -608,7 +805,7 @@ function simulateSetTimeout(callback, timeout) {
 
 ### 🌰
 
-```js
+```javascript
 simulateSetTimeout(() => {
   console.log("Hi Christine");
 }, 1000);
@@ -616,7 +813,7 @@ simulateSetTimeout(() => {
 
 ## 实现Object.is
 
-```js
+```javascript
 Object.newIs = (x, y) => {
   // 当 x 和 y 都是 +0 和 -0 时，通过比较它们的倒数来判断它们是否相等。
   if (x === 0 && y === 0) {
@@ -635,7 +832,7 @@ Object.newIs = (x, y) => {
 
 ### 🌰
 
-```js
+```javascript
 console.log(Object.newIs(-0, +0)); // false
 console.log(Object.newIs(-0, 0)); // false
 console.log(Object.newIs(+0, 0)); // true
@@ -645,11 +842,165 @@ console.log(Object.newIs(5, 5)); // true
 
 ## 冒泡排序
 
+```javascript
+const arr = [3, 8, 2, 6, 4, 10, 1];
+function bubbleSort(arr) {
+  const { length } = arr;
+  let flag = true;
+  for (let i = 0; i < arr.length - 1; i++) {
+    for (let j = 0; j < length - 1 - i; j++) {
+      if (arr[j] > arr[j + 1]) {
+        [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+        flag = false;
+      }
+    }
+    if (flag) {
+      break;
+    }
+  }
+  return arr;
+}
+
+console.log(bubbleSort(arr));
+```
+
 ## 选择排序
+
+```javascript
+const arr = [3, 8, 2, 6, 4, 10, 1];
+function selectionSort(arr) {
+  const { length } = arr;
+  for (let i = 0; i < length - 1; i++) {
+    let minIndex = i;
+
+    for (let j = i + 1; j < length; j++) {
+      if (arr[j] < arr[minIndex]) {
+        // 寻找最小的数
+        minIndex = j; // 将最小数的索引保存
+      }
+    }
+    [arr[i], arr[minIndex]] = [arr[minIndex], arr[i]];
+  }
+
+  return arr;
+}
+
+// console.log(selectionSort(arr));
+
+// 选择排序的关键是循环遍历数组，每次找到当前范围的最小值，把它放在当前范围的头部；然后缩小排序范围，继续重复以上操作
+
+function test(arr) {
+  const { length } = arr;
+  // 定义 minIndex，缓存当前区间最小值的索引，注意是索引
+  let minIndex;
+  // i 是当前排序区间的起点
+  for (let i = 0; i < length - 1; i++) {
+    // 初始化 minIndex 为当前区间第一个元素
+    minIndex = i;
+    // i、j分别定义当前区间的上下界，i是左边界，j是右边界
+    for (let j = i; j < length; j++) {
+      if (arr[j] < arr[minIndex]) {
+        minIndex = j;
+      }
+    }
+
+    // 如果 minIndex 对应元素不是目前的头部元素，则交换两者
+    if (minIndex !== i) {
+      [arr[i], arr[minIndex]] = [arr[minIndex], arr[i]];
+    }
+  }
+
+  return arr;
+}
+
+console.log(test(arr));
+```
 
 ## 插入排序
 
+```javascript
+const arr = [3, 8, 2, 6, 4, 10, 1];
+
+function insertionSort(arr) {
+  const { length } = arr;
+  for (let i = 1; i < length; i++) {
+    let prevIndex = i - 1,
+      currArr = arr[i];
+
+    while (prevIndex >= 0 && arr[prevIndex] > currArr) {
+      arr[prevIndex + 1] = arr[prevIndex]; // 将元素移动到下一位
+      prevIndex--;
+    }
+
+    arr[prevIndex + 1] = currArr;
+  }
+
+  return arr;
+}
+
+console.log(insertionSort(arr));
+
+function insertSort(arr) {
+  const { length } = arr;
+
+  for (let i = 1; i < length; i++) {
+    let j = i;
+    // 缓存当前元素
+    let cur = arr[i];
+    // 判断 j 前一个元素是否比当前元素大
+    while (j > 0 && arr[j - 1] > cur) {
+      // 如果是，则将 j 前面的一个元素后移一位，为 cur 让出位置
+      arr[j] = arr[j - 1];
+      j--;
+    }
+    // 循环让位，最后得到的 j 就是 cur 的正确索引
+    arr[j] = cur;
+  }
+}
+
+```
+
 ## 快速排序
+
+```javascript
+const arr = [3, 8, 2, 6, 4, 10, 1];
+
+function quickSort(arr) {
+  function sort(arr, start, end) {
+    if (start >= end) {
+      return;
+    }
+    let base = arr[start];
+    let i = start,
+      j = end;
+    while (i < j) {
+      // 从右往左挪动 j 直到找到比 base 小的值停下来
+      while (i < j && arr[j] >= base) {
+        j--;
+      }
+
+      // 从左往右挪动 i 直到找到比 base 大的值停下来
+      while (i < j && arr[i] <= base) {
+        i++;
+      }
+
+      if (i < j) {
+        // 交换找到的符合条件的两个值
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+    }
+    // 如果 i 和 j 值相同，将与 base 交换位置
+    [arr[start], arr[i]] = [arr[i], arr[start]];
+    sort(arr, start, i - 1);
+    sort(arr, i + 1, end);
+  }
+  sort(arr, 0, arr.length - 1);
+  return arr;
+}
+
+console.log(quickSort(arr));
+
+```
 
 ## 归并排序
 
@@ -657,7 +1008,7 @@ console.log(Object.newIs(5, 5)); // true
 
 ## 列表转成树形结构
 
-```js
+```javascript
 function listToTree(list) {
   const map = {};
   const tree = [];
@@ -685,7 +1036,7 @@ function listToTree(list) {
 
 ### 🌰
 
-```js
+```javascript
 const list = [
   { id: 1, parent_id: null, label: "Node 1" },
   { id: 2, parent_id: 1, label: "Node 1.1" },
@@ -701,9 +1052,9 @@ listToTree(list)
 
 ## 树形结构转成列表
 
-### 题目描述
+## 题目描述
 
-```yaml
+```
 const tree = [
   {
     id: 1,
@@ -743,9 +1094,9 @@ const list = [
 ];
 ```
 
-### 代码实现
+## 代码实现
 
-```js
+```javascript
 递归
 function treeToList(tree) {
   const list = [];
@@ -792,7 +1143,7 @@ function treeToList(tree) {
 
 ### 🌰
 
-```js
+```javascript
 const tree = [
   {
     id: 1,
@@ -824,7 +1175,9 @@ console.log(treeToList(tree));
 
 ## 实现一个对象的 flatten 功能
 
-### 题目描述
+<a name="273a27cc-2"></a>
+
+## 题目描述
 
 ```yaml
 const obj = {
@@ -851,9 +1204,11 @@ const obj = {
 // }
 ```
 
-### 代码实现
+<a name="83175ad0-1"></a>
 
-```js
+## 代码实现
+
+```javascript
 function flatten(obj) {
   const res = {};
 
@@ -882,17 +1237,21 @@ function flatten(obj) {
 }
 ```
 
+<a name="edc2783b-17"></a>
+
 ### 🌰
 
-```js
+```javascript
 flatten(obj)
 ```
+
+<a name="l8gYo"></a>
 
 ## 实现版本号排序
 >
 > 有一组版本号如下['0.1.1', '2.3.3', '0.302.1', '4.2', '4.3.5', '4.3.4.5']。现在需要对其进行排序，排序的结果为 ['4.3.5','4.3.4.5','2.3.3','0.302.1','0.1.1']
 
-```js
+```javascript
 const versions = ["0.1.1", "2.3.3", "0.302.1", "4.2", "4.3.5", "4.3.4.5"];
 
 versions.sort((version1, version2) => {
@@ -912,9 +1271,13 @@ versions.sort((version1, version2) => {
 });
 ```
 
+<a name="uwCPW"></a>
+
 ## 实现虚拟 dom 转换为真实 dom
 
-### 题目描述
+<a name="273a27cc-3"></a>
+
+## 题目描述
 
 ```yaml
 const virtualDom = {
@@ -957,7 +1320,7 @@ const virtualDom = {
 </div>
 ```
 
-```js
+```javascript
 function virtualDomTransformRealDom(virtualDom) {
   // 文本节点
   if (typeof virtualDom === "string") {
@@ -983,9 +1346,11 @@ function virtualDomTransformRealDom(virtualDom) {
 }
 ```
 
+<a name="edc2783b-18"></a>
+
 ### 🌰
 
-```js
+```javascript
 const virtualDom = {
   tag: "DIV",
   attrs: {
@@ -1022,9 +1387,11 @@ console.log("realDom: ", realDom);
 document.body.appendChild(realDom);
 ```
 
+<a name="KOfhw"></a>
+
 ## 实现模板字符串解析功能
 
-```js
+```javascript
 function parseTemplate(template, data) {
   // const regex = /{{(.*?)}}/g;
   const regex = /\{\{(\w+)\}\}/g;
@@ -1037,13 +1404,123 @@ function parseTemplate(template, data) {
 }
 ```
 
-### 🌰
+<a name="cZhtN"></a>
 
-```js
+#### 🌰
+
+```javascript
 const template = "我是{{name}}，年龄{{age}}，性别{{sex}}";
 const data = {
   name: "Christine",
   age: 18,
 };
 console.log(parseTemplate(template, data)); // 我是Christine，年龄18，性别undefined
+```
+
+<a name="SfOz6"></a>
+
+## 实现 Query 链式调用
+
+**核心在于返回 this 才能支持链式调用**
+
+```javascript
+class Query {
+  constructor(data) {
+    this.data = data;
+    this.collection = [];
+  }
+
+  where(callBack) {
+    this.collection = this.data.filter(callBack);
+    return this;
+  }
+
+  sortBy(callBack) {
+    this.collection.sort(callBack);
+    return this;
+  }
+
+  groupBy(key) {
+    const map = {};
+    for (let i = 0; i < this.collection.length; i++) {
+      const item = this.collection[i];
+      const value = map[item[key]] ? map[item[key]] : [];
+      value.push(item);
+      map[item[key]] = value;
+    }
+    this.collection = map;
+    return this;
+  }
+
+  execute() {
+    return this.collection;
+  }
+}
+```
+
+<a name="VoAOI"></a>
+
+#### 🌰
+
+```javascript
+// 示例数据
+const data = [
+  { id: 1, name: "Alice", age: 25 },
+  { id: 2, name: "Bob", age: 30 },
+  { id: 3, name: "Charlie", age: 20 },
+  { id: 4, name: "David", age: 25 },
+  { id: 5, name: "Eve", age: 30 },
+];
+
+// 示例代码
+const result = new Query(data)
+  .where((item) => item.age > 20)
+  .sortBy((a, b) => a.age - b.age)
+  .groupBy("age")
+  .execute();
+```
+
+<a name="IOgWf"></a>
+
+## 实现数组去重（要求最佳时间复杂度）
+
+```javascript
+function test(arr) {
+  const map = new Map();
+  for (let i = arr.length - 1; i >= 0; i--) {
+    if (map.has(arr[i])) {
+      arr.splice(i, 1);
+    } else {
+      map.set(arr[i], true);
+    }
+  }
+  return arr;
+}
+
+console.log(test([1, 7, 2, 5, 3, 2, 7, 5, 6, 8]));
+```
+
+<a name="McHHy"></a>
+
+## 实现获取数组第二大的数（要求时间复杂度 O(n)）
+
+```javascript
+function getSecondValue(arr) {
+  if (arr.length < 2) {
+    return null;
+  }
+  let max = arr[0];
+  let second = arr[0];
+  for (let i = 1; i < arr.length; i++) {
+    if (arr[i] > max) {
+      second = max;
+      max = arr[i];
+    } else if (arr[i] > second) {
+      second = arr[i];
+    }
+  }
+  return second;
+}
+
+console.log(getSecondValue([1, 2, 4, 6, 5, 7]));
 ```

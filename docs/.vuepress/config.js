@@ -59,7 +59,7 @@ module.exports = {
         "handWrite",
       ],
       "/books/": ["", "FactoryPattern"],
-      "/react/": ["", "hooks", "advance"],
+      "/react/": ["", "hooks", "advance", "reactInterview"],
       "/typescript/": [
         "",
         "base",
