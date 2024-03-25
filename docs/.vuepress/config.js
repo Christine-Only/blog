@@ -54,6 +54,7 @@ module.exports = {
         "browser",
         "safetyProtection",
         "webpack",
+        "webOptimize",
         "http",
         "url",
         "handWrite",
