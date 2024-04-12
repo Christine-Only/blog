@@ -295,7 +295,7 @@ arr.add({age: 18})
 console.log(arr.size) // 5
 ```
 
-![alt](/blog/set.jpg)
+![alt](/set.jpg)
 
 * Set 实例属性
   * constructor： 构造函数，返回Set
@@ -404,7 +404,7 @@ WeakSet 与 Set 的区别：
   console.log(weakSet)
   ```
 
-  ![alt](/blog/weakSet.jpg)
+  ![alt](/weakSet.jpg)
 
 方法：
 
@@ -490,7 +490,7 @@ map.set(NaN, NaN);
 map.get(NaN) // NaN
 ```
 
-![alt](/blog/Map.jpg)
+![alt](/Map.jpg)
 
 * Map 实例属性
   * constructor：构造函数，返回Map对象
@@ -537,7 +537,7 @@ Map 结构的默认遍历器接口（`Symbol.iterator`属性），就是`entries
 map[Symbol.iterator] === map.entries // true
 ```
 
-![alt](/blog/map2.jpg)
+![alt](/map2.jpg)
 Map结构转为数据结构，比较快速的方法是
 `Array.from` 和 `...`。
 
@@ -585,7 +585,7 @@ wm.set(obj, "foo").set(window, "bar");
 wm.set(obj, "baz");
 ```
 
-![alt](/blog/weakMap.jpg)
+![alt](/weakMap.jpg)
 
 ### 总结
 

@@ -212,7 +212,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
 <span class="token punctuation">}</span>
 console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>打印结果如下：
-<img src="/blog/promise.jpg" alt="alt"></p>
+<img src="/promise.jpg" alt="alt"></p>
 <p><code v-pre>async</code>就是将函数的返回值使用 <code v-pre>Promise.resolve()</code> 包裹了一下，和 <code v-pre>then</code> 中处理返回值一样，并且 <code v-pre>await</code> 只能配套 <code v-pre>async</code>使用</p>
 <div class="language-javascript line-numbers-mode" data-ext="js" data-title="js"><pre v-pre class="language-javascript"><code><span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token keyword">const</span> value <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token number">3</span> <span class="token comment">// await 后面跟的不是 Promise 的话，就会包装成 Promise.resolve(返回值)</span>

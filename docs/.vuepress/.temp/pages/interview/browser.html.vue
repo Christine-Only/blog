@@ -53,7 +53,7 @@ document<span class="token punctuation">.</span><span class="token function">get
 <h4 id="什么是同源策略及其限制内容" tabindex="-1"><a class="header-anchor" href="#什么是同源策略及其限制内容"><span>什么是同源策略及其限制内容？</span></a></h4>
 <p>同源策略是一种约定，它是浏览器最核心也最基本的安全功能，如果缺少了同源策略，浏览器很容易受到XSS、CSRF等攻击。所谓同源是指&quot;协议+域名+端口&quot;三者相同，即便两个不同的域名指向同一个ip地址，也非同源。</p>
 <p>域名的组成部分：
-<img src="/blog/域名组成部分.jpg" alt="alt"></p>
+<img src="/域名组成部分.jpg" alt="alt"></p>
 <p>同源策略限制内容有：</p>
 <ul>
 <li>Cookie、LocalStorage、IndexedDB 等存储性内容</li>
@@ -293,7 +293,7 @@ app<span class="token punctuation">.</span><span class="token function">listen</
 <h3 id="memory-cache" tabindex="-1"><a class="header-anchor" href="#memory-cache"><span>Memory Cache</span></a></h3>
 <p><code v-pre>Memory Cache</code> 也就是内存中的缓存，读取内存中的数据肯定比磁盘快。<strong>但是内存缓存虽然读取高效，可是缓存持续性很短，会随着进程的释放而释放</strong>。 一旦我们关闭 Tab 页面，内存中的缓存也就被释放了。</p>
 <p>当我们访问过页面以后，再次刷新页面，可以发现很多数据都来自于内存缓存
-<img src="/blog/memoryCache.jpg" alt="alt"></p>
+<img src="/memoryCache.jpg" alt="alt"></p>
 <p>那么既然内存缓存这么高效，我们是不是能让数据都存放在内存中呢？</p>
 <p>先说结论，这是<strong>不可能</strong>的。首先计算机中的内存一定比硬盘容量小得多，操作系统需要精打细算内存的使用，所以能让我们使用的内存必然不多。内存中其实可以存储大部分的文件，比如说 JSS、HTML、CSS、图片等等。</p>
 <p>当然，我通过一些实践和猜测也得出了一些结论：</p>
@@ -326,7 +326,7 @@ Last<span class="token operator">-</span>Modified<span class="token operator">:<
 <div class="language-http line-numbers-mode" data-ext="http" data-title="http"><pre v-pre class="language-http"><code><span class="token header"><span class="token header-name keyword">Cache-control</span><span class="token punctuation">:</span> <span class="token header-value">max-age=30</span></span>
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div></div></div><p><code v-pre>Cache-Control</code> 出现于 <code v-pre>HTTP/1.1</code>，<strong>优先级高于</strong> <code v-pre>Expires</code> 。该属性值表示资源会在 30 秒后过期，需要再次请求。</p>
 <p>我们可以将多个指令配合起来一起使用，达到多个目的。比如说我们希望资源能被缓存下来，并且是客户端和代理服务器都能缓存，还能设置缓存失效时间等等。</p>
-<p><img src="/blog/强缓存.png" alt="alt"></p>
+<p><img src="/强缓存.png" alt="alt"></p>
 <h3 id="协商缓存" tabindex="-1"><a class="header-anchor" href="#协商缓存"><span>协商缓存</span></a></h3>
 <p>如果缓存过期了，就需要发起请求验证资源是否有更新。协商缓存可以通过设置 <strong>HTTP Request Headers</strong> 的 <code v-pre>If-Modified-Since: Last-Modified的值</code> 和 <code v-pre>If-None-Match: Etag的值</code> 来实现。<code v-pre>Last-Modified</code> 和 <code v-pre>Etag</code> 是服务器响应头添加的缓存指令。</p>
 <p>所谓带缓存的请求，无非就是加入以下请求头：</p>
@@ -361,7 +361,7 @@ If<span class="token operator">-</span>None<span class="token operator">-</span>
 <p>一般来说，现在都会使用工具来打包代码，那么我们就可以对文件名进行哈希处理，只有当代码修改后才会生成新的文件名。基于此，我们就可以给代码文件设置缓存有效期一年 <code v-pre>Cache-Control: max-age=31536000</code>，这样只有当 HTML 文件中引入的文件名发生了改变才会去下载最新的代码文件，否则就一直使用缓存。</p>
 <h2 id="浏览器渲染原理" tabindex="-1"><a class="header-anchor" href="#浏览器渲染原理"><span>浏览器渲染原理</span></a></h2>
 <h3 id="浏览器的渲染过程" tabindex="-1"><a class="header-anchor" href="#浏览器的渲染过程"><span>浏览器的渲染过程</span></a></h3>
-<p><img src="/blog/render.webp" alt="alt"></p>
+<p><img src="/render.webp" alt="alt"></p>
 <p>从上面这个图上，我们可以看到，浏览器渲染过程如下：</p>
 <ol>
 <li>
@@ -381,7 +381,7 @@ If<span class="token operator">-</span>None<span class="token operator">-</span>
 </li>
 </ol>
 <h3 id="生成渲染树" tabindex="-1"><a class="header-anchor" href="#生成渲染树"><span>生成渲染树</span></a></h3>
-<p><img src="/blog/renderDOM.webp" alt="alt"></p>
+<p><img src="/renderDOM.webp" alt="alt"></p>
 <p>为了构建渲染树，浏览器主要完成了以下工作：</p>
 <ol>
 <li>从DOM树的根节点开始，遍历每个可见节点。</li>

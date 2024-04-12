@@ -2,7 +2,7 @@
 <h2 id="新旧生命周期对比" tabindex="-1"><a class="header-anchor" href="#新旧生命周期对比"><span>新旧生命周期对比</span></a></h2>
 <p>React从v16.3的版本开始， 对生命周期的钩子进行了渐进式的调整，分别废弃和新增了一些生命周期的钩子函数。</p>
 <h3 id="旧生命周期" tabindex="-1"><a class="header-anchor" href="#旧生命周期"><span>旧生命周期</span></a></h3>
-<p><img src="/blog/oldLifeCycle.png" alt="alt"></p>
+<p><img src="/oldLifeCycle.png" alt="alt"></p>
 <p>挂载</p>
 <ul>
 <li>constructor：组件挂载之前被调用，可以初始化state，为事件处理函数 绑定实例</li>
@@ -60,7 +60,7 @@
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="新生命周期" tabindex="-1"><a class="header-anchor" href="#新生命周期"><span>新生命周期</span></a></h3>
-<p><img src="/blog/newLifeCycle.png" alt="alt"></p>
+<p><img src="/newLifeCycle.png" alt="alt"></p>
 <p>挂载</p>
 <ul>
 <li>constructor：组件挂载之前被调用，可以初始化state，为事件处理函数 绑定实例</li>

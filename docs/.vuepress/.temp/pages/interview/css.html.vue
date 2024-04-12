@@ -89,8 +89,8 @@
 <ul>
 <li>因为父容器的宽度小于子容器总和的宽度，所以 left 和 right 容器将缩小以适应其弹性容器中可用的空间，left 收缩的比例为<code v-pre>flex-shrink的比例 * flex-basis的比例 = 2/3 * 3/5</code>，right 收缩的比例为<code v-pre>flex-shrink的比例 * flex-basis的比例 = 1/3 * 2/5</code>，即 left 收缩(父容器宽度 - 子容器总宽度差值的)3/4，right 收缩(父容器宽度 - 子容器总宽度差值的)1/4</li>
 </ul>
-<p><img src="/blog/flex1.jpg" alt="alt">
-<img src="/blog/flex2.jpg" alt="alt"></p>
+<p><img src="/flex1.jpg" alt="alt">
+<img src="/flex2.jpg" alt="alt"></p>
 <p>栗子：</p>
 <div class="language-html line-numbers-mode" data-ext="html" data-title="html"><pre v-pre class="language-html"><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>style</span><span class="token punctuation">></span></span><span class="token style"><span class="token language-css">
   <span class="token selector">.container</span> <span class="token punctuation">{</span>
@@ -114,8 +114,8 @@
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>left<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>right<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
-</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p><img src="/blog/flex3.jpg" alt="alt">
-<img src="/blog/flex4.jpg" alt="alt"></p>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p><img src="/flex3.jpg" alt="alt">
+<img src="/flex4.jpg" alt="alt"></p>
 </div></template>
 
 

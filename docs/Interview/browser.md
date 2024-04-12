@@ -74,7 +74,7 @@ document.getElementById("sun").addEventListener("click", function (e) {
 同源策略是一种约定，它是浏览器最核心也最基本的安全功能，如果缺少了同源策略，浏览器很容易受到XSS、CSRF等攻击。所谓同源是指"协议+域名+端口"三者相同，即便两个不同的域名指向同一个ip地址，也非同源。
 
 域名的组成部分：
-![alt](/blog/域名组成部分.jpg)
+![alt](/域名组成部分.jpg)
 
 同源策略限制内容有：
 
@@ -341,7 +341,7 @@ otherWindow.postMessage(message, targetOrigin, [transfer]);
 `Memory Cache` 也就是内存中的缓存，读取内存中的数据肯定比磁盘快。**但是内存缓存虽然读取高效，可是缓存持续性很短，会随着进程的释放而释放**。 一旦我们关闭 Tab 页面，内存中的缓存也就被释放了。
 
 当我们访问过页面以后，再次刷新页面，可以发现很多数据都来自于内存缓存
-![alt](/blog/memoryCache.jpg)
+![alt](/memoryCache.jpg)
 
 那么既然内存缓存这么高效，我们是不是能让数据都存放在内存中呢？
 
@@ -404,7 +404,7 @@ Cache-control: max-age=30
 
 我们可以将多个指令配合起来一起使用，达到多个目的。比如说我们希望资源能被缓存下来，并且是客户端和代理服务器都能缓存，还能设置缓存失效时间等等。
 
-![alt](/blog/强缓存.png)
+![alt](/强缓存.png)
 
 ### 协商缓存
 
@@ -465,7 +465,7 @@ If-None-Match: W/"121-171ca289ebf"  亲，你曾经告诉我，这个资源的�
 
 ### 浏览器的渲染过程
 
-![alt](/blog/render.webp)
+![alt](/render.webp)
 
 从上面这个图上，我们可以看到，浏览器渲染过程如下：
 
@@ -481,7 +481,7 @@ If-None-Match: W/"121-171ca289ebf"  亲，你曾经告诉我，这个资源的�
 
 ### 生成渲染树
 
-![alt](/blog/renderDOM.webp)
+![alt](/renderDOM.webp)
 
 为了构建渲染树，浏览器主要完成了以下工作：
 

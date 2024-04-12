@@ -26,7 +26,7 @@
   <span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="设置source-map后在chrome中仍无法显示webpack-的问题" tabindex="-1"><a class="header-anchor" href="#设置source-map后在chrome中仍无法显示webpack-的问题"><span>设置source-map后在chrome中仍无法显示webpack://的问题</span></a></h2>
 <p>需要勾选下图圈起来的选项</p>
-<p><img src="/blog/sourceMap.jpg" alt="alt"></p>
+<p><img src="/sourceMap.jpg" alt="alt"></p>
 <h2 id="控制台警告" tabindex="-1"><a class="header-anchor" href="#控制台警告"><span>控制台警告</span></a></h2>
 <div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre v-pre class="language-text"><code>Warning: Can't perform a React state update on an unmounted component. This is a no-op, but it indicates a memory leak in your application. To fix, cancel all subscriptions and asynchronous tasks in a useEffect cleanup function.
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div></div></div><p>项目中的写法类似下面这样</p>

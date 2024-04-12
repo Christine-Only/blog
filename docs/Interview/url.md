@@ -108,13 +108,13 @@ DNS 协议提供通过域名查找 IP 地址，或逆向从 IP 地址反查域�
 - ISP 的 DNS 服务器：ISP 是互联网服务提供商(Internet Service Provider)的简称，ISP 有专门的 DNS 服务器应对 DNS 查询请求。
 - 根服务器：ISP 的 DNS 服务器还找不到的话，它就会向根服务器发出请求，进行递归查询（DNS 服务器先问根域名服务器.com 域名服务器的 IP 地址，然后再问.baidu 域名服务器，依次类推）
 
-![alt](/blog/dns.png)
+![alt](/dns.png)
 
 ::: tip 总结
 浏览器通过向 DNS 服务器发送域名，DNS 服务器查询到与域名相对应的 IP 地址，然后返回给浏览器，浏览器再将 IP 地址打在协议上，同时请求参数也会在协议搭载，然后一并发送给对应的服务器。接下来介绍向服务器发送 HTTP 请求阶段，HTTP 请求分为三个部分：TCP 三次握手、http 请求响应信息、关闭 TCP 连接。
 :::
 
-![alt](/blog/dns1.png)
+![alt](/dns1.png)
 
 ## TCP 三次握手
 
@@ -138,7 +138,7 @@ DNS 协议提供通过域名查找 IP 地址，或逆向从 IP 地址反查域�
 
 发送第一个SYN的一端将执行主动打开（active open），接收这个SYN并发回下一个SYN的另一端执行被动打开（passive open）。
 
-![alt](/blog/三次握手.jpg)
+![alt](/三次握手.jpg)
 
 **标识符：**
 
@@ -183,7 +183,7 @@ netstat -n -p TCP | grep SYN_RECV
 
 请求报文由请求行（request line）、请求头（header）、请求体三个部分组成,如下图所示：
 
-![alt](/blog/http.png)
+![alt](/http.png)
 
 - 请求行包含请求方法、URL、协议版本
 
@@ -216,14 +216,14 @@ netstat -n -p TCP | grep SYN_RECV
 服务器是网络环境中的高性能计算机，它侦听网络上的其他计算机（客户机）提交的服务请求，并提供相应的服务，比如网页服务、文件下载服务、邮件服务、视频服务。而客户端主要的功能是浏览网页、看视频、听音乐等等，两者截然不同。 每台服务器上都会安装处理请求的应用——web server。常见的 web server 产品有 apache、nginx、IIS 或 Lighttpd 等。
 web server 担任管控的角色，对于不同用户发送的请求，会结合配置文件，把不同请求委托给服务器上处理相应请求的程序进行处理（例如 CGI 脚本，JSP 脚本，servlets，ASP 脚本，服务器端 JavaScript，或者一些其它的服务器端技术等），然后返回后台程序处理产生的结果作为响应。
 
-![alt](/blog/http1.png)
+![alt](/http1.png)
 
 ### MVC 后台处理阶段
 
 台开发现在有很多框架，但大部分都还是按照 MVC 设计模式进行搭建的。
 MVC 是一个设计模式，将应用程序分成三个核心部件：模型（model）-- 视图（view）--控制器（controller），它们各自处理自己的任务，实现输入、处理和输出的分离。
 
-![alt](/blog/mvc.png)
+![alt](/mvc.png)
 
 - 视图（view）
 
@@ -245,7 +245,7 @@ MVC 是一个设计模式，将应用程序分成三个核心部件：模型（m
 
 响应报文由响应行（request line）、响应头部（header）、响应主体三个部分组成。如下图所示：
 
-![alt](/blog/http2.png)
+![alt](/http2.png)
 
 - 响应行包含：协议版本，状态码，状态码描述
 
@@ -265,7 +265,7 @@ MVC 是一个设计模式，将应用程序分成三个核心部件：模型（m
 
 浏览器拿到响应文本 HTML 后，接下来介绍下浏览器渲染机制
 
-![alt](/blog/render.webp)
+![alt](/render.webp)
 
 浏览器解析渲染页面分为一下五个步骤：
 
@@ -331,7 +331,7 @@ TCP 的连接的拆除需要发送四个包，因此称为四次挥手(Four-way 
 
 在socket编程中，任何一方执行close()操作即可产生挥手操作。
 
-![alt](/blog/四次挥手.jpg)
+![alt](/四次挥手.jpg)
 
 **TCP 为什么是四次挥手，而不是三次？**
 
@@ -342,6 +342,6 @@ TCP 的连接的拆除需要发送四个包，因此称为四次挥手(Four-way 
 
 参考链接：
 
-- [从URL输入到页面展现到底发生什么？](https://github.com/ljianshu/Blog/issues/24)
-- [从输入页面地址到展示页面信息都发生了些什么？](https://github.com/kaola-fed/blog/issues/271)
+- [从URL输入到页面展现到底发生什么？](https://github.com/ljianshu/issues/24)
+- [从输入页面地址到展示页面信息都发生了些什么？](https://github.com/kaola-fed/issues/271)
 - [面试官，不要再问我三次握手和四次挥手](https://zhuanlan.zhihu.com/p/86426969)

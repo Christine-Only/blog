@@ -306,7 +306,7 @@ console.log(p.name) // undefined
 Object.create(null) 会造成创建的对象其 `__proto__` 指向为空
 :::
 
-![alt](/blog/create.jpg)
+![alt](/create.jpg)
 
 ### 实现instanceof
 

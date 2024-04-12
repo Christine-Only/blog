@@ -34,7 +34,7 @@ git push origin master or git push
 <div class="language-git line-numbers-mode" data-ext="git" data-title="git"><pre v-pre class="language-git"><code>git push --delete | -d origin master
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div></div></div><h2 id="git-clone" tabindex="-1"><a class="header-anchor" href="#git-clone"><span>git clone</span></a></h2>
 <div class="language-bash line-numbers-mode" data-ext="sh" data-title="sh"><pre v-pre class="language-bash"><code><span class="token function">git</span> clone https://codeup.aliyun.com/xxx/xxx.git/
-</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div></div></div><p><img src="/blog/git403.jpg" alt="alt git报403">
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div></div></div><p><img src="/git403.jpg" alt="alt git报403">
 <strong>错误原因</strong>：
 git 客户端缓存了错误的密码，账号密码和本地存储的混淆。一般是多个git账号会导致这样的情况，比如自己的账号和公司的账号同时一起使用。</p>
 <p><strong>解决方案</strong>：

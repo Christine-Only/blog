@@ -214,7 +214,7 @@ cookieStore<span class="token punctuation">.</span><span class="token function">
 <p><code v-pre>Event</code> 接口的只读属性 <code v-pre>currentTarget</code> 表示的，标识是当事件沿着 DOM 触发时事件的当前目标。它总是指向事件绑定的元素，而 <code v-pre>Event.target</code> 则是事件触发的元素。</p>
 <h2 id="异步加载-js-脚本时-async-与-defer-有何区别" tabindex="-1"><a class="header-anchor" href="#异步加载-js-脚本时-async-与-defer-有何区别"><span>异步加载 JS 脚本时，async 与 defer 有何区别</span></a></h2>
 <p>如果没有 <code v-pre>defer</code> 或 <code v-pre>async</code> 属性，浏览器会立即加载并执行相应的脚本。它不会等待后续加载的文档元素，读取到就会开始加载和执行，这样就阻塞了后续文档的加载。</p>
-<p><img src="/blog/deferandasync.jpg" alt="alt"></p>
+<p><img src="/deferandasync.jpg" alt="alt"></p>
 <p>在正常情况下，即 <code v-pre>&lt;script&gt;</code> 没有任何额外属性标记的情况下，有几点共识</p>
 <ol>
 <li>JS 的脚本分为<code v-pre>加载</code>、<code v-pre>解析</code>、<code v-pre>执行</code>几个步骤，简单对应到图中就是 fetch (加载) 和 execution (解析并执行)</li>

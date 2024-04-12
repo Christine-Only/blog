@@ -979,7 +979,7 @@ console.log(son2.colors) // ["red","blue","green"]
 * 只能继承父类的实例属性和方法，不能继承原型属性/方法
 * 无法实现复用，每个子类都有父类实例函数的副本，影响性能
 
-![alt](/blog/extends2.jpg)
+![alt](/extends2.jpg)
 
 ### 组合继承
 
@@ -1016,7 +1016,7 @@ console.log(bwm instanceof BWM) // true
 以上继承的方式核心是在子类的构造函数中通过 `Car.call(this, color, money)` 继承父类的实例属性和方法，然后改变子类的原型为 `new Car()` 来继承父类的原型属性和方法。
 
 这种继承方式优点在于构造函数可以传参，不会与父类引用属性共享，可以复用父类的函数，但是也存在一个缺点就是在继承父类原型属性和方法时调用了父类构造函数，导致子类的原型上多了不需要的父类属性，存在内存上的浪费。
-![alt](/blog/extends3.jpg)
+![alt](/extends3.jpg)
 
 ### 寄生组合继承
 
@@ -1047,7 +1047,7 @@ bwm2.speed() // "black 150km/h"
 ```
 
 以上继承实现的核心就是将父类的原型赋值给了子类，并且将构造函数设置为子类，这样既解决了无用的父类属性问题，还能正确的找到子类的构造函数。
-![alt](/blog/extends4.jpg)
+![alt](/extends4.jpg)
 
 ### Class 继承
 
@@ -1125,7 +1125,7 @@ class Child extends User {
 const child = new Child('Christine')
 ```
 
-![alt](/blog/class.jpg)
+![alt](/class.jpg)
 所以需要在使用 `this` 之前，调用一下 `super`。
 
 ```js

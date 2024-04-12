@@ -869,7 +869,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
 <li>只能继承父类的实例属性和方法，不能继承原型属性/方法</li>
 <li>无法实现复用，每个子类都有父类实例函数的副本，影响性能</li>
 </ul>
-<p><img src="/blog/extends2.jpg" alt="alt"></p>
+<p><img src="/extends2.jpg" alt="alt"></p>
 <h3 id="组合继承" tabindex="-1"><a class="header-anchor" href="#组合继承"><span>组合继承</span></a></h3>
 <p>组合上述两种方法就是组合继承。用原型链实现对原型属性和方法的继承，用借用构造函数技术来实现实例成员的继承。</p>
 <div class="language-javascript line-numbers-mode" data-ext="js" data-title="js"><pre v-pre class="language-javascript"><code><span class="token keyword">function</span> <span class="token function">Car</span><span class="token punctuation">(</span><span class="token parameter">color<span class="token punctuation">,</span> money</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
@@ -899,7 +899,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
 console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>bwm <span class="token keyword">instanceof</span> <span class="token class-name">BWM</span><span class="token punctuation">)</span> <span class="token comment">// true</span>
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>以上继承的方式核心是在子类的构造函数中通过 <code v-pre>Car.call(this, color, money)</code> 继承父类的实例属性和方法，然后改变子类的原型为 <code v-pre>new Car()</code> 来继承父类的原型属性和方法。</p>
 <p>这种继承方式优点在于构造函数可以传参，不会与父类引用属性共享，可以复用父类的函数，但是也存在一个缺点就是在继承父类原型属性和方法时调用了父类构造函数，导致子类的原型上多了不需要的父类属性，存在内存上的浪费。
-<img src="/blog/extends3.jpg" alt="alt"></p>
+<img src="/extends3.jpg" alt="alt"></p>
 <h3 id="寄生组合继承" tabindex="-1"><a class="header-anchor" href="#寄生组合继承"><span>寄生组合继承</span></a></h3>
 <p>这种继承方式对组合继承进行了优化，组合继承缺点在于继承父类原型属性和方法时调用了父类构造函数，我们只需要优化掉这点就行了。</p>
 <div class="language-javascript line-numbers-mode" data-ext="js" data-title="js"><pre v-pre class="language-javascript"><code><span class="token keyword">function</span> <span class="token function">Car</span><span class="token punctuation">(</span><span class="token parameter">color<span class="token punctuation">,</span> money</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
@@ -924,7 +924,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
 bwm1<span class="token punctuation">.</span><span class="token function">speed</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment">// "blue 150km/h"</span>
 bwm2<span class="token punctuation">.</span><span class="token function">speed</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment">// "black 150km/h"</span>
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>以上继承实现的核心就是将父类的原型赋值给了子类，并且将构造函数设置为子类，这样既解决了无用的父类属性问题，还能正确的找到子类的构造函数。
-<img src="/blog/extends4.jpg" alt="alt"></p>
+<img src="/extends4.jpg" alt="alt"></p>
 <h3 id="class-继承" tabindex="-1"><a class="header-anchor" href="#class-继承"><span>Class 继承</span></a></h3>
 <p>以上两种继承方式都是通过原型去解决的，在 ES6 中，我们可以使用 <code v-pre>class</code> 去实现继承，并且实现起来很简单。</p>
 <div class="language-javascript line-numbers-mode" data-ext="js" data-title="js"><pre v-pre class="language-javascript"><code><span class="token keyword">class</span> <span class="token class-name">Car</span> <span class="token punctuation">{</span>
@@ -988,7 +988,7 @@ User<span class="token punctuation">.</span><span class="token function">print</
 
 <span class="token comment">// 当子类调用了构造函数，却没有在内部使用super，新建实例会报错</span>
 <span class="token keyword">const</span> child <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Child</span><span class="token punctuation">(</span><span class="token string">'Christine'</span><span class="token punctuation">)</span>
-</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p><img src="/blog/class.jpg" alt="alt">
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p><img src="/class.jpg" alt="alt">
 所以需要在使用 <code v-pre>this</code> 之前，调用一下 <code v-pre>super</code>。</p>
 <div class="language-javascript line-numbers-mode" data-ext="js" data-title="js"><pre v-pre class="language-javascript"><code><span class="token keyword">class</span> <span class="token class-name">Child</span> <span class="token keyword">extends</span> <span class="token class-name">User</span> <span class="token punctuation">{</span>
   <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token parameter">name<span class="token punctuation">,</span> age</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>

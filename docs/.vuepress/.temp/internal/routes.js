@@ -8,8 +8,22 @@ export const routes = Object.fromEntries([
   ["/advance/umi.html", { loader: () => import(/* webpackChunkName: "umi.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/advance/umi.html.js"), meta: {"title":"首屏加载优化"} }],
   ["/automate/", { loader: () => import(/* webpackChunkName: "index.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/automate/index.html.js"), meta: {"title":"前端自动化部署"} }],
   ["/automate/nginx.html", { loader: () => import(/* webpackChunkName: "nginx.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/automate/nginx.html.js"), meta: {"title":"Nginx部署"} }],
+  ["/git/", { loader: () => import(/* webpackChunkName: "index.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/git/index.html.js"), meta: {"title":"Git"} }],
   ["/books/FactoryPattern.html", { loader: () => import(/* webpackChunkName: "FactoryPattern.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/books/FactoryPattern.html.js"), meta: {"title":"工厂模式"} }],
   ["/books/", { loader: () => import(/* webpackChunkName: "index.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/books/index.html.js"), meta: {"title":"JavaScript设计模式"} }],
+  ["/other/", { loader: () => import(/* webpackChunkName: "index.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/other/index.html.js"), meta: {"title":"umi常见问题"} }],
+  ["/other/antd.html", { loader: () => import(/* webpackChunkName: "antd.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/other/antd.html.js"), meta: {"title":"antd常见问题"} }],
+  ["/other/css.html", { loader: () => import(/* webpackChunkName: "css.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/other/css.html.js"), meta: {"title":"css常见问题"} }],
+  ["/other/nginx.html", { loader: () => import(/* webpackChunkName: "nginx.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/other/nginx.html.js"), meta: {"title":"Nginx常见问题"} }],
+  ["/other/react.html", { loader: () => import(/* webpackChunkName: "react.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/other/react.html.js"), meta: {"title":"React常见问题"} }],
+  ["/other/stylelint.html", { loader: () => import(/* webpackChunkName: "stylelint.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/other/stylelint.html.js"), meta: {"title":"stylelint常见问题"} }],
+  ["/other/vite.html", { loader: () => import(/* webpackChunkName: "vite.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/other/vite.html.js"), meta: {"title":"vite常见问题"} }],
+  ["/other/vscode.html", { loader: () => import(/* webpackChunkName: "vscode.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/other/vscode.html.js"), meta: {"title":"vscode常见问题"} }],
+  ["/react/", { loader: () => import(/* webpackChunkName: "index.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/react/index.html.js"), meta: {"title":"React 基础"} }],
+  ["/react/RN.html", { loader: () => import(/* webpackChunkName: "RN.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/react/RN.html.js"), meta: {"title":"RN"} }],
+  ["/react/advance.html", { loader: () => import(/* webpackChunkName: "advance.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/react/advance.html.js"), meta: {"title":"React 进阶"} }],
+  ["/react/hooks.html", { loader: () => import(/* webpackChunkName: "hooks.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/react/hooks.html.js"), meta: {"title":"React hooks"} }],
+  ["/react/reactInterview.html", { loader: () => import(/* webpackChunkName: "reactInterview.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/react/reactInterview.html.js"), meta: {"title":"React 面试题"} }],
   ["/interview/", { loader: () => import(/* webpackChunkName: "index.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/interview/index.html.js"), meta: {"title":"JS基础知识点"} }],
   ["/interview/advance.html", { loader: () => import(/* webpackChunkName: "advance.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/interview/advance.html.js"), meta: {"title":"JS进阶知识点"} }],
   ["/interview/browser.html", { loader: () => import(/* webpackChunkName: "browser.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/interview/browser.html.js"), meta: {"title":"浏览器相关知识点"} }],
@@ -24,20 +38,6 @@ export const routes = Object.fromEntries([
   ["/interview/url.html", { loader: () => import(/* webpackChunkName: "url.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/interview/url.html.js"), meta: {"title":"输入 URL 到页面展示，这中间发生了什么"} }],
   ["/interview/webOptimize.html", { loader: () => import(/* webpackChunkName: "webOptimize.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/interview/webOptimize.html.js"), meta: {"title":"性能优化"} }],
   ["/interview/webpack.html", { loader: () => import(/* webpackChunkName: "webpack.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/interview/webpack.html.js"), meta: {"title":"Webpack"} }],
-  ["/other/", { loader: () => import(/* webpackChunkName: "index.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/other/index.html.js"), meta: {"title":"umi常见问题"} }],
-  ["/other/antd.html", { loader: () => import(/* webpackChunkName: "antd.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/other/antd.html.js"), meta: {"title":"antd常见问题"} }],
-  ["/other/css.html", { loader: () => import(/* webpackChunkName: "css.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/other/css.html.js"), meta: {"title":"css常见问题"} }],
-  ["/other/nginx.html", { loader: () => import(/* webpackChunkName: "nginx.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/other/nginx.html.js"), meta: {"title":"Nginx常见问题"} }],
-  ["/other/react.html", { loader: () => import(/* webpackChunkName: "react.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/other/react.html.js"), meta: {"title":"React常见问题"} }],
-  ["/other/stylelint.html", { loader: () => import(/* webpackChunkName: "stylelint.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/other/stylelint.html.js"), meta: {"title":"stylelint常见问题"} }],
-  ["/other/vite.html", { loader: () => import(/* webpackChunkName: "vite.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/other/vite.html.js"), meta: {"title":"vite常见问题"} }],
-  ["/other/vscode.html", { loader: () => import(/* webpackChunkName: "vscode.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/other/vscode.html.js"), meta: {"title":"vscode常见问题"} }],
-  ["/git/", { loader: () => import(/* webpackChunkName: "index.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/git/index.html.js"), meta: {"title":"Git"} }],
-  ["/react/", { loader: () => import(/* webpackChunkName: "index.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/react/index.html.js"), meta: {"title":"React 基础"} }],
-  ["/react/RN.html", { loader: () => import(/* webpackChunkName: "RN.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/react/RN.html.js"), meta: {"title":"RN"} }],
-  ["/react/advance.html", { loader: () => import(/* webpackChunkName: "advance.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/react/advance.html.js"), meta: {"title":"React 进阶"} }],
-  ["/react/hooks.html", { loader: () => import(/* webpackChunkName: "hooks.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/react/hooks.html.js"), meta: {"title":"React hooks"} }],
-  ["/react/reactInterview.html", { loader: () => import(/* webpackChunkName: "reactInterview.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/react/reactInterview.html.js"), meta: {"title":"React 面试题"} }],
   ["/typescript/", { loader: () => import(/* webpackChunkName: "index.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/typescript/index.html.js"), meta: {"title":"介绍"} }],
   ["/typescript/advance.html", { loader: () => import(/* webpackChunkName: "advance.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/typescript/advance.html.js"), meta: {"title":"进阶"} }],
   ["/typescript/base.html", { loader: () => import(/* webpackChunkName: "base.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/typescript/base.html.js"), meta: {"title":"基础"} }],
@@ -47,20 +47,3 @@ export const routes = Object.fromEntries([
   ["/typescript/tsconfig.html", { loader: () => import(/* webpackChunkName: "tsconfig.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/typescript/tsconfig.html.js"), meta: {"title":"tsconfig.json介绍"} }],
   ["/404.html", { loader: () => import(/* webpackChunkName: "404.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/404.html.js"), meta: {"title":""} }],
 ]);
-
-if (import.meta.webpackHot) {
-  import.meta.webpackHot.accept()
-  if (__VUE_HMR_RUNTIME__.updateRoutes) {
-    __VUE_HMR_RUNTIME__.updateRoutes(routes)
-  }
-  if (__VUE_HMR_RUNTIME__.updateRedirects) {
-    __VUE_HMR_RUNTIME__.updateRedirects(redirects)
-  }
-}
-
-if (import.meta.hot) {
-  import.meta.hot.accept(({ routes, redirects }) => {
-    __VUE_HMR_RUNTIME__.updateRoutes(routes)
-    __VUE_HMR_RUNTIME__.updateRedirects(redirects)
-  })
-}

@@ -12,7 +12,7 @@ JSX代码在执行前，会被Babel转换为React.createElement方法的调用�
 
 ## 虚拟DOM实现原理
 
-![alt](/blog/vdom.png)
+![alt](/vdom.png)
 
 按照图中的流程，我们依次来分析`虚拟DOM`的实现原理。
 
@@ -109,7 +109,7 @@ function Story(props) {
 </div>
 ```
 
-![alt](/blog/vdom2.jpg)
+![alt](/vdom2.jpg)
 
 ## Fiber 节点的构建
 

@@ -38,13 +38,16 @@ const inputEl = useRef<HTMLInputElement>(null);
 
 需要勾选下图圈起来的选项
 
-![alt](/blog/sourceMap.jpg)
+![alt](/sourceMap.jpg)
 
 ## 控制台警告
+
 ```
 Warning: Can't perform a React state update on an unmounted component. This is a no-op, but it indicates a memory leak in your application. To fix, cancel all subscriptions and asynchronous tasks in a useEffect cleanup function.
 ```
+
 项目中的写法类似下面这样
+
 ```jsx
 useEffect(() => {
   type < 3 && getMembershipPrice();
@@ -54,9 +57,8 @@ useEffect(() => {
   };
 }, [type]);
 ```
+
 ### 原因分析
 
 报错告诉我们无法对已卸载的组件执行状态更新，它表示应用程序中存在内存泄漏。
 因为在请求还没返回之前，用户进行了页面跳转，跳转之后当前组件被卸载。而在卸载之后，请求返回，执行await之后的代码，对组件执行状态更新，可是此时组件已经被卸载，所以才会导致报错。
-
-

@@ -76,11 +76,11 @@
 <li>ISP 的 DNS 服务器：ISP 是互联网服务提供商(Internet Service Provider)的简称，ISP 有专门的 DNS 服务器应对 DNS 查询请求。</li>
 <li>根服务器：ISP 的 DNS 服务器还找不到的话，它就会向根服务器发出请求，进行递归查询（DNS 服务器先问根域名服务器.com 域名服务器的 IP 地址，然后再问.baidu 域名服务器，依次类推）</li>
 </ul>
-<p><img src="/blog/dns.png" alt="alt"></p>
+<p><img src="/dns.png" alt="alt"></p>
 <div class="custom-container tip"><p class="custom-container-title">总结</p>
 <p>浏览器通过向 DNS 服务器发送域名，DNS 服务器查询到与域名相对应的 IP 地址，然后返回给浏览器，浏览器再将 IP 地址打在协议上，同时请求参数也会在协议搭载，然后一并发送给对应的服务器。接下来介绍向服务器发送 HTTP 请求阶段，HTTP 请求分为三个部分：TCP 三次握手、http 请求响应信息、关闭 TCP 连接。</p>
 </div>
-<p><img src="/blog/dns1.png" alt="alt"></p>
+<p><img src="/dns1.png" alt="alt"></p>
 <h2 id="tcp-三次握手" tabindex="-1"><a class="header-anchor" href="#tcp-三次握手"><span>TCP 三次握手</span></a></h2>
 <p>三次握手（Three-way Handshake）其实就是指建立一个TCP连接时，需要客户端和服务器总共发送3个包。进行三次握手的主要作用就是为了确认双方的接收能力和发送能力是否正常、指定自己的初始化序列号为后面的可靠性传送做准备。实质上其实就是连接服务器指定端口，建立TCP连接，并同步连接双方的序列号和确认号，交换TCP窗口大小信息。</p>
 <p>刚开始客户端处于 Closed 的状态，服务端处于 Listen 状态。</p>
@@ -92,7 +92,7 @@
 <p>第三次握手：客户端收到 SYN 报文之后，会发送一个 ACK 报文，当然，也是一样把服务器的 ISN + 1 作为 ACK 的值，表示已经收到了服务端的 SYN 报文，此时客户端处于 ESTABLISHED 状态。服务器收到 ACK 报文之后，也处于 ESTABLISHED 状态，此时，双方已建立起了连接。</p>
 <p>确认报文段ACK=1，确认号ack=y+1，序号seq=x+1（初始为seq=x，第二个报文段所以要+1），ACK报文段可以携带数据，不携带数据则不消耗序号。</p>
 <p>发送第一个SYN的一端将执行主动打开（active open），接收这个SYN并发回下一个SYN的另一端执行被动打开（passive open）。</p>
-<p><img src="/blog/三次握手.jpg" alt="alt"></p>
+<p><img src="/三次握手.jpg" alt="alt"></p>
 <p><strong>标识符：</strong></p>
 <ul>
 <li>SYN = 1：当 SYN = 1，ACK = 0 时，表示当前请求报文段是一个连接请求报文。当 SYN = 1，ACK = 1时，表示当前请求报文段是一个同意建立连接的应答报文。</li>
@@ -117,7 +117,7 @@
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div></div></div><h2 id="发送-http-请求" tabindex="-1"><a class="header-anchor" href="#发送-http-请求"><span>发送 HTTP 请求</span></a></h2>
 <p><strong>TCP 三次握手结束后，开始发送 HTTP 请求报文</strong>。</p>
 <p>请求报文由请求行（request line）、请求头（header）、请求体三个部分组成,如下图所示：</p>
-<p><img src="/blog/http.png" alt="alt"></p>
+<p><img src="/http.png" alt="alt"></p>
 <ul>
 <li>
 <p>请求行包含请求方法、URL、协议版本</p>
@@ -143,11 +143,11 @@
 <h3 id="服务器" tabindex="-1"><a class="header-anchor" href="#服务器"><span>服务器</span></a></h3>
 <p>服务器是网络环境中的高性能计算机，它侦听网络上的其他计算机（客户机）提交的服务请求，并提供相应的服务，比如网页服务、文件下载服务、邮件服务、视频服务。而客户端主要的功能是浏览网页、看视频、听音乐等等，两者截然不同。 每台服务器上都会安装处理请求的应用——web server。常见的 web server 产品有 apache、nginx、IIS 或 Lighttpd 等。
 web server 担任管控的角色，对于不同用户发送的请求，会结合配置文件，把不同请求委托给服务器上处理相应请求的程序进行处理（例如 CGI 脚本，JSP 脚本，servlets，ASP 脚本，服务器端 JavaScript，或者一些其它的服务器端技术等），然后返回后台程序处理产生的结果作为响应。</p>
-<p><img src="/blog/http1.png" alt="alt"></p>
+<p><img src="/http1.png" alt="alt"></p>
 <h3 id="mvc-后台处理阶段" tabindex="-1"><a class="header-anchor" href="#mvc-后台处理阶段"><span>MVC 后台处理阶段</span></a></h3>
 <p>台开发现在有很多框架，但大部分都还是按照 MVC 设计模式进行搭建的。
 MVC 是一个设计模式，将应用程序分成三个核心部件：模型（model）-- 视图（view）--控制器（controller），它们各自处理自己的任务，实现输入、处理和输出的分离。</p>
-<p><img src="/blog/mvc.png" alt="alt"></p>
+<p><img src="/mvc.png" alt="alt"></p>
 <ul>
 <li>
 <p>视图（view）</p>
@@ -166,7 +166,7 @@ MVC 是一个设计模式，将应用程序分成三个核心部件：模型（m
 </ul>
 <h3 id="http-响应报文" tabindex="-1"><a class="header-anchor" href="#http-响应报文"><span>http 响应报文</span></a></h3>
 <p>响应报文由响应行（request line）、响应头部（header）、响应主体三个部分组成。如下图所示：</p>
-<p><img src="/blog/http2.png" alt="alt"></p>
+<p><img src="/http2.png" alt="alt"></p>
 <ul>
 <li>响应行包含：协议版本，状态码，状态码描述</li>
 </ul>
@@ -196,7 +196,7 @@ MVC 是一个设计模式，将应用程序分成三个核心部件：模型（m
 </ul>
 <h2 id="浏览器解析渲染页面" tabindex="-1"><a class="header-anchor" href="#浏览器解析渲染页面"><span>浏览器解析渲染页面</span></a></h2>
 <p>浏览器拿到响应文本 HTML 后，接下来介绍下浏览器渲染机制</p>
-<p><img src="/blog/render.webp" alt="alt"></p>
+<p><img src="/render.webp" alt="alt"></p>
 <p>浏览器解析渲染页面分为一下五个步骤：</p>
 <ul>
 <li>根据 HTML 解析出 DOM 树</li>
@@ -246,7 +246,7 @@ MVC 是一个设计模式，将应用程序分成三个核心部件：模型（m
 <p>即客户端收到服务端的连接释放报文段后，对此发出确认报文段（ACK=1，seq=u+1，ack=w+1），客户端进入TIME_WAIT（时间等待）状态。此时TCP未释放掉，需要经过时间等待计时器设置的时间2MSL后，客户端才进入CLOSED状态。</p>
 <p>收到一个FIN只意味着在这一方向上没有数据流动。客户端执行主动关闭并进入TIME_WAIT是正常的，服务端通常执行被动关闭，不会进入TIME_WAIT状态。</p>
 <p>在socket编程中，任何一方执行close()操作即可产生挥手操作。</p>
-<p><img src="/blog/四次挥手.jpg" alt="alt"></p>
+<p><img src="/四次挥手.jpg" alt="alt"></p>
 <p><strong>TCP 为什么是四次挥手，而不是三次？</strong></p>
 <ul>
 <li>当 A 给 B 发送 FIN 报文时，代表 A 不再发送报文，但仍可以接收报文。</li>
@@ -256,8 +256,8 @@ MVC 是一个设计模式，将应用程序分成三个核心部件：模型（m
 </ul>
 <p>参考链接：</p>
 <ul>
-<li><a href="https://github.com/ljianshu/Blog/issues/24" target="_blank" rel="noopener noreferrer">从URL输入到页面展现到底发生什么？<ExternalLinkIcon/></a></li>
-<li><a href="https://github.com/kaola-fed/blog/issues/271" target="_blank" rel="noopener noreferrer">从输入页面地址到展示页面信息都发生了些什么？<ExternalLinkIcon/></a></li>
+<li><a href="https://github.com/ljianshu/issues/24" target="_blank" rel="noopener noreferrer">从URL输入到页面展现到底发生什么？<ExternalLinkIcon/></a></li>
+<li><a href="https://github.com/kaola-fed/issues/271" target="_blank" rel="noopener noreferrer">从输入页面地址到展示页面信息都发生了些什么？<ExternalLinkIcon/></a></li>
 <li><a href="https://zhuanlan.zhihu.com/p/86426969" target="_blank" rel="noopener noreferrer">面试官，不要再问我三次握手和四次挥手<ExternalLinkIcon/></a></li>
 </ul>
 </div></template>

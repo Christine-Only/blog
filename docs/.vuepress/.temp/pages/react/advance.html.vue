@@ -5,7 +5,7 @@
 <p>精准找出发生变化的 DOM 对象，只更新发生变化的部分。</p>
 <p>在 React 第一次创建 DOM 对象后，会为每个 DOM 对象创建其对应的 Virtual DOM 对象，在 DOM 对象发生更新之前，React 会先更新所有的 Virtual DOM 对象，然后 React 会将更新后的 Virtual DOM 和 更新前的 Virtual DOM 进行比较，从而找出发生变化的部分，React 会将发生变化的部分更新到真实的 DOM 对象中，React 仅更新必要更新的部分。</p>
 <h2 id="虚拟dom实现原理" tabindex="-1"><a class="header-anchor" href="#虚拟dom实现原理"><span>虚拟DOM实现原理</span></a></h2>
-<p><img src="/blog/vdom.png" alt="alt"></p>
+<p><img src="/vdom.png" alt="alt"></p>
 <p>按照图中的流程，我们依次来分析<code v-pre>虚拟DOM</code>的实现原理。</p>
 <h3 id="jsx和createelement" tabindex="-1"><a class="header-anchor" href="#jsx和createelement"><span>JSX和createElement</span></a></h3>
 <p>我们在实现一个<code v-pre>React</code>组件时可以选择两种编码方式</p>
@@ -67,7 +67,7 @@
     </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span><span class="token punctuation">></span></span><span class="token plain-text">橘子</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">></span></span><span class="token plain-text">
   </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>ul</span><span class="token punctuation">></span></span><span class="token plain-text">
 </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
-</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p><img src="/blog/vdom2.jpg" alt="alt"></p>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p><img src="/vdom2.jpg" alt="alt"></p>
 <h2 id="fiber-节点的构建" tabindex="-1"><a class="header-anchor" href="#fiber-节点的构建"><span>Fiber 节点的构建</span></a></h2>
 <p>下面的伪代码展示了 <code v-pre>fiber</code> 构建的过程：</p>
 <div class="language-javascript line-numbers-mode" data-ext="js" data-title="js"><pre v-pre class="language-javascript"><code><span class="token keyword">function</span> <span class="token function">workLoop</span><span class="token punctuation">(</span><span class="token parameter">deadline</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>

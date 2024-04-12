@@ -6,7 +6,7 @@ React从v16.3的版本开始， 对生命周期的钩子进行了渐进式的调
 
 ### 旧生命周期
 
-![alt](/blog/oldLifeCycle.png)
+![alt](/oldLifeCycle.png)
 
 挂载
 
@@ -70,7 +70,7 @@ export default class OldReactComponent extends Component {
 
 ### 新生命周期
 
-![alt](/blog/newLifeCycle.png)
+![alt](/newLifeCycle.png)
 
 挂载
 

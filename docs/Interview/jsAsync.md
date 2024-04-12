@@ -244,7 +244,7 @@ console.log(test())
 ```
 
 打印结果如下：
-![alt](/blog/promise.jpg)
+![alt](/promise.jpg)
 
 `async`就是将函数的返回值使用 `Promise.resolve()` 包裹了一下，和 `then` 中处理返回值一样，并且 `await` 只能配套 `async`使用
 

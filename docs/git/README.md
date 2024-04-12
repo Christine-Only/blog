@@ -59,7 +59,7 @@ git push --delete | -d origin master
 git clone https://codeup.aliyun.com/xxx/xxx.git/
 ```
 
-![alt git报403](/blog/git403.jpg)
+![alt git报403](/git403.jpg)
 **错误原因**：
 git 客户端缓存了错误的密码，账号密码和本地存储的混淆。一般是多个git账号会导致这样的情况，比如自己的账号和公司的账号同时一起使用。
 

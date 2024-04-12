@@ -32,7 +32,7 @@
 </li>
 <li>
 <p>构建物上传
-<img src="/blog/construct.png" alt="alt 构建物上传"></p>
+<img src="/construct.png" alt="alt 构建物上传"></p>
 </li>
 </ul>
 <ol>

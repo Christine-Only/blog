@@ -64,7 +64,7 @@
 <p><code v-pre>Process.nextTick（Node独有</code>）、<code v-pre>Promise</code>、<s><code v-pre>Object.observe</code>(废弃)</s>、<code v-pre>MutationObserver</code><a href="http://javascript.ruanyifeng.com/dom/mutationobserver.html" target="_blank" rel="noopener noreferrer">具体使用方式查看<ExternalLinkIcon/></a></p>
 <h3 id="浏览器中的event-loop" tabindex="-1"><a class="header-anchor" href="#浏览器中的event-loop"><span>浏览器中的Event Loop</span></a></h3>
 <p><code v-pre>Javascript</code> 有一个 <code v-pre>main thread</code> 主线程和 <code v-pre>call-stack</code> 调用栈(执行栈)，所有的任务都会被放到调用栈等待主线程执行。</p>
-<p><img src="/blog/eventLoop.png" alt="alt"></p>
+<p><img src="/eventLoop.png" alt="alt"></p>
 <div class="custom-container tip"><p class="custom-container-title">总结</p>
 <ul>
 <li>执行栈在执行完<code v-pre>同步任务</code>后，查看执行栈是否为空，如果执行栈为空，就会去检查<code v-pre>微任务</code>(<code v-pre>microTask</code>)队列是否为空，如果微任务队列为空的话，就执行<code v-pre>Task</code>（宏任务）；如果微任务队列不为空的话，就一次性执行完所有的微任务。</li>
@@ -149,7 +149,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
 <li>引擎不再需要为 <code v-pre>await</code> 创造 <code v-pre>throwaway Promise</code> - 在绝大部分时间。</li>
 <li>现在 <code v-pre>promise</code> 指向了同一个 <code v-pre>Promise</code>，所以这个步骤什么也不需要做。然后引擎继续像以前一样，创建 <code v-pre>throwaway Promise</code>，安排 <code v-pre>PromiseReactionJob</code> 在<code v-pre>microtask</code> 队列的下一个 <code v-pre>tick</code> 上恢复异步函数，暂停执行该函数，然后返回给调用者。</li>
 </ul>
-<p>具体详情查看<a href="https://v8.js.cn/blog/fast-async/" target="_blank" rel="noopener noreferrer">这里<ExternalLinkIcon/></a></p>
+<p>具体详情查看<a href="https://v8.js.cn/fast-async/" target="_blank" rel="noopener noreferrer">这里<ExternalLinkIcon/></a></p>
 </div></template>
 
 

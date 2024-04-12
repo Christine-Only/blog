@@ -25,7 +25,7 @@
 <p>parse size：比如 webpack plugin 里用了 uglify，就是 minified 以后的文件大小</p>
 <p>gzip size：被压缩以后的文件大小</p>
 </div>
-<p><img src="/blog/init.png" alt="alt 拆包前"></p>
+<p><img src="/init.png" alt="alt 拆包前"></p>
 <p>这个是初始打包出来的 js 大小，可以清晰的看到，vendors.js 6.1M 真的超级大。这个时候我们想拆出来怎么办呢？</p>
 <p><strong>有如下几种优化的方法</strong>：</p>
 <ol>
@@ -50,7 +50,7 @@
 <p><code v-pre>cacheGroups</code> 中的配置，尤其是每一项里面的 test ，比如这里的 <code v-pre>/[\\/]node_modules[\\/]/</code> 表示将 <code v-pre>node_modules</code> 中的所有的库拆分到一个新的js文件中，文件名称为 <code v-pre>vendors.js</code>、<code v-pre>antd.js</code>、<code v-pre>echarts.js</code> 和 <code v-pre>bizcharts.js</code> 。</p>
 <div class="language-typescript line-numbers-mode" data-ext="ts" data-title="ts"><pre v-pre class="language-typescript"><code><span class="token comment">// config.ts</span>
 <span class="token function-variable function">chainWebpack</span><span class="token operator">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>config<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token comment">//过滤掉momnet的那些不使用的国际化文件</span>
+    <span class="token comment">//过滤掉moment的那些不使用的国际化文件</span>
     config
       <span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token string">'replace'</span><span class="token punctuation">)</span>
       <span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span><span class="token keyword">require</span><span class="token punctuation">(</span><span class="token string">'webpack'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>ContextReplacementPlugin<span class="token punctuation">)</span>
@@ -104,7 +104,7 @@
 <code v-pre>test</code>: 正则匹配路径，符合入口的都会被拆分，装到 name 名称下的包中。
 <code v-pre>priority</code>: 拆包的优先级，越大优先级越高。顺序很重要，先把大包分出去，在将剩余的 <code v-pre>node_modules</code> 分成 <code v-pre>vendors</code> 包。
 <code v-pre>enforce</code>: 不管这个包的大小，都会进行分包处理。</p>
-<p><img src="/blog/splitChunks.png" alt="alt 拆包后">
+<p><img src="/splitChunks.png" alt="alt 拆包后">
 上图可以清晰地看到使用splitChunks的方法，vendors.js大小缩小到1.88M，<code v-pre>echarts</code>、<code v-pre>antd</code>和<code v-pre>bizcharts</code>已经从vendors.js中拆分出来了。</p>
 <ol start="4">
 <li>通过 externals 结合 scripts 的方法设置哪些模块不被打包</li>
@@ -225,15 +225,15 @@ scripts<span class="token operator">:</span> <span class="token punctuation">[</
   <span class="token punctuation">{</span> content<span class="token operator">:</span> <span class="token string">"(window).retryScript('echarts', '/js/echarts.min.js')"</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
 <span class="token punctuation">]</span><span class="token punctuation">,</span>
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>产物如下图：
-<img src="/blog/externals.png" alt="alt 拆包后">
+<img src="/externals.png" alt="alt 拆包后">
 由上图可以看出，antd和@ant-design组件包从vendors.js拆分出来了。这样在首屏加载时antd和、ant-design和vendors.js实现异步加载，来提升首屏加载速度。</p>
 <p>scripts引入的react和react-dom没有指定版本的话，在浏览器渲染时会重定向到指定版本，这样的话，首屏加载速度也会受到影响。
-<img src="/blog/noVersion.png" alt="alt 拆包后"></p>
+<img src="/noVersion.png" alt="alt 拆包后"></p>
 <p>scripts引入的react和react-dom有指定版本的话，在浏览器渲染时会直接加载指定版本，首屏加载速度会变快。
-<img src="/blog/version.png" alt="alt 拆包后"></p>
+<img src="/version.png" alt="alt 拆包后"></p>
 <ol>
 <li>选用可替代的依赖库
-<img src="/blog/img1.png" alt="alt 拆包后">
+<img src="/img1.png" alt="alt 拆包后">
 由上图可以看出moment.js通过Gzip压缩后的包体积为94.03kb，而dayjs通过Gzip压缩后包体积为18.84kb。所以可以使用<code v-pre>dayjs</code>替换 Moment 以优化打包大小。</li>
 </ol>
 <ul>
@@ -256,7 +256,7 @@ scripts<span class="token operator">:</span> <span class="token punctuation">[</
   <span class="token punctuation">]</span><span class="token punctuation">)</span>
 <span class="token punctuation">}</span>
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>替换后的包体积如下图
-<img src="/blog/img2.png" alt="alt 拆包后">
+<img src="/img2.png" alt="alt 拆包后">
 dayjs通过Gzip压缩后包体积为18.84kb。</p>
 <ol start="6">
 <li><strong>减少将图片转成Base64</strong></li>

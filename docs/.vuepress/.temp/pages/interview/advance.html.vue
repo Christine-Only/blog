@@ -246,7 +246,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
 <div class="custom-container tip"><p class="custom-container-title">TIP</p>
 <p>Object.create(null) 会造成创建的对象其 <code v-pre>__proto__</code> 指向为空</p>
 </div>
-<p><img src="/blog/create.jpg" alt="alt"></p>
+<p><img src="/create.jpg" alt="alt"></p>
 <h3 id="实现instanceof" tabindex="-1"><a class="header-anchor" href="#实现instanceof"><span>实现instanceof</span></a></h3>
 <div class="language-javascript line-numbers-mode" data-ext="js" data-title="js"><pre v-pre class="language-javascript"><code><span class="token keyword">function</span> <span class="token function">copyInstanceof</span> <span class="token punctuation">(</span><span class="token parameter">source<span class="token punctuation">,</span> target</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token comment">// 基本数据类型以及 null 直接返回 false</span>

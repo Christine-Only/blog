@@ -82,7 +82,7 @@ bar()
 
 `Javascript` 有一个 `main thread` 主线程和 `call-stack` 调用栈(执行栈)，所有的任务都会被放到调用栈等待主线程执行。
 
-![alt](/blog/eventLoop.png)
+![alt](/eventLoop.png)
 
 :::tip 总结
 
@@ -182,4 +182,4 @@ new Promise((resolve, reject) => {
 * 引擎不再需要为 `await` 创造 `throwaway Promise` - 在绝大部分时间。
 * 现在 `promise` 指向了同一个 `Promise`，所以这个步骤什么也不需要做。然后引擎继续像以前一样，创建 `throwaway Promise`，安排 `PromiseReactionJob` 在`microtask` 队列的下一个 `tick` 上恢复异步函数，暂停执行该函数，然后返回给调用者。
 
-具体详情查看[这里](https://v8.js.cn/blog/fast-async/)
+具体详情查看[这里](https://v8.js.cn/fast-async/)

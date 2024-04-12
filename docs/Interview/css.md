@@ -88,8 +88,8 @@ flex: unset;
 
 * 因为父容器的宽度小于子容器总和的宽度，所以 left 和 right 容器将缩小以适应其弹性容器中可用的空间，left 收缩的比例为`flex-shrink的比例 * flex-basis的比例 = 2/3 * 3/5`，right 收缩的比例为`flex-shrink的比例 * flex-basis的比例 = 1/3 * 2/5`，即 left 收缩(父容器宽度 - 子容器总宽度差值的)3/4，right 收缩(父容器宽度 - 子容器总宽度差值的)1/4
 
-![alt](/blog/flex1.jpg)
-![alt](/blog/flex2.jpg)
+![alt](/flex1.jpg)
+![alt](/flex2.jpg)
 
 栗子：
 
@@ -118,5 +118,5 @@ flex: unset;
 </div>
 ```
 
-![alt](/blog/flex3.jpg)
-![alt](/blog/flex4.jpg)
+![alt](/flex3.jpg)
+![alt](/flex4.jpg)
