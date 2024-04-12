@@ -74,7 +74,6 @@ export default defineUserConfig({
             "/interview/jsAsync.md",
             "/interview/eventLoop.md",
             "/interview/handWrite.md",
-            "/interview/url.md",
           ],
         },
         {
@@ -94,8 +93,8 @@ export default defineUserConfig({
         },
         {
           text: "浏览器相关知识点",
-          collapsible: false,
-          children: ["/interview/browser.md"],
+          collapsible: true,
+          children: ["/interview/browser.md", "/interview/url.md"],
         },
         {
           text: "前端安全",
