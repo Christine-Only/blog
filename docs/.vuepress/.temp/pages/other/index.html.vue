@@ -1,4 +1,4 @@
-<template><div><h1 id="umi常见问题" tabindex="-1"><a class="header-anchor" href="#umi常见问题"><span>umi常见问题</span></a></h1>
+<template><div><h1 id="umi-常见问题" tabindex="-1"><a class="header-anchor" href="#umi-常见问题"><span>Umi 常见问题</span></a></h1>
 <h2 id="前端项目引入自定义字体包" tabindex="-1"><a class="header-anchor" href="#前端项目引入自定义字体包"><span>前端项目引入自定义字体包</span></a></h2>
 <ol>
 <li>在public文件放入第三方字体文件</li>

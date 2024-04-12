@@ -1,4 +1,4 @@
-<template><div><h1 id="vite常见问题" tabindex="-1"><a class="header-anchor" href="#vite常见问题"><span>vite常见问题</span></a></h1>
+<template><div><h1 id="vite-常见问题" tabindex="-1"><a class="header-anchor" href="#vite-常见问题"><span>Vite 常见问题</span></a></h1>
 <h2 id="vite多入口配置" tabindex="-1"><a class="header-anchor" href="#vite多入口配置"><span>vite多入口配置</span></a></h2>
 <blockquote>
 <p>一般的React项目只有根目录一个index.html文件，这个文件就作为整个项目的入口。（因为React是单页面应用）。但是当项目需要多个入口时，可以通过配置vite.config.ts文件来实现多页面应用。</p>

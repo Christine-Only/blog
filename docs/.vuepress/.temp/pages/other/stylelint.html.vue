@@ -1,4 +1,4 @@
-<template><div><h1 id="stylelint常见问题" tabindex="-1"><a class="header-anchor" href="#stylelint常见问题"><span>stylelint常见问题</span></a></h1>
+<template><div><h1 id="stylelint-常见问题" tabindex="-1"><a class="header-anchor" href="#stylelint-常见问题"><span>Stylelint 常见问题</span></a></h1>
 <h2 id="stylelint警告" tabindex="-1"><a class="header-anchor" href="#stylelint警告"><span>stylelint警告</span></a></h2>
 <div class="custom-container tip"><p class="custom-container-title">注意</p>
 <p>sans-serif是一个通用字体关键字</p>

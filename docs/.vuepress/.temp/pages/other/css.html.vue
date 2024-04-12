@@ -1,4 +1,4 @@
-<template><div><h1 id="css常见问题" tabindex="-1"><a class="header-anchor" href="#css常见问题"><span>css常见问题</span></a></h1>
+<template><div><h1 id="css-常见问题" tabindex="-1"><a class="header-anchor" href="#css-常见问题"><span>Css 常见问题</span></a></h1>
 <h2 id="less文件引入" tabindex="-1"><a class="header-anchor" href="#less文件引入"><span>less文件引入</span></a></h2>
 <div class="custom-container tip"><p class="custom-container-title">注意</p>
 <p>在less文件中使用@import引用src内的文件时需要这样引入，因为 <code v-pre>CSS loader</code> 会把非根路径的url解释为相对路径， 加~前缀才会解释成模块路径。</p>

@@ -1,4 +1,4 @@
-<template><div><h1 id="react常见问题" tabindex="-1"><a class="header-anchor" href="#react常见问题"><span>React常见问题</span></a></h1>
+<template><div><h1 id="react-常见问题" tabindex="-1"><a class="header-anchor" href="#react-常见问题"><span>React 常见问题</span></a></h1>
 <h2 id="usestate" tabindex="-1"><a class="header-anchor" href="#usestate"><span>useState</span></a></h2>
 <div class="language-tsx line-numbers-mode" data-ext="tsx" data-title="tsx"><pre v-pre class="language-tsx"><code><span class="token keyword">interface</span> <span class="token class-name">IObject</span> <span class="token punctuation">{</span>
   num<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">;</span>

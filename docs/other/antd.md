@@ -1,8 +1,9 @@
-# antd常见问题
+# Antd 常见问题
 
 ## Select
 
 场景： 最多选三个值，最少选中一个。删除每一个值的时候都要弹窗并且Select组件下拉框支持选中。
+
 ```jsx
 import { useState, useEffect, useMemo } from 'react';
 import { Form, Tag, Select, Checkbox, message } from 'antd';
@@ -148,7 +149,9 @@ export default Index;
 ```
 
 ## antd Form.Item
+>
 > `Form.Item`中的tooltip替换icon
+
 ```jsx
 <Form.Item
   label="替换icon"
@@ -158,6 +161,7 @@ export default Index;
 ```
 
 ## antd Anchor
+
 ```jsx
 <div style={{ display: 'flex' }}>
   <div style={{ width: '80vw' }}>
@@ -184,12 +188,15 @@ export default Index;
 ```
 
 ## antd Tabs 闪动
+>
 > 记得查看是否是自己写的样式覆盖了自带的样式导致的！！！
 
 ## antd Select
+
 :::tip
 菜单渲染父节点。默认渲染到 body 上，如果遇到菜单滚动定位问题，修改滚动的区域的父元素，并设置相对其定位。
 :::
+
 ```jsx
 <div style={{ padding: 100, height: 1000, background: '#eee', position: 'relative' }} id="area">
   <h4>可滚动的区域 / scrollable area</h4>
@@ -206,12 +213,14 @@ export default Index;
 ```
 
 ## Input 组件取消自动显示输入历史
+
 :::tip
 Form默认开启 autoComplete 功能，当submit时会记录输入历史，
 取消自动补充功能，只需在 `Form` 上加 `autoComplete="off"` 即可关闭自动提示输入历史
 :::
 
 ## Form
+
 :::tip
 Form.Item组件里面的<Select />，如果声明在FormSelect.tsx文件，会导致在父组件中通过 `form.validateFields()`获取不到该字段的值，应该把<Form.Item><Select /></Form.Item>FormSelect.tsx文件。
 :::
