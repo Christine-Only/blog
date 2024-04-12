@@ -1,6 +1,3 @@
----
-sidebar: auto
----
 # Git
 
 ## git checkout
@@ -20,9 +17,9 @@ git checkout -b christine origin/detail
 格式：
 `git checkout [<commit id>] [--] <paths>`
 
-* <commit> commit id，默认是暂存区
+* commit commit id，默认是暂存区
 * -- 用于分隔文件路径和commit
-* <paths> 文件路径
+* paths 文件路径
 
 如果不填写commit id，则默认会从暂存区检出该文件，如果暂存区为空，则该文件会回滚到最近一次的提交状态。
 

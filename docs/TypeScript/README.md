@@ -1,4 +1,4 @@
-# TypeScript介绍
+# 介绍
 
 ## 为什么要使用TypeScript?
 

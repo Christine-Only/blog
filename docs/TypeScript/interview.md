@@ -1,4 +1,4 @@
-# TypeScript 面试题汇总
+# 常见面试题
 
 ## 使用 TypeScript 编写的代替 Object.keys 的方法
 
