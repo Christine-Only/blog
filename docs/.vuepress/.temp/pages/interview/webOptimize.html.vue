@@ -1,4 +1,4 @@
-<template><div><h1 id="性能优化" tabindex="-1"><a class="header-anchor" href="#性能优化"><span>性能优化</span></a></h1>
+<template><div><h1 id="web-性能优化" tabindex="-1"><a class="header-anchor" href="#web-性能优化"><span>Web 性能优化</span></a></h1>
 <h2 id="性能指标" tabindex="-1"><a class="header-anchor" href="#性能指标"><span>性能指标</span></a></h2>
 <ul>
 <li>FCP：<strong>First Contentful Paint</strong>首次内容绘制</li>
@@ -34,9 +34,9 @@
 重新加载页面。 jQuery 和 Lodash 请求显示为红色，表示它们已被阻止。该网页仍会加载且具有互动性，因此您似乎根本不需要这些资源
 <img src="https://cdn.nlark.com/yuque/0/2024/png/15357601/1706931836583-a3b6f205-c39a-49bb-bcd9-545cd4bf2b02.png#averageHue=%23dbd0c1&amp;clientId=u47a78b52-f283-4&amp;from=paste&amp;height=496&amp;id=ucb14ea21&amp;originHeight=496&amp;originWidth=1947&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;size=154962&amp;status=done&amp;style=none&amp;taskId=uef70c637-9448-482b-b409-4739cc49b53&amp;title=&amp;width=1947" alt="image.png"></p>
 <h3 id="memory-面板" tabindex="-1"><a class="header-anchor" href="#memory-面板"><span>Memory 面板</span></a></h3>
-<p><img src="https://cdn.nlark.com/yuque/0/2024/png/15357601/1706932634510-52b26300-eeb5-4bfa-a188-fd51d564fbf9.png#averageHue=%23e5e5e5&amp;clientId=u47a78b52-f283-4&amp;from=paste&amp;height=679&amp;id=u02d7af8d&amp;originHeight=679&amp;originWidth=1952&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;size=219192&amp;status=done&amp;style=none&amp;taskId=u2f707a30-3afe-4d78-a359-d9b2b6163d9&amp;title=&amp;width=1952" alt="image.png"></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/15357601/1706932634510-52b26300-eeb5-4bfa-a188-fd51d564fbf9.png#averageHue=%23e5e5e5&amp;clientId=u47a78b52-f283-4&amp;from=paste&amp;height=679&amp;id=u02d7af8d&amp;originHeight=679&amp;originWidth=1952&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;size=219192&amp;status=done&amp;style=none&amp;taskId=u2f707a30-3afe-4d78-a359-d9b2b6163d9&amp;title=&amp;width=1952" alt="alt image.png"></p>
 <h3 id="performance-面板" tabindex="-1"><a class="header-anchor" href="#performance-面板"><span>Performance 面板</span></a></h3>
-<h3 id="优化网站首屏加载速度" tabindex="-1"><a class="header-anchor" href="#优化网站首屏加载速度"><span>优化网站首屏加载速度</span></a></h3>
+<h2 id="优化网站首屏加载速度" tabindex="-1"><a class="header-anchor" href="#优化网站首屏加载速度"><span>优化网站首屏加载速度</span></a></h2>
 <p>优化网站首屏加载速度是提升用户体验和搜索引擎优化（SEO）的关键因素。要衡量和优化首屏加载速度，你可以关注以下技术指标：</p>
 <ol>
 <li><strong>Time to First Byte (TTFB)</strong>: 这是指从用户或客户端发起请求到从服务器接收到第一个字节的时间。TTFB包括网络延迟和服务器处理时间，它是衡量服务器响应速度的一个重要指标。</li>

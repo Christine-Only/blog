@@ -2,3 +2,5 @@ node_modules
 docs/.vuepress/dist
 yarn.lock
 package-lock.json
+docs/.vuepress/styles/index.css
+docs/.vuepress/styles/index.min.css

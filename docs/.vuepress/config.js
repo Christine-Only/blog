@@ -6,7 +6,16 @@ import { searchPlugin } from "@vuepress/plugin-search";
 
 export default defineUserConfig({
   title: "Christine",
-  // head: [["link", { rel: "icon", href: "logo.png" }]],
+  head: [
+    [
+      "meta",
+      {
+        name: "referrer",
+        content: "no-referrer",
+      },
+    ],
+    // ["link", { rel: "icon", href: "growth.jpg" }],
+  ],
   description: "一名专注前端开发的程序媛 👧🏻",
   base: "/blog/",
   plugins: [palettePlugin({ preset: "sass" })],
@@ -84,7 +93,11 @@ export default defineUserConfig({
         {
           text: "性能优化",
           collapsible: false,
-          children: ["/interview/webOptimize.md"],
+          children: [
+            "/interview/performanceOptimization/webOptimize.md",
+            "/interview/performanceOptimization/network.md",
+            "/interview/performanceOptimization/render.md",
+          ],
         },
         {
           text: "HTTP",

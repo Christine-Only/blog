@@ -2,7 +2,7 @@
 sidebarDepth: 2
 ---
 
-# 性能优化
+# 性能指标
 
 ## 性能指标
 
@@ -35,11 +35,11 @@ sidebarDepth: 2
 
 ### Memory 面板
 
-![image.png](https://cdn.nlark.com/yuque/0/2024/png/15357601/1706932634510-52b26300-eeb5-4bfa-a188-fd51d564fbf9.png#averageHue=%23e5e5e5&clientId=u47a78b52-f283-4&from=paste&height=679&id=u02d7af8d&originHeight=679&originWidth=1952&originalType=binary&ratio=1&rotation=0&showTitle=false&size=219192&status=done&style=none&taskId=u2f707a30-3afe-4d78-a359-d9b2b6163d9&title=&width=1952)
+![alt image.png](https://cdn.nlark.com/yuque/0/2024/png/15357601/1706932634510-52b26300-eeb5-4bfa-a188-fd51d564fbf9.png#averageHue=%23e5e5e5&clientId=u47a78b52-f283-4&from=paste&height=679&id=u02d7af8d&originHeight=679&originWidth=1952&originalType=binary&ratio=1&rotation=0&showTitle=false&size=219192&status=done&style=none&taskId=u2f707a30-3afe-4d78-a359-d9b2b6163d9&title=&width=1952)
 
 ### Performance 面板
 
-### 优化网站首屏加载速度
+## 优化网站首屏加载速度
 
 优化网站首屏加载速度是提升用户体验和搜索引擎优化（SEO）的关键因素。要衡量和优化首屏加载速度，你可以关注以下技术指标：
 

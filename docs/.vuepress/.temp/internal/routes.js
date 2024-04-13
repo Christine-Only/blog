@@ -10,7 +10,6 @@ export const routes = Object.fromEntries([
   ["/automate/nginx.html", { loader: () => import(/* webpackChunkName: "nginx.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/automate/nginx.html.js"), meta: {"title":"Nginx部署"} }],
   ["/books/FactoryPattern.html", { loader: () => import(/* webpackChunkName: "FactoryPattern.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/books/FactoryPattern.html.js"), meta: {"title":"工厂模式"} }],
   ["/books/", { loader: () => import(/* webpackChunkName: "index.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/books/index.html.js"), meta: {"title":"JavaScript设计模式"} }],
-  ["/git/", { loader: () => import(/* webpackChunkName: "index.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/git/index.html.js"), meta: {"title":"Git"} }],
   ["/interview/", { loader: () => import(/* webpackChunkName: "index.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/interview/index.html.js"), meta: {"title":"JS基础知识点"} }],
   ["/interview/advance.html", { loader: () => import(/* webpackChunkName: "advance.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/interview/advance.html.js"), meta: {"title":"JS进阶知识点"} }],
   ["/interview/browser.html", { loader: () => import(/* webpackChunkName: "browser.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/interview/browser.html.js"), meta: {"title":"浏览器相关知识点"} }],
@@ -23,7 +22,6 @@ export const routes = Object.fromEntries([
   ["/interview/jsAsync.html", { loader: () => import(/* webpackChunkName: "jsAsync.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/interview/jsAsync.html.js"), meta: {"title":"JS异步编程"} }],
   ["/interview/safetyProtection.html", { loader: () => import(/* webpackChunkName: "safetyProtection.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/interview/safetyProtection.html.js"), meta: {"title":"前端安全"} }],
   ["/interview/url.html", { loader: () => import(/* webpackChunkName: "url.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/interview/url.html.js"), meta: {"title":"输入 URL 到页面展示，这中间发生了什么"} }],
-  ["/interview/webOptimize.html", { loader: () => import(/* webpackChunkName: "webOptimize.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/interview/webOptimize.html.js"), meta: {"title":"性能优化"} }],
   ["/interview/webpack.html", { loader: () => import(/* webpackChunkName: "webpack.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/interview/webpack.html.js"), meta: {"title":"Webpack"} }],
   ["/other/", { loader: () => import(/* webpackChunkName: "index.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/other/index.html.js"), meta: {"title":"Umi 常见问题"} }],
   ["/other/antd.html", { loader: () => import(/* webpackChunkName: "antd.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/other/antd.html.js"), meta: {"title":"Antd 常见问题"} }],
@@ -33,6 +31,7 @@ export const routes = Object.fromEntries([
   ["/other/stylelint.html", { loader: () => import(/* webpackChunkName: "stylelint.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/other/stylelint.html.js"), meta: {"title":"Stylelint 常见问题"} }],
   ["/other/vite.html", { loader: () => import(/* webpackChunkName: "vite.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/other/vite.html.js"), meta: {"title":"Vite 常见问题"} }],
   ["/other/vscode.html", { loader: () => import(/* webpackChunkName: "vscode.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/other/vscode.html.js"), meta: {"title":"vscode常见问题"} }],
+  ["/git/", { loader: () => import(/* webpackChunkName: "index.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/git/index.html.js"), meta: {"title":"Git"} }],
   ["/react/", { loader: () => import(/* webpackChunkName: "index.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/react/index.html.js"), meta: {"title":"React 基础"} }],
   ["/react/RN.html", { loader: () => import(/* webpackChunkName: "RN.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/react/RN.html.js"), meta: {"title":"RN"} }],
   ["/react/advance.html", { loader: () => import(/* webpackChunkName: "advance.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/react/advance.html.js"), meta: {"title":"React 进阶"} }],
@@ -45,5 +44,25 @@ export const routes = Object.fromEntries([
   ["/typescript/challengeBuildIn.html", { loader: () => import(/* webpackChunkName: "challengeBuildIn.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/typescript/challengeBuildIn.html.js"), meta: {"title":"内置工具类型"} }],
   ["/typescript/interview.html", { loader: () => import(/* webpackChunkName: "interview.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/typescript/interview.html.js"), meta: {"title":"常见面试题"} }],
   ["/typescript/tsconfig.html", { loader: () => import(/* webpackChunkName: "tsconfig.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/typescript/tsconfig.html.js"), meta: {"title":"tsconfig.json介绍"} }],
+  ["/interview/performanceOptimization/network.html", { loader: () => import(/* webpackChunkName: "network.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/interview/performanceOptimization/network.html.js"), meta: {"title":"网络层面的性能优化"} }],
+  ["/interview/performanceOptimization/render.html", { loader: () => import(/* webpackChunkName: "render.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/interview/performanceOptimization/render.html.js"), meta: {"title":"渲染层面的优化"} }],
+  ["/interview/performanceOptimization/webOptimize.html", { loader: () => import(/* webpackChunkName: "webOptimize.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/interview/performanceOptimization/webOptimize.html.js"), meta: {"title":"性能指标"} }],
   ["/404.html", { loader: () => import(/* webpackChunkName: "404.html" */"/Users/Berry/Downloads/blog/docs/.vuepress/.temp/pages/404.html.js"), meta: {"title":""} }],
 ]);
+
+if (import.meta.webpackHot) {
+  import.meta.webpackHot.accept()
+  if (__VUE_HMR_RUNTIME__.updateRoutes) {
+    __VUE_HMR_RUNTIME__.updateRoutes(routes)
+  }
+  if (__VUE_HMR_RUNTIME__.updateRedirects) {
+    __VUE_HMR_RUNTIME__.updateRedirects(redirects)
+  }
+}
+
+if (import.meta.hot) {
+  import.meta.hot.accept(({ routes, redirects }) => {
+    __VUE_HMR_RUNTIME__.updateRoutes(routes)
+    __VUE_HMR_RUNTIME__.updateRedirects(redirects)
+  })
+}

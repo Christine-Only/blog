@@ -167,47 +167,7 @@ selectedText <span class="token operator">=</span> selection<span class="token p
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="cookie-属性" tabindex="-1"><a class="header-anchor" href="#cookie-属性"><span>Cookie 属性</span></a></h2>
-<ul>
-<li>Domain</li>
-<li>Path</li>
-<li>Expire/MaxAge</li>
-<li>HttpOnly: 是否允许被 JavaScript 操作</li>
-<li>Secure: 只能在 HTTPS 连接中配置</li>
-<li>SameSite</li>
-</ul>
-<h3 id="cookie-maxage" tabindex="-1"><a class="header-anchor" href="#cookie-maxage"><span>Cookie maxAge</span></a></h3>
-<p>如果没有 maxAge，则 cookie 的有效时间为会话时间。即浏览器关闭就没了。</p>
-<h3 id="cookie-samesite" tabindex="-1"><a class="header-anchor" href="#cookie-samesite"><span>Cookie SameSite</span></a></h3>
-<p>SameSite中有以下三个值：</p>
-<ul>
-<li>None: 任何情况下都会向第三方网站请求发送 Cookie</li>
-<li>Lax: 只有导航到第三方网站的 Get 链接会发送 Cookie，跨域的图片、iframe、form表单都不会发送 Cookie</li>
-<li>Strict: 任何情况下都不会向第三方网站请求发送Cookie</li>
-</ul>
-<p>目前，主流浏览器 <code v-pre>Same-Site</code> 的默认值为 <code v-pre>Lax</code>，而在以前是 <code v-pre>None</code>，将会预防大部分 CSRF 攻击，如果需要手动指定 <code v-pre>Same-Site</code> 为 None，需要指定 Cookie 属性 <code v-pre>Secure</code>，即在 https 下发送。</p>
-<h3 id="cookie-httponly" tabindex="-1"><a class="header-anchor" href="#cookie-httponly"><span>Cookie HttpOnly</span></a></h3>
-<p>如果这个属性设置为true，就不能通过js脚本来获取cookie的值，能有效的防止xss攻击。</p>
-<h3 id="关于js操作cookie" tabindex="-1"><a class="header-anchor" href="#关于js操作cookie"><span>关于js操作Cookie</span></a></h3>
-<div class="language-javascript line-numbers-mode" data-ext="js" data-title="js"><pre v-pre class="language-javascript"><code><span class="token comment">//读取浏览器中的cookie</span>
-console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>document<span class="token punctuation">.</span>cookie<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token comment">//写入cookie</span>
-document<span class="token punctuation">.</span>cookie<span class="token operator">=</span><span class="token string">'name=christine;path=/;domain=.baidu.com'</span><span class="token punctuation">;</span>
-
-<span class="token comment">// cookie 的过期时间改为过去时即可删除成功</span>
-<span class="token comment">// max-age 设置为 -1 即可成功</span>
-document<span class="token punctuation">.</span>cookie <span class="token operator">=</span> <span class="token string">'name=christine; max-age=-1'</span>
-
-<span class="token comment">// 或者使用最新的Cookie操作API</span>
-cookieStore<span class="token punctuation">.</span><span class="token function">delete</span><span class="token punctuation">(</span><span class="token string">'name'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>参考文章<a href="https://juejin.cn/post/6844903501869350925" target="_blank" rel="noopener noreferrer">把cookie聊清楚<ExternalLinkIcon/></a><a href="https://javascript.ruanyifeng.com/bom/cookie.html" target="_blank" rel="noopener noreferrer">阮一峰JavaScript教程<ExternalLinkIcon/></a></p>
-<h2 id="localhost-3000-与-localhost-5000-的-cookie-信息是否共享" tabindex="-1"><a class="header-anchor" href="#localhost-3000-与-localhost-5000-的-cookie-信息是否共享"><span>localhost:3000 与 localhost:5000 的 cookie 信息是否共享</span></a></h2>
-<p>共享。</p>
-<div class="custom-container tip"><p class="custom-container-title">TIP</p>
-<p>Cookie 只区分域，不区分端口和协议，只要域相同，即使端口号或协议不同，cookie 也能共享。</p>
-</div>
-<p>参考链接<a href="https://juejin.cn/post/6863377752939036679" target="_blank" rel="noopener noreferrer">Cookie属性详解<ExternalLinkIcon/></a></p>
-<h2 id="什么是事件委托-e-currenttarget-与-e-target-有何区别" tabindex="-1"><a class="header-anchor" href="#什么是事件委托-e-currenttarget-与-e-target-有何区别"><span>什么是事件委托，e.currentTarget 与 e.target 有何区别</span></a></h2>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="什么是事件委托-e-currenttarget-与-e-target-有何区别" tabindex="-1"><a class="header-anchor" href="#什么是事件委托-e-currenttarget-与-e-target-有何区别"><span>什么是事件委托，e.currentTarget 与 e.target 有何区别</span></a></h2>
 <blockquote>
 <p>事件委托指当有大量子元素触发事件时，将事件监听器绑定在父元素进行监听，此时数百个事件监听器变为了一个监听器，提升了网页性能。</p>
 </blockquote>

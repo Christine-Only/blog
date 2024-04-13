@@ -323,81 +323,126 @@ export const searchIndex = [
     "extraFields": []
   },
   {
-    "title": "Git",
+    "title": "工厂模式",
     "headers": [
       {
         "level": 2,
-        "title": "git checkout",
-        "slug": "git-checkout",
-        "link": "#git-checkout",
+        "title": "工场模式介绍",
+        "slug": "工场模式介绍",
+        "link": "#工场模式介绍",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "简单工厂模式",
+        "slug": "简单工厂模式",
+        "link": "#简单工厂模式",
         "children": [
           {
             "level": 3,
-            "title": "基于远程分支创建本地新分支",
-            "slug": "基于远程分支创建本地新分支",
-            "link": "#基于远程分支创建本地新分支",
+            "title": "对不同的类实例化",
+            "slug": "对不同的类实例化",
+            "link": "#对不同的类实例化",
             "children": []
           },
           {
             "level": 3,
-            "title": "用于检出某一个指定文件或文件夹",
-            "slug": "用于检出某一个指定文件或文件夹",
-            "link": "#用于检出某一个指定文件或文件夹",
+            "title": "创建相似对象 (相似东西提取，不相似的针对性处理)",
+            "slug": "创建相似对象-相似东西提取-不相似的针对性处理",
+            "link": "#创建相似对象-相似东西提取-不相似的针对性处理",
             "children": []
           }
         ]
       },
       {
         "level": 2,
-        "title": "git push",
-        "slug": "git-push",
-        "link": "#git-push",
+        "title": "工厂方法模式",
+        "slug": "工厂方法模式",
+        "link": "#工厂方法模式",
+        "children": [
+          {
+            "level": 3,
+            "title": "安全模式类",
+            "slug": "安全模式类",
+            "link": "#安全模式类",
+            "children": []
+          },
+          {
+            "level": 3,
+            "title": "安全的工厂方法",
+            "slug": "安全的工厂方法",
+            "link": "#安全的工厂方法",
+            "children": []
+          }
+        ]
+      },
+      {
+        "level": 2,
+        "title": "抽象工厂模式",
+        "slug": "抽象工厂模式",
+        "link": "#抽象工厂模式",
+        "children": [
+          {
+            "level": 3,
+            "title": "抽象工厂方法",
+            "slug": "抽象工厂方法",
+            "link": "#抽象工厂方法",
+            "children": []
+          }
+        ]
+      }
+    ],
+    "path": "/books/FactoryPattern.html",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
+    "title": "JavaScript设计模式",
+    "headers": [
+      {
+        "level": 2,
+        "title": "什么是设计模式",
+        "slug": "什么是设计模式",
+        "link": "#什么是设计模式",
         "children": []
       },
       {
         "level": 2,
-        "title": "git clone",
-        "slug": "git-clone",
-        "link": "#git-clone",
+        "title": "设计模式五大设计原则",
+        "slug": "设计模式五大设计原则",
+        "link": "#设计模式五大设计原则",
         "children": []
       },
       {
         "level": 2,
-        "title": "git reset",
-        "slug": "git-reset",
-        "link": "#git-reset",
+        "title": "设计模式的类型",
+        "slug": "设计模式的类型",
+        "link": "#设计模式的类型",
         "children": []
       },
       {
         "level": 2,
-        "title": "git revert",
-        "slug": "git-revert",
-        "link": "#git-revert",
+        "title": "创建型模式",
+        "slug": "创建型模式",
+        "link": "#创建型模式",
         "children": []
       },
       {
         "level": 2,
-        "title": "git pull 报错error",
-        "slug": "git-pull-报错error",
-        "link": "#git-pull-报错error",
+        "title": "结构型模式",
+        "slug": "结构型模式",
+        "link": "#结构型模式",
         "children": []
       },
       {
         "level": 2,
-        "title": "git branch",
-        "slug": "git-branch",
-        "link": "#git-branch",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "如何保持本地代码与 fork 仓库远程代码一致",
-        "slug": "如何保持本地代码与-fork-仓库远程代码一致",
-        "link": "#如何保持本地代码与-fork-仓库远程代码一致",
+        "title": "行为型模式",
+        "slug": "行为型模式",
+        "link": "#行为型模式",
         "children": []
       }
     ],
-    "path": "/git/",
+    "path": "/books/",
     "pathLocale": "/",
     "extraFields": []
   },
@@ -783,84 +828,6 @@ export const searchIndex = [
             "title": "跨域解决方案",
             "slug": "跨域解决方案",
             "link": "#跨域解决方案",
-            "children": []
-          }
-        ]
-      },
-      {
-        "level": 2,
-        "title": "浏览器缓存机制",
-        "slug": "浏览器缓存机制",
-        "link": "#浏览器缓存机制",
-        "children": [
-          {
-            "level": 3,
-            "title": "缓存位置",
-            "slug": "缓存位置",
-            "link": "#缓存位置",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "Service Worker",
-            "slug": "service-worker",
-            "link": "#service-worker",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "Memory Cache",
-            "slug": "memory-cache",
-            "link": "#memory-cache",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "Disk Cache",
-            "slug": "disk-cache",
-            "link": "#disk-cache",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "Push Cache",
-            "slug": "push-cache",
-            "link": "#push-cache",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "网络请求",
-            "slug": "网络请求",
-            "link": "#网络请求",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "缓存策略",
-            "slug": "缓存策略",
-            "link": "#缓存策略",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "强缓存",
-            "slug": "强缓存",
-            "link": "#强缓存",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "协商缓存",
-            "slug": "协商缓存",
-            "link": "#协商缓存",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "实际场景应用缓存策略",
-            "slug": "实际场景应用缓存策略",
-            "link": "#实际场景应用缓存策略",
             "children": []
           }
         ]
@@ -1657,49 +1624,6 @@ export const searchIndex = [
       },
       {
         "level": 2,
-        "title": "Cookie 属性",
-        "slug": "cookie-属性",
-        "link": "#cookie-属性",
-        "children": [
-          {
-            "level": 3,
-            "title": "Cookie maxAge",
-            "slug": "cookie-maxage",
-            "link": "#cookie-maxage",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "Cookie SameSite",
-            "slug": "cookie-samesite",
-            "link": "#cookie-samesite",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "Cookie HttpOnly",
-            "slug": "cookie-httponly",
-            "link": "#cookie-httponly",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "关于js操作Cookie",
-            "slug": "关于js操作cookie",
-            "link": "#关于js操作cookie",
-            "children": []
-          }
-        ]
-      },
-      {
-        "level": 2,
-        "title": "localhost:3000 与 localhost:5000 的 cookie 信息是否共享",
-        "slug": "localhost-3000-与-localhost-5000-的-cookie-信息是否共享",
-        "link": "#localhost-3000-与-localhost-5000-的-cookie-信息是否共享",
-        "children": []
-      },
-      {
-        "level": 2,
         "title": "什么是事件委托，e.currentTarget 与 e.target 有何区别",
         "slug": "什么是事件委托-e-currenttarget-与-e-target-有何区别",
         "link": "#什么是事件委托-e-currenttarget-与-e-target-有何区别",
@@ -2248,50 +2172,6 @@ export const searchIndex = [
     "extraFields": []
   },
   {
-    "title": "性能优化",
-    "headers": [
-      {
-        "level": 2,
-        "title": "性能指标",
-        "slug": "性能指标",
-        "link": "#性能指标",
-        "children": [
-          {
-            "level": 3,
-            "title": "Coverage 面板",
-            "slug": "coverage-面板",
-            "link": "#coverage-面板",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "Memory 面板",
-            "slug": "memory-面板",
-            "link": "#memory-面板",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "Performance 面板",
-            "slug": "performance-面板",
-            "link": "#performance-面板",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "优化网站首屏加载速度",
-            "slug": "优化网站首屏加载速度",
-            "link": "#优化网站首屏加载速度",
-            "children": []
-          }
-        ]
-      }
-    ],
-    "path": "/interview/webOptimize.html",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
     "title": "Webpack",
     "headers": [
       {
@@ -2404,6 +2284,355 @@ export const searchIndex = [
       }
     ],
     "path": "/interview/webpack.html",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
+    "title": "Umi 常见问题",
+    "headers": [
+      {
+        "level": 2,
+        "title": "前端项目引入自定义字体包",
+        "slug": "前端项目引入自定义字体包",
+        "link": "#前端项目引入自定义字体包",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "Ant Design Pro中打包与加载otf自定义字体",
+        "slug": "ant-design-pro中打包与加载otf自定义字体",
+        "link": "#ant-design-pro中打包与加载otf自定义字体",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "umi中的request二次封装",
+        "slug": "umi中的request二次封装",
+        "link": "#umi中的request二次封装",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "云效Node.js构建报错",
+        "slug": "云效node-js构建报错",
+        "link": "#云效node-js构建报错",
+        "children": []
+      }
+    ],
+    "path": "/other/",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
+    "title": "Antd 常见问题",
+    "headers": [
+      {
+        "level": 2,
+        "title": "Select",
+        "slug": "select",
+        "link": "#select",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "antd Form.Item",
+        "slug": "antd-form-item",
+        "link": "#antd-form-item",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "antd Anchor",
+        "slug": "antd-anchor",
+        "link": "#antd-anchor",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "antd Tabs 闪动",
+        "slug": "antd-tabs-闪动",
+        "link": "#antd-tabs-闪动",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "antd Select",
+        "slug": "antd-select",
+        "link": "#antd-select",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "Input 组件取消自动显示输入历史",
+        "slug": "input-组件取消自动显示输入历史",
+        "link": "#input-组件取消自动显示输入历史",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "Form",
+        "slug": "form",
+        "link": "#form",
+        "children": []
+      }
+    ],
+    "path": "/other/antd.html",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
+    "title": "Css 常见问题",
+    "headers": [
+      {
+        "level": 2,
+        "title": "less文件引入",
+        "slug": "less文件引入",
+        "link": "#less文件引入",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "box-shadow",
+        "slug": "box-shadow",
+        "link": "#box-shadow",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "修改光标颜色",
+        "slug": "修改光标颜色",
+        "link": "#修改光标颜色",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "css文字垂直居中",
+        "slug": "css文字垂直居中",
+        "link": "#css文字垂直居中",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "svg",
+        "slug": "svg",
+        "link": "#svg",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "自定义滚动条样式",
+        "slug": "自定义滚动条样式",
+        "link": "#自定义滚动条样式",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "解决滚动条scrollbar出现造成的页面宽度被挤压的问题",
+        "slug": "解决滚动条scrollbar出现造成的页面宽度被挤压的问题",
+        "link": "#解决滚动条scrollbar出现造成的页面宽度被挤压的问题",
+        "children": []
+      }
+    ],
+    "path": "/other/css.html",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
+    "title": "Nginx常见问题",
+    "headers": [
+      {
+        "level": 2,
+        "title": "解决页面刷新，显示404",
+        "slug": "解决页面刷新-显示404",
+        "link": "#解决页面刷新-显示404",
+        "children": []
+      }
+    ],
+    "path": "/other/nginx.html",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
+    "title": "React 常见问题",
+    "headers": [
+      {
+        "level": 2,
+        "title": "useState",
+        "slug": "usestate",
+        "link": "#usestate",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "useRef",
+        "slug": "useref",
+        "link": "#useref",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "设置source-map后在chrome中仍无法显示webpack://的问题",
+        "slug": "设置source-map后在chrome中仍无法显示webpack-的问题",
+        "link": "#设置source-map后在chrome中仍无法显示webpack-的问题",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "控制台警告",
+        "slug": "控制台警告",
+        "link": "#控制台警告",
+        "children": [
+          {
+            "level": 3,
+            "title": "原因分析",
+            "slug": "原因分析",
+            "link": "#原因分析",
+            "children": []
+          }
+        ]
+      }
+    ],
+    "path": "/other/react.html",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
+    "title": "Stylelint 常见问题",
+    "headers": [
+      {
+        "level": 2,
+        "title": "stylelint警告",
+        "slug": "stylelint警告",
+        "link": "#stylelint警告",
+        "children": []
+      }
+    ],
+    "path": "/other/stylelint.html",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
+    "title": "Vite 常见问题",
+    "headers": [
+      {
+        "level": 2,
+        "title": "vite多入口配置",
+        "slug": "vite多入口配置",
+        "link": "#vite多入口配置",
+        "children": [
+          {
+            "level": 3,
+            "title": "配置vite.config.ts",
+            "slug": "配置vite-config-ts",
+            "link": "#配置vite-config-ts",
+            "children": []
+          }
+        ]
+      }
+    ],
+    "path": "/other/vite.html",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
+    "title": "vscode常见问题",
+    "headers": [
+      {
+        "level": 2,
+        "title": "vscode 代码尾部添加分号",
+        "slug": "vscode-代码尾部添加分号",
+        "link": "#vscode-代码尾部添加分号",
+        "children": [
+          {
+            "level": 3,
+            "title": "设置setting.json",
+            "slug": "设置setting-json",
+            "link": "#设置setting-json",
+            "children": []
+          }
+        ]
+      }
+    ],
+    "path": "/other/vscode.html",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
+    "title": "Git",
+    "headers": [
+      {
+        "level": 2,
+        "title": "git checkout",
+        "slug": "git-checkout",
+        "link": "#git-checkout",
+        "children": [
+          {
+            "level": 3,
+            "title": "基于远程分支创建本地新分支",
+            "slug": "基于远程分支创建本地新分支",
+            "link": "#基于远程分支创建本地新分支",
+            "children": []
+          },
+          {
+            "level": 3,
+            "title": "用于检出某一个指定文件或文件夹",
+            "slug": "用于检出某一个指定文件或文件夹",
+            "link": "#用于检出某一个指定文件或文件夹",
+            "children": []
+          }
+        ]
+      },
+      {
+        "level": 2,
+        "title": "git push",
+        "slug": "git-push",
+        "link": "#git-push",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "git clone",
+        "slug": "git-clone",
+        "link": "#git-clone",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "git reset",
+        "slug": "git-reset",
+        "link": "#git-reset",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "git revert",
+        "slug": "git-revert",
+        "link": "#git-revert",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "git pull 报错error",
+        "slug": "git-pull-报错error",
+        "link": "#git-pull-报错error",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "git branch",
+        "slug": "git-branch",
+        "link": "#git-branch",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "如何保持本地代码与 fork 仓库远程代码一致",
+        "slug": "如何保持本地代码与-fork-仓库远程代码一致",
+        "link": "#如何保持本地代码与-fork-仓库远程代码一致",
+        "children": []
+      }
+    ],
+    "path": "/git/",
     "pathLocale": "/",
     "extraFields": []
   },
@@ -3505,396 +3734,105 @@ export const searchIndex = [
     "extraFields": []
   },
   {
-    "title": "Umi 常见问题",
+    "title": "网络层面的性能优化",
     "headers": [
       {
         "level": 2,
-        "title": "前端项目引入自定义字体包",
-        "slug": "前端项目引入自定义字体包",
-        "link": "#前端项目引入自定义字体包",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "Ant Design Pro中打包与加载otf自定义字体",
-        "slug": "ant-design-pro中打包与加载otf自定义字体",
-        "link": "#ant-design-pro中打包与加载otf自定义字体",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "umi中的request二次封装",
-        "slug": "umi中的request二次封装",
-        "link": "#umi中的request二次封装",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "云效Node.js构建报错",
-        "slug": "云效node-js构建报错",
-        "link": "#云效node-js构建报错",
-        "children": []
-      }
-    ],
-    "path": "/other/",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "Antd 常见问题",
-    "headers": [
-      {
-        "level": 2,
-        "title": "Select",
-        "slug": "select",
-        "link": "#select",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "antd Form.Item",
-        "slug": "antd-form-item",
-        "link": "#antd-form-item",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "antd Anchor",
-        "slug": "antd-anchor",
-        "link": "#antd-anchor",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "antd Tabs 闪动",
-        "slug": "antd-tabs-闪动",
-        "link": "#antd-tabs-闪动",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "antd Select",
-        "slug": "antd-select",
-        "link": "#antd-select",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "Input 组件取消自动显示输入历史",
-        "slug": "input-组件取消自动显示输入历史",
-        "link": "#input-组件取消自动显示输入历史",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "Form",
-        "slug": "form",
-        "link": "#form",
-        "children": []
-      }
-    ],
-    "path": "/other/antd.html",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "Css 常见问题",
-    "headers": [
-      {
-        "level": 2,
-        "title": "less文件引入",
-        "slug": "less文件引入",
-        "link": "#less文件引入",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "box-shadow",
-        "slug": "box-shadow",
-        "link": "#box-shadow",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "修改光标颜色",
-        "slug": "修改光标颜色",
-        "link": "#修改光标颜色",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "css文字垂直居中",
-        "slug": "css文字垂直居中",
-        "link": "#css文字垂直居中",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "svg",
-        "slug": "svg",
-        "link": "#svg",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "自定义滚动条样式",
-        "slug": "自定义滚动条样式",
-        "link": "#自定义滚动条样式",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "解决滚动条scrollbar出现造成的页面宽度被挤压的问题",
-        "slug": "解决滚动条scrollbar出现造成的页面宽度被挤压的问题",
-        "link": "#解决滚动条scrollbar出现造成的页面宽度被挤压的问题",
-        "children": []
-      }
-    ],
-    "path": "/other/css.html",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "Nginx常见问题",
-    "headers": [
-      {
-        "level": 2,
-        "title": "解决页面刷新，显示404",
-        "slug": "解决页面刷新-显示404",
-        "link": "#解决页面刷新-显示404",
-        "children": []
-      }
-    ],
-    "path": "/other/nginx.html",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "React 常见问题",
-    "headers": [
-      {
-        "level": 2,
-        "title": "useState",
-        "slug": "usestate",
-        "link": "#usestate",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "useRef",
-        "slug": "useref",
-        "link": "#useref",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "设置source-map后在chrome中仍无法显示webpack://的问题",
-        "slug": "设置source-map后在chrome中仍无法显示webpack-的问题",
-        "link": "#设置source-map后在chrome中仍无法显示webpack-的问题",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "控制台警告",
-        "slug": "控制台警告",
-        "link": "#控制台警告",
+        "title": "减少每次网络请求所花费的时间",
+        "slug": "减少每次网络请求所花费的时间",
+        "link": "#减少每次网络请求所花费的时间",
         "children": [
           {
             "level": 3,
-            "title": "原因分析",
-            "slug": "原因分析",
-            "link": "#原因分析",
-            "children": []
-          }
-        ]
-      }
-    ],
-    "path": "/other/react.html",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "Stylelint 常见问题",
-    "headers": [
-      {
-        "level": 2,
-        "title": "stylelint警告",
-        "slug": "stylelint警告",
-        "link": "#stylelint警告",
-        "children": []
-      }
-    ],
-    "path": "/other/stylelint.html",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "Vite 常见问题",
-    "headers": [
-      {
-        "level": 2,
-        "title": "vite多入口配置",
-        "slug": "vite多入口配置",
-        "link": "#vite多入口配置",
-        "children": [
-          {
-            "level": 3,
-            "title": "配置vite.config.ts",
-            "slug": "配置vite-config-ts",
-            "link": "#配置vite-config-ts",
-            "children": []
-          }
-        ]
-      }
-    ],
-    "path": "/other/vite.html",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "vscode常见问题",
-    "headers": [
-      {
-        "level": 2,
-        "title": "vscode 代码尾部添加分号",
-        "slug": "vscode-代码尾部添加分号",
-        "link": "#vscode-代码尾部添加分号",
-        "children": [
-          {
-            "level": 3,
-            "title": "设置setting.json",
-            "slug": "设置setting-json",
-            "link": "#设置setting-json",
-            "children": []
-          }
-        ]
-      }
-    ],
-    "path": "/other/vscode.html",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "工厂模式",
-    "headers": [
-      {
-        "level": 2,
-        "title": "工场模式介绍",
-        "slug": "工场模式介绍",
-        "link": "#工场模式介绍",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "简单工厂模式",
-        "slug": "简单工厂模式",
-        "link": "#简单工厂模式",
-        "children": [
-          {
-            "level": 3,
-            "title": "对不同的类实例化",
-            "slug": "对不同的类实例化",
-            "link": "#对不同的类实例化",
+            "title": "图片优化",
+            "slug": "图片优化",
+            "link": "#图片优化",
             "children": []
           },
           {
             "level": 3,
-            "title": "创建相似对象 (相似东西提取，不相似的针对性处理)",
-            "slug": "创建相似对象-相似东西提取-不相似的针对性处理",
-            "link": "#创建相似对象-相似东西提取-不相似的针对性处理",
+            "title": "CDN 的缓存与回源",
+            "slug": "cdn-的缓存与回源",
+            "link": "#cdn-的缓存与回源",
             "children": []
           }
         ]
       },
       {
         "level": 2,
-        "title": "工厂方法模式",
-        "slug": "工厂方法模式",
-        "link": "#工厂方法模式",
+        "title": "减少网络请求的次数",
+        "slug": "减少网络请求的次数",
+        "link": "#减少网络请求的次数",
         "children": [
           {
             "level": 3,
-            "title": "安全模式类",
-            "slug": "安全模式类",
-            "link": "#安全模式类",
+            "title": "浏览器缓存机制",
+            "slug": "浏览器缓存机制",
+            "link": "#浏览器缓存机制",
             "children": []
           },
           {
             "level": 3,
-            "title": "安全的工厂方法",
-            "slug": "安全的工厂方法",
-            "link": "#安全的工厂方法",
-            "children": []
-          }
-        ]
-      },
-      {
-        "level": 2,
-        "title": "抽象工厂模式",
-        "slug": "抽象工厂模式",
-        "link": "#抽象工厂模式",
-        "children": [
-          {
-            "level": 3,
-            "title": "抽象工厂方法",
-            "slug": "抽象工厂方法",
-            "link": "#抽象工厂方法",
+            "title": "本地缓存",
+            "slug": "本地缓存",
+            "link": "#本地缓存",
             "children": []
           }
         ]
       }
     ],
-    "path": "/books/FactoryPattern.html",
+    "path": "/interview/performanceOptimization/network.html",
     "pathLocale": "/",
     "extraFields": []
   },
   {
-    "title": "JavaScript设计模式",
+    "title": "渲染层面的优化",
+    "headers": [],
+    "path": "/interview/performanceOptimization/render.html",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
+    "title": "性能指标",
     "headers": [
       {
         "level": 2,
-        "title": "什么是设计模式",
-        "slug": "什么是设计模式",
-        "link": "#什么是设计模式",
-        "children": []
+        "title": "性能指标",
+        "slug": "性能指标-1",
+        "link": "#性能指标-1",
+        "children": [
+          {
+            "level": 3,
+            "title": "Coverage 面板",
+            "slug": "coverage-面板",
+            "link": "#coverage-面板",
+            "children": []
+          },
+          {
+            "level": 3,
+            "title": "Memory 面板",
+            "slug": "memory-面板",
+            "link": "#memory-面板",
+            "children": []
+          },
+          {
+            "level": 3,
+            "title": "Performance 面板",
+            "slug": "performance-面板",
+            "link": "#performance-面板",
+            "children": []
+          }
+        ]
       },
       {
         "level": 2,
-        "title": "设计模式五大设计原则",
-        "slug": "设计模式五大设计原则",
-        "link": "#设计模式五大设计原则",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "设计模式的类型",
-        "slug": "设计模式的类型",
-        "link": "#设计模式的类型",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "创建型模式",
-        "slug": "创建型模式",
-        "link": "#创建型模式",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "结构型模式",
-        "slug": "结构型模式",
-        "link": "#结构型模式",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "行为型模式",
-        "slug": "行为型模式",
-        "link": "#行为型模式",
+        "title": "优化网站首屏加载速度",
+        "slug": "优化网站首屏加载速度",
+        "link": "#优化网站首屏加载速度",
         "children": []
       }
     ],
-    "path": "/books/",
+    "path": "/interview/performanceOptimization/webOptimize.html",
     "pathLocale": "/",
     "extraFields": []
   },

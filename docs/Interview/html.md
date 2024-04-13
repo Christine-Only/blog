@@ -236,61 +236,6 @@ function getMostFrequentTag() {
 })()
 ```
 
-## Cookie 属性
-
-* Domain
-* Path
-* Expire/MaxAge
-* HttpOnly: 是否允许被 JavaScript 操作
-* Secure: 只能在 HTTPS 连接中配置
-* SameSite
-
-### Cookie maxAge
-
-如果没有 maxAge，则 cookie 的有效时间为会话时间。即浏览器关闭就没了。
-
-### Cookie SameSite
-
-SameSite中有以下三个值：
-
-* None: 任何情况下都会向第三方网站请求发送 Cookie
-* Lax: 只有导航到第三方网站的 Get 链接会发送 Cookie，跨域的图片、iframe、form表单都不会发送 Cookie
-* Strict: 任何情况下都不会向第三方网站请求发送Cookie
-
-目前，主流浏览器 `Same-Site` 的默认值为 `Lax`，而在以前是 `None`，将会预防大部分 CSRF 攻击，如果需要手动指定 `Same-Site` 为 None，需要指定 Cookie 属性 `Secure`，即在 https 下发送。
-
-### Cookie HttpOnly
-
-如果这个属性设置为true，就不能通过js脚本来获取cookie的值，能有效的防止xss攻击。
-
-### 关于js操作Cookie
-
-```js
-//读取浏览器中的cookie
-console.log(document.cookie);
-//写入cookie
-document.cookie='name=christine;path=/;domain=.baidu.com';
-
-// cookie 的过期时间改为过去时即可删除成功
-// max-age 设置为 -1 即可成功
-document.cookie = 'name=christine; max-age=-1'
-
-// 或者使用最新的Cookie操作API
-cookieStore.delete('name');
-```
-
-参考文章[把cookie聊清楚](https://juejin.cn/post/6844903501869350925)[阮一峰JavaScript教程](https://javascript.ruanyifeng.com/bom/cookie.html)
-
-## localhost:3000 与 localhost:5000 的 cookie 信息是否共享
-
-共享。
-
-:::tip
-Cookie 只区分域，不区分端口和协议，只要域相同，即使端口号或协议不同，cookie 也能共享。
-:::
-
-参考链接[Cookie属性详解](https://juejin.cn/post/6863377752939036679)
-
 ## 什么是事件委托，e.currentTarget 与 e.target 有何区别
 
 > 事件委托指当有大量子元素触发事件时，将事件监听器绑定在父元素进行监听，此时数百个事件监听器变为了一个监听器，提升了网页性能。
