@@ -447,6 +447,355 @@ export const searchIndex = [
     "extraFields": []
   },
   {
+    "title": "Git",
+    "headers": [
+      {
+        "level": 2,
+        "title": "git checkout",
+        "slug": "git-checkout",
+        "link": "#git-checkout",
+        "children": [
+          {
+            "level": 3,
+            "title": "基于远程分支创建本地新分支",
+            "slug": "基于远程分支创建本地新分支",
+            "link": "#基于远程分支创建本地新分支",
+            "children": []
+          },
+          {
+            "level": 3,
+            "title": "用于检出某一个指定文件或文件夹",
+            "slug": "用于检出某一个指定文件或文件夹",
+            "link": "#用于检出某一个指定文件或文件夹",
+            "children": []
+          }
+        ]
+      },
+      {
+        "level": 2,
+        "title": "git push",
+        "slug": "git-push",
+        "link": "#git-push",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "git clone",
+        "slug": "git-clone",
+        "link": "#git-clone",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "git reset",
+        "slug": "git-reset",
+        "link": "#git-reset",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "git revert",
+        "slug": "git-revert",
+        "link": "#git-revert",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "git pull 报错error",
+        "slug": "git-pull-报错error",
+        "link": "#git-pull-报错error",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "git branch",
+        "slug": "git-branch",
+        "link": "#git-branch",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "如何保持本地代码与 fork 仓库远程代码一致",
+        "slug": "如何保持本地代码与-fork-仓库远程代码一致",
+        "link": "#如何保持本地代码与-fork-仓库远程代码一致",
+        "children": []
+      }
+    ],
+    "path": "/git/",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
+    "title": "Umi 常见问题",
+    "headers": [
+      {
+        "level": 2,
+        "title": "前端项目引入自定义字体包",
+        "slug": "前端项目引入自定义字体包",
+        "link": "#前端项目引入自定义字体包",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "Ant Design Pro中打包与加载otf自定义字体",
+        "slug": "ant-design-pro中打包与加载otf自定义字体",
+        "link": "#ant-design-pro中打包与加载otf自定义字体",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "umi中的request二次封装",
+        "slug": "umi中的request二次封装",
+        "link": "#umi中的request二次封装",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "云效Node.js构建报错",
+        "slug": "云效node-js构建报错",
+        "link": "#云效node-js构建报错",
+        "children": []
+      }
+    ],
+    "path": "/other/",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
+    "title": "Antd 常见问题",
+    "headers": [
+      {
+        "level": 2,
+        "title": "Select",
+        "slug": "select",
+        "link": "#select",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "antd Form.Item",
+        "slug": "antd-form-item",
+        "link": "#antd-form-item",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "antd Anchor",
+        "slug": "antd-anchor",
+        "link": "#antd-anchor",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "antd Tabs 闪动",
+        "slug": "antd-tabs-闪动",
+        "link": "#antd-tabs-闪动",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "antd Select",
+        "slug": "antd-select",
+        "link": "#antd-select",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "Input 组件取消自动显示输入历史",
+        "slug": "input-组件取消自动显示输入历史",
+        "link": "#input-组件取消自动显示输入历史",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "Form",
+        "slug": "form",
+        "link": "#form",
+        "children": []
+      }
+    ],
+    "path": "/other/antd.html",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
+    "title": "Css 常见问题",
+    "headers": [
+      {
+        "level": 2,
+        "title": "less文件引入",
+        "slug": "less文件引入",
+        "link": "#less文件引入",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "box-shadow",
+        "slug": "box-shadow",
+        "link": "#box-shadow",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "修改光标颜色",
+        "slug": "修改光标颜色",
+        "link": "#修改光标颜色",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "css文字垂直居中",
+        "slug": "css文字垂直居中",
+        "link": "#css文字垂直居中",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "svg",
+        "slug": "svg",
+        "link": "#svg",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "自定义滚动条样式",
+        "slug": "自定义滚动条样式",
+        "link": "#自定义滚动条样式",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "解决滚动条scrollbar出现造成的页面宽度被挤压的问题",
+        "slug": "解决滚动条scrollbar出现造成的页面宽度被挤压的问题",
+        "link": "#解决滚动条scrollbar出现造成的页面宽度被挤压的问题",
+        "children": []
+      }
+    ],
+    "path": "/other/css.html",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
+    "title": "Nginx常见问题",
+    "headers": [
+      {
+        "level": 2,
+        "title": "解决页面刷新，显示404",
+        "slug": "解决页面刷新-显示404",
+        "link": "#解决页面刷新-显示404",
+        "children": []
+      }
+    ],
+    "path": "/other/nginx.html",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
+    "title": "React 常见问题",
+    "headers": [
+      {
+        "level": 2,
+        "title": "useState",
+        "slug": "usestate",
+        "link": "#usestate",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "useRef",
+        "slug": "useref",
+        "link": "#useref",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "设置source-map后在chrome中仍无法显示webpack://的问题",
+        "slug": "设置source-map后在chrome中仍无法显示webpack-的问题",
+        "link": "#设置source-map后在chrome中仍无法显示webpack-的问题",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "控制台警告",
+        "slug": "控制台警告",
+        "link": "#控制台警告",
+        "children": [
+          {
+            "level": 3,
+            "title": "原因分析",
+            "slug": "原因分析",
+            "link": "#原因分析",
+            "children": []
+          }
+        ]
+      }
+    ],
+    "path": "/other/react.html",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
+    "title": "Stylelint 常见问题",
+    "headers": [
+      {
+        "level": 2,
+        "title": "stylelint警告",
+        "slug": "stylelint警告",
+        "link": "#stylelint警告",
+        "children": []
+      }
+    ],
+    "path": "/other/stylelint.html",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
+    "title": "Vite 常见问题",
+    "headers": [
+      {
+        "level": 2,
+        "title": "vite多入口配置",
+        "slug": "vite多入口配置",
+        "link": "#vite多入口配置",
+        "children": [
+          {
+            "level": 3,
+            "title": "配置vite.config.ts",
+            "slug": "配置vite-config-ts",
+            "link": "#配置vite-config-ts",
+            "children": []
+          }
+        ]
+      }
+    ],
+    "path": "/other/vite.html",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
+    "title": "vscode常见问题",
+    "headers": [
+      {
+        "level": 2,
+        "title": "vscode 代码尾部添加分号",
+        "slug": "vscode-代码尾部添加分号",
+        "link": "#vscode-代码尾部添加分号",
+        "children": [
+          {
+            "level": 3,
+            "title": "设置setting.json",
+            "slug": "设置setting-json",
+            "link": "#设置setting-json",
+            "children": []
+          }
+        ]
+      }
+    ],
+    "path": "/other/vscode.html",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
     "title": "JS基础知识点",
     "headers": [
       {
@@ -1764,6 +2113,13 @@ export const searchIndex = [
             "slug": "常见的状态码",
             "link": "#常见的状态码",
             "children": []
+          },
+          {
+            "level": 3,
+            "title": "ping",
+            "slug": "ping",
+            "link": "#ping",
+            "children": []
           }
         ]
       }
@@ -2288,355 +2644,6 @@ export const searchIndex = [
     "extraFields": []
   },
   {
-    "title": "Umi 常见问题",
-    "headers": [
-      {
-        "level": 2,
-        "title": "前端项目引入自定义字体包",
-        "slug": "前端项目引入自定义字体包",
-        "link": "#前端项目引入自定义字体包",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "Ant Design Pro中打包与加载otf自定义字体",
-        "slug": "ant-design-pro中打包与加载otf自定义字体",
-        "link": "#ant-design-pro中打包与加载otf自定义字体",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "umi中的request二次封装",
-        "slug": "umi中的request二次封装",
-        "link": "#umi中的request二次封装",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "云效Node.js构建报错",
-        "slug": "云效node-js构建报错",
-        "link": "#云效node-js构建报错",
-        "children": []
-      }
-    ],
-    "path": "/other/",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "Antd 常见问题",
-    "headers": [
-      {
-        "level": 2,
-        "title": "Select",
-        "slug": "select",
-        "link": "#select",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "antd Form.Item",
-        "slug": "antd-form-item",
-        "link": "#antd-form-item",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "antd Anchor",
-        "slug": "antd-anchor",
-        "link": "#antd-anchor",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "antd Tabs 闪动",
-        "slug": "antd-tabs-闪动",
-        "link": "#antd-tabs-闪动",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "antd Select",
-        "slug": "antd-select",
-        "link": "#antd-select",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "Input 组件取消自动显示输入历史",
-        "slug": "input-组件取消自动显示输入历史",
-        "link": "#input-组件取消自动显示输入历史",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "Form",
-        "slug": "form",
-        "link": "#form",
-        "children": []
-      }
-    ],
-    "path": "/other/antd.html",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "Css 常见问题",
-    "headers": [
-      {
-        "level": 2,
-        "title": "less文件引入",
-        "slug": "less文件引入",
-        "link": "#less文件引入",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "box-shadow",
-        "slug": "box-shadow",
-        "link": "#box-shadow",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "修改光标颜色",
-        "slug": "修改光标颜色",
-        "link": "#修改光标颜色",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "css文字垂直居中",
-        "slug": "css文字垂直居中",
-        "link": "#css文字垂直居中",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "svg",
-        "slug": "svg",
-        "link": "#svg",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "自定义滚动条样式",
-        "slug": "自定义滚动条样式",
-        "link": "#自定义滚动条样式",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "解决滚动条scrollbar出现造成的页面宽度被挤压的问题",
-        "slug": "解决滚动条scrollbar出现造成的页面宽度被挤压的问题",
-        "link": "#解决滚动条scrollbar出现造成的页面宽度被挤压的问题",
-        "children": []
-      }
-    ],
-    "path": "/other/css.html",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "Nginx常见问题",
-    "headers": [
-      {
-        "level": 2,
-        "title": "解决页面刷新，显示404",
-        "slug": "解决页面刷新-显示404",
-        "link": "#解决页面刷新-显示404",
-        "children": []
-      }
-    ],
-    "path": "/other/nginx.html",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "React 常见问题",
-    "headers": [
-      {
-        "level": 2,
-        "title": "useState",
-        "slug": "usestate",
-        "link": "#usestate",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "useRef",
-        "slug": "useref",
-        "link": "#useref",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "设置source-map后在chrome中仍无法显示webpack://的问题",
-        "slug": "设置source-map后在chrome中仍无法显示webpack-的问题",
-        "link": "#设置source-map后在chrome中仍无法显示webpack-的问题",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "控制台警告",
-        "slug": "控制台警告",
-        "link": "#控制台警告",
-        "children": [
-          {
-            "level": 3,
-            "title": "原因分析",
-            "slug": "原因分析",
-            "link": "#原因分析",
-            "children": []
-          }
-        ]
-      }
-    ],
-    "path": "/other/react.html",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "Stylelint 常见问题",
-    "headers": [
-      {
-        "level": 2,
-        "title": "stylelint警告",
-        "slug": "stylelint警告",
-        "link": "#stylelint警告",
-        "children": []
-      }
-    ],
-    "path": "/other/stylelint.html",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "Vite 常见问题",
-    "headers": [
-      {
-        "level": 2,
-        "title": "vite多入口配置",
-        "slug": "vite多入口配置",
-        "link": "#vite多入口配置",
-        "children": [
-          {
-            "level": 3,
-            "title": "配置vite.config.ts",
-            "slug": "配置vite-config-ts",
-            "link": "#配置vite-config-ts",
-            "children": []
-          }
-        ]
-      }
-    ],
-    "path": "/other/vite.html",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "vscode常见问题",
-    "headers": [
-      {
-        "level": 2,
-        "title": "vscode 代码尾部添加分号",
-        "slug": "vscode-代码尾部添加分号",
-        "link": "#vscode-代码尾部添加分号",
-        "children": [
-          {
-            "level": 3,
-            "title": "设置setting.json",
-            "slug": "设置setting-json",
-            "link": "#设置setting-json",
-            "children": []
-          }
-        ]
-      }
-    ],
-    "path": "/other/vscode.html",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "Git",
-    "headers": [
-      {
-        "level": 2,
-        "title": "git checkout",
-        "slug": "git-checkout",
-        "link": "#git-checkout",
-        "children": [
-          {
-            "level": 3,
-            "title": "基于远程分支创建本地新分支",
-            "slug": "基于远程分支创建本地新分支",
-            "link": "#基于远程分支创建本地新分支",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "用于检出某一个指定文件或文件夹",
-            "slug": "用于检出某一个指定文件或文件夹",
-            "link": "#用于检出某一个指定文件或文件夹",
-            "children": []
-          }
-        ]
-      },
-      {
-        "level": 2,
-        "title": "git push",
-        "slug": "git-push",
-        "link": "#git-push",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "git clone",
-        "slug": "git-clone",
-        "link": "#git-clone",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "git reset",
-        "slug": "git-reset",
-        "link": "#git-reset",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "git revert",
-        "slug": "git-revert",
-        "link": "#git-revert",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "git pull 报错error",
-        "slug": "git-pull-报错error",
-        "link": "#git-pull-报错error",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "git branch",
-        "slug": "git-branch",
-        "link": "#git-branch",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "如何保持本地代码与 fork 仓库远程代码一致",
-        "slug": "如何保持本地代码与-fork-仓库远程代码一致",
-        "link": "#如何保持本地代码与-fork-仓库远程代码一致",
-        "children": []
-      }
-    ],
-    "path": "/git/",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
     "title": "React 基础",
     "headers": [
       {
@@ -2997,208 +3004,6 @@ export const searchIndex = [
     "extraFields": []
   },
   {
-    "title": "介绍",
-    "headers": [
-      {
-        "level": 2,
-        "title": "为什么要使用TypeScript?",
-        "slug": "为什么要使用typescript",
-        "link": "#为什么要使用typescript",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "搭建TypeScript学习环境",
-        "slug": "搭建typescript学习环境",
-        "link": "#搭建typescript学习环境",
-        "children": [
-          {
-            "level": 3,
-            "title": "安装最新版TypeScript",
-            "slug": "安装最新版typescript",
-            "link": "#安装最新版typescript",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "验证安装",
-            "slug": "验证安装",
-            "link": "#验证安装",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "安装 ts-node",
-            "slug": "安装-ts-node",
-            "link": "#安装-ts-node",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "创建一个 tsconfig.json 文件",
-            "slug": "创建一个-tsconfig-json-文件",
-            "link": "#创建一个-tsconfig-json-文件",
-            "children": []
-          }
-        ]
-      }
-    ],
-    "path": "/typescript/",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "进阶",
-    "headers": [
-      {
-        "level": 2,
-        "title": "类型拓宽（Type Widening）",
-        "slug": "类型拓宽-type-widening",
-        "link": "#类型拓宽-type-widening",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "类型缩小 (Type Narrowing)",
-        "slug": "类型缩小-type-narrowing",
-        "link": "#类型缩小-type-narrowing",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "联合类型 (Union Types)",
-        "slug": "联合类型-union-types",
-        "link": "#联合类型-union-types",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "类型别名 (Type Aliases)",
-        "slug": "类型别名-type-aliases",
-        "link": "#类型别名-type-aliases",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "交叉类型（Intersection Types）",
-        "slug": "交叉类型-intersection-types",
-        "link": "#交叉类型-intersection-types",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "接口 (Interfaces)",
-        "slug": "接口-interfaces",
-        "link": "#接口-interfaces",
-        "children": [
-          {
-            "level": 3,
-            "title": "可选 | 只读属性",
-            "slug": "可选-只读属性",
-            "link": "#可选-只读属性",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "任意类型",
-            "slug": "任意类型",
-            "link": "#任意类型",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "绕开额外属性检查的方式",
-            "slug": "绕开额外属性检查的方式",
-            "link": "#绕开额外属性检查的方式",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "接口与类型别名的区别",
-            "slug": "接口与类型别名的区别",
-            "link": "#接口与类型别名的区别",
-            "children": []
-          }
-        ]
-      },
-      {
-        "level": 2,
-        "title": "泛型 (Generics)",
-        "slug": "泛型-generics",
-        "link": "#泛型-generics",
-        "children": [
-          {
-            "level": 3,
-            "title": "约束类型",
-            "slug": "约束类型",
-            "link": "#约束类型",
-            "children": []
-          }
-        ]
-      },
-      {
-        "level": 2,
-        "title": "泛型工具类型",
-        "slug": "泛型工具类型",
-        "link": "#泛型工具类型",
-        "children": [
-          {
-            "level": 3,
-            "title": "typeof",
-            "slug": "typeof",
-            "link": "#typeof",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "keyof",
-            "slug": "keyof",
-            "link": "#keyof",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "in",
-            "slug": "in",
-            "link": "#in",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "extends",
-            "slug": "extends",
-            "link": "#extends",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "Infer",
-            "slug": "infer",
-            "link": "#infer",
-            "children": []
-          }
-        ]
-      },
-      {
-        "level": 2,
-        "title": "索引类型",
-        "slug": "索引类型",
-        "link": "#索引类型",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "映射类型",
-        "slug": "映射类型",
-        "link": "#映射类型",
-        "children": []
-      }
-    ],
-    "path": "/typescript/advance.html",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
     "title": "基础",
     "headers": [
       {
@@ -3405,6 +3210,208 @@ export const searchIndex = [
             "title": "let和const分析",
             "slug": "let和const分析",
             "link": "#let和const分析",
+            "children": []
+          }
+        ]
+      }
+    ],
+    "path": "/typescript/",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
+    "title": "进阶",
+    "headers": [
+      {
+        "level": 2,
+        "title": "类型拓宽（Type Widening）",
+        "slug": "类型拓宽-type-widening",
+        "link": "#类型拓宽-type-widening",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "类型缩小 (Type Narrowing)",
+        "slug": "类型缩小-type-narrowing",
+        "link": "#类型缩小-type-narrowing",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "联合类型 (Union Types)",
+        "slug": "联合类型-union-types",
+        "link": "#联合类型-union-types",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "类型别名 (Type Aliases)",
+        "slug": "类型别名-type-aliases",
+        "link": "#类型别名-type-aliases",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "交叉类型（Intersection Types）",
+        "slug": "交叉类型-intersection-types",
+        "link": "#交叉类型-intersection-types",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "接口 (Interfaces)",
+        "slug": "接口-interfaces",
+        "link": "#接口-interfaces",
+        "children": [
+          {
+            "level": 3,
+            "title": "可选 | 只读属性",
+            "slug": "可选-只读属性",
+            "link": "#可选-只读属性",
+            "children": []
+          },
+          {
+            "level": 3,
+            "title": "任意类型",
+            "slug": "任意类型",
+            "link": "#任意类型",
+            "children": []
+          },
+          {
+            "level": 3,
+            "title": "绕开额外属性检查的方式",
+            "slug": "绕开额外属性检查的方式",
+            "link": "#绕开额外属性检查的方式",
+            "children": []
+          },
+          {
+            "level": 3,
+            "title": "接口与类型别名的区别",
+            "slug": "接口与类型别名的区别",
+            "link": "#接口与类型别名的区别",
+            "children": []
+          }
+        ]
+      },
+      {
+        "level": 2,
+        "title": "泛型 (Generics)",
+        "slug": "泛型-generics",
+        "link": "#泛型-generics",
+        "children": [
+          {
+            "level": 3,
+            "title": "约束类型",
+            "slug": "约束类型",
+            "link": "#约束类型",
+            "children": []
+          }
+        ]
+      },
+      {
+        "level": 2,
+        "title": "泛型工具类型",
+        "slug": "泛型工具类型",
+        "link": "#泛型工具类型",
+        "children": [
+          {
+            "level": 3,
+            "title": "typeof",
+            "slug": "typeof",
+            "link": "#typeof",
+            "children": []
+          },
+          {
+            "level": 3,
+            "title": "keyof",
+            "slug": "keyof",
+            "link": "#keyof",
+            "children": []
+          },
+          {
+            "level": 3,
+            "title": "in",
+            "slug": "in",
+            "link": "#in",
+            "children": []
+          },
+          {
+            "level": 3,
+            "title": "extends",
+            "slug": "extends",
+            "link": "#extends",
+            "children": []
+          },
+          {
+            "level": 3,
+            "title": "Infer",
+            "slug": "infer",
+            "link": "#infer",
+            "children": []
+          }
+        ]
+      },
+      {
+        "level": 2,
+        "title": "索引类型",
+        "slug": "索引类型",
+        "link": "#索引类型",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "映射类型",
+        "slug": "映射类型",
+        "link": "#映射类型",
+        "children": []
+      }
+    ],
+    "path": "/typescript/advance.html",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
+    "title": "介绍",
+    "headers": [
+      {
+        "level": 2,
+        "title": "为什么要使用TypeScript?",
+        "slug": "为什么要使用typescript",
+        "link": "#为什么要使用typescript",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "搭建TypeScript学习环境",
+        "slug": "搭建typescript学习环境",
+        "link": "#搭建typescript学习环境",
+        "children": [
+          {
+            "level": 3,
+            "title": "安装最新版TypeScript",
+            "slug": "安装最新版typescript",
+            "link": "#安装最新版typescript",
+            "children": []
+          },
+          {
+            "level": 3,
+            "title": "验证安装",
+            "slug": "验证安装",
+            "link": "#验证安装",
+            "children": []
+          },
+          {
+            "level": 3,
+            "title": "安装 ts-node",
+            "slug": "安装-ts-node",
+            "link": "#安装-ts-node",
+            "children": []
+          },
+          {
+            "level": 3,
+            "title": "创建一个 tsconfig.json 文件",
+            "slug": "创建一个-tsconfig-json-文件",
+            "link": "#创建一个-tsconfig-json-文件",
             "children": []
           }
         ]
@@ -3786,8 +3793,68 @@ export const searchIndex = [
     "extraFields": []
   },
   {
-    "title": "渲染层面的优化",
-    "headers": [],
+    "title": "渲染层面的性能优化",
+    "headers": [
+      {
+        "level": 2,
+        "title": "服务端渲染",
+        "slug": "服务端渲染",
+        "link": "#服务端渲染",
+        "children": [
+          {
+            "level": 3,
+            "title": "客户端渲染的运行机制",
+            "slug": "客户端渲染的运行机制",
+            "link": "#客户端渲染的运行机制",
+            "children": []
+          },
+          {
+            "level": 3,
+            "title": "服务端渲染的运行机制",
+            "slug": "服务端渲染的运行机制",
+            "link": "#服务端渲染的运行机制",
+            "children": []
+          }
+        ]
+      },
+      {
+        "level": 2,
+        "title": "浏览器渲染",
+        "slug": "浏览器渲染",
+        "link": "#浏览器渲染",
+        "children": [
+          {
+            "level": 3,
+            "title": "浏览器渲染过程解析",
+            "slug": "浏览器渲染过程解析",
+            "link": "#浏览器渲染过程解析",
+            "children": []
+          },
+          {
+            "level": 3,
+            "title": "浏览器渲染过程优化措施",
+            "slug": "浏览器渲染过程优化措施",
+            "link": "#浏览器渲染过程优化措施",
+            "children": []
+          }
+        ]
+      },
+      {
+        "level": 2,
+        "title": "DOM 优化",
+        "slug": "dom-优化",
+        "link": "#dom-优化",
+        "children": [
+          {
+            "level": 3,
+            "title": "优化措施",
+            "slug": "优化措施",
+            "link": "#优化措施",
+            "children": []
+          }
+        ]
+      }
+    ],
     "path": "/interview/performanceOptimization/render.html",
     "pathLocale": "/",
     "extraFields": []

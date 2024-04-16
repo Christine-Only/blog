@@ -68,6 +68,9 @@
 <li>500 - 内部服务器错误，无法完成请求</li>
 <li>503 - 抱歉，我现在正在忙着。该状态码表明服务器暂时处于超负载或正在停机维护，现在无法处理请求。</li>
 </ul>
+<h3 id="ping" tabindex="-1"><a class="header-anchor" href="#ping"><span>ping</span></a></h3>
+<div class="language-bash line-numbers-mode" data-ext="sh" data-title="sh"><pre v-pre class="language-bash"><code><span class="token function">ping</span> raw.githubusercontent.com
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div></div></div><p>通过 ping 命令，我们可以获取计算机到目标服务器的网络连接状态，同时也可以获取目标服务器的 IP 地址。</p>
 </div></template>
 
 

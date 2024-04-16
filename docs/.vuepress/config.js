@@ -20,6 +20,12 @@ export default defineUserConfig({
   base: "/blog/",
   plugins: [palettePlugin({ preset: "sass" })],
   theme: defaultTheme({
+    actions: [
+      {
+        text: "点我开始吧 👉",
+        link: "/interview/",
+      },
+    ],
     // 在这里添加主题配置
     logo: "logo.png",
     lastUpdated: "最后更新时间",
@@ -137,8 +143,8 @@ export default defineUserConfig({
           text: "TypeScript",
           collapsible: false,
           children: [
-            "/typescript/README.md",
             "/typescript/base.md",
+            "/typescript/README.md",
             "/typescript/advance.md",
             "/typescript/challengeBuildIn.md",
             "/typescript/challenge.md",
