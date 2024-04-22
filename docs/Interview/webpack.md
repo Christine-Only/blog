@@ -1,5 +1,177 @@
 # Webpack
 
+## 基本配置
+
+### 拆分配置和 merge
+
+- 公共配置`webpack.common.js`
+
+```js
+
+const path = require('path');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+module.exports = {
+  entry: {
+    app: './src/index.js',
+    print: './src/print.js'
+  },
+  plugins: [
+    new CleanWebpackPlugin(), // 每次构建项目之前清理/dist文件夹
+    new HtmlWebpackPlugin({
+      title: 'Output Management',
+      template: './src/index.html',  // 使用自定义模板
+    }),
+  ],
+  output: {
+    filename: '[name].bundle.js',
+    path: path.resolve(__dirname, 'dist')
+  },
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: [
+          'style-loader',
+          'css-loader',
+        ],
+      },
+    ],
+  },
+};
+```
+
+- 开发环境的配置`webpack.dev.js`
+
+```js
+const { merge } = require('webpack-merge');
+const common = require('./webpack.common.js');
+
+module.exports = merge(common, {
+  mode: 'development',
+  devtool: 'inline-source-map',
+  devServer: {
+    port: 9000,
+    progress: true, // 显示打包进度条
+    contentBase: './dist',
+    open: true, // 自动打开浏览器
+    hot: true,
+    compress： true, // 开启 gzip 压缩
+
+    proxy: {
+      // 将本地 /api/xx 代理到 http://localhost:3000/api/xx
+      '/api': {
+        target: 'http://localhost:3000',
+      },
+
+      // 将本地 /api2/xx 代理到 http://localhost:3000/xx
+      '/api2': {
+        target: 'http://localhost:3000',
+        pathRewrite: {'^/api2' : ''}
+      }
+    }
+  },
+});
+```
+
+- merge() 是 webpack-merge 插件提供的一个函数，用于合并 webpack 配置文件。在这里，它给我们提供了一种方式去工整 的合并公共配置和开发环境的特殊配置。
+- mode: 'development' 用于设置 webpack 的模式为开发模式。设置为开发模式会启用 DevTool 和热更新等实用特性。
+- devtool: 'inline-source-map' 可以在出现错误的时候，通过 source map 更好地追踪错误和警告。
+- devServer 是 webpack-dev-server 插件的配置选项，提供了一个简单的 web 服务器，并且实时重新加载页面。contentBase: './dist' 用于设置从何处提供内容，hot: true 用于启用 HMR（Hot Module Replacement）。
+
+- 生产环境的配置`webpack.prod.js`
+
+```js
+const { merge } = require('webpack-merge');
+const common = require('./webpack.common.js');
+const TerserJSPlugin = require('terser-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+
+module.exports = merge(common, {
+  mode: 'production',
+  devtool: 'source-map',
+  optimization: {
+    minimizer: [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})],
+  },
+  plugins: [
+    new MiniCssExtractPlugin({
+      filename: '[name].[contenthash].css',
+    }),
+  ],
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: [MiniCssExtractPlugin.loader, 'css-loader'],
+      },
+    ],
+  },
+});
+```
+
+- TerserJSPlugin 和 OptimizeCSSAssetsPlugin 用来分别压缩 JS 和 CSS 文件。
+- MiniCssExtractPlugin插件会将 CSS 单独抽取到一个文件中，而在开发环境配置中，我们通常使用'style-loader'将 CSS 样式嵌入到 JavaScript 中。
+
+### 处理样式
+
+```js
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.less$/,
+        use: ["style-loader", "css-loader", "postcss-loader", "less-loader"]
+      },
+    ],
+  },
+}
+```
+
+- less loader 将 Less 转换为 CSS；
+- postcss loader 处理一些兼容性，为样式添加 -webkit- 的前缀等；
+- css-loader 会处理 CSS 中的 @import 和 url()；
+- style loader 会生成一个内容为最终解析完的 CSS 的 style 标签，添加到 head 标签里。
+
+## 高级配置
+
+### 配置多入口
+
+```js
+module.exports = {
+  entry: {
+    app: './src/app.js',
+    admin: './src/admin.js'
+  },
+  output: {
+    path: __dirname + '/dist',
+    filename: '[name].[contenthash:8].bundle.js',
+    publicPath: 'https://cdn.abc.com' // 修改所有静态文件 url 的前缀（如 cdn 域名）
+  },
+  plugins: [
+    // 多入口 - 生成index.html
+    new HtmlWebpackPlugin({
+      title: "html-webpack-plugin 自动生成 html 模板",
+      filename: "index.html", // 指定生成的 HTML 文件路径和名称
+      template: "./public/index.html", // 指定模板文件路径
+      chunks: ['app'] // 只引用 app.js
+    }),
+
+    // 多入口 - 生成index.html
+    new HtmlWebpackPlugin({
+      title: "html-webpack-plugin 自动生成 html 模板",
+      filename: "admin.html", // 指定生成的 HTML 文件路径和名称
+      template: "./public/admin.html", // 指定模板文件路径
+      chunks: ['admin'] // 只引用 admin.js
+    }),
+  ],
+};
+```
+
+- `contenthash`: `[name].[contenthash:8].bundle.js`: 输出 bundle.js 时，加上 hash 戳，当文件变化时，hash 值才会变化，这时浏览器才会请求新的 bundle.js 文件，若无变化则会命中缓存。
+- `[name].bundle.js`：这里的 [name] 是占位符，webpack 会把它替换为入口名称，在上面的例子中就是 "app" 和 "admin"。
+
 ## 减少 Webpack 打包时间
 
 ### 优化 Loader
@@ -71,8 +243,8 @@ plugins: [
 ]
 ```
 
-* **threads**: **Number** 类型，指示对应 loader 编译源文件时同时使用的进程数，默认是 3
-* **threadPool**: HappyThreadPool对象，代表共享进程池，即多个 HappyPack 实例都使用同一个共享进程池中的子进程去处理任务，以防止资源占用过多
+- **threads**: **Number** 类型，指示对应 loader 编译源文件时同时使用的进程数，默认是 3
+- **threadPool**: HappyThreadPool对象，代表共享进程池，即多个 HappyPack 实例都使用同一个共享进程池中的子进程去处理任务，以防止资源占用过多
 
 ### DllPlugin
 
@@ -127,9 +299,9 @@ module.exports = {
 
 我们还可以通过一些小的优化点来加快打包速度
 
-* `resolve.extensions`：用来表明文件后缀列表，默认查找顺序是 `['.js', '.json']`，如果你的导入文件没有添加后缀就会按照这个顺序查找文件。我们应该尽可能减少后缀列表长度，然后将出现频率高的后缀排在前面
-* `resolve.alias`：可以通过别名的方式来映射一个路径，能让 Webpack 更快找到路径
-* `module.noParse`：如果你确定一个文件下没有其他依赖，就可以使用该属性让 Webpack 不扫描该文件，这种方式对于大型的类库很有帮助
+- `resolve.extensions`：用来表明文件后缀列表，默认查找顺序是 `['.js', '.json']`，如果你的导入文件没有添加后缀就会按照这个顺序查找文件。我们应该尽可能减少后缀列表长度，然后将出现频率高的后缀排在前面
+- `resolve.alias`：可以通过别名的方式来映射一个路径，能让 Webpack 更快找到路径
+- `module.noParse`：如果你确定一个文件下没有其他依赖，就可以使用该属性让 Webpack 不扫描该文件，这种方式对于大型的类库很有帮助
 
 ## 减少 Webpack 打包后的文件体积
 
@@ -174,12 +346,12 @@ import { a } from './test.js'
 
 核心流程:
 
-* 使用 `webpack-dev-server` (后面简称 WDS)托管静态资源，同时以 `Runtime` 方式注入 HMR 客户端代码
-* 浏览器加载页面后，与 `WDS` 建立 `WebSocket` 连接
-* Webpack 监听到文件变化后，增量构建发生变更的模块，并通过 WebSocket 发送 `hash` 事件
-* 浏览器接收到 `hash` 事件后，请求 `manifest` 资源文件，确认增量变更范围
-* 浏览器加载发生变更的增量模块
-* Webpack 运行时触发变更模块的 `module.hot.accept` 回调，执行代码变更逻辑
+- 使用 `webpack-dev-server` (后面简称 WDS)托管静态资源，同时以 `Runtime` 方式注入 HMR 客户端代码
+- 浏览器加载页面后，与 `WDS` 建立 `WebSocket` 连接
+- Webpack 监听到文件变化后，增量构建发生变更的模块，并通过 WebSocket 发送 `hash` 事件
+- 浏览器接收到 `hash` 事件后，请求 `manifest` 资源文件，确认增量变更范围
+- 浏览器加载发生变更的增量模块
+- Webpack 运行时触发变更模块的 `module.hot.accept` 回调，执行代码变更逻辑
 
 [HMR 原理全解析](https://juejin.cn/post/7021729340945596424)
 
@@ -187,25 +359,25 @@ import { a } from './test.js'
 
 ### Vite 优点
 
-* 启动项目快
-  * 只启动一台静态页面的服务器，对文件代码不打包；
-  * Vite 的原理是借助了浏览器对 ESM 规范的支持；
-  * Vite 无需进行 bundle 操作，Vite 项目，源文件之间的依赖关系通过浏览器对 ESM 规范的支持来解析；
-  * 所以在启动过程中，只需要进行一些初始化的操作，其余全部交由浏览器处理，所以项目启动非常之快；
-* 热更新快
-  * 本地开发环境，在监听到文件变化以后，直接通过 ws 连接，通知浏览器去重新加载变化的文件；
-  * 在 Vite 中，HMR 是在原生 ESM 上执行的;
-  * 编辑一个文件时，Vite 只需要精确地使已编辑的模块与其最近的 HMR 边界之间的链失活（大多数时候只是模块本身），使得无论应用大小如何，HMR 始终能保持快速更新；
-  * 源码缓存：Vite 同时利用 HTTP 头来加速整个页面的重新加载（再次让浏览器为我们做更多事情）：源码模块的请求会根据 304 Not Modified 进行协商缓存；
-  * 依赖模块缓存：解析后的依赖请求则会通过 Cache-Control: max-age=31536000,immutable 进行强缓存，因此一旦被缓存它们将不需要再次请求。
+- 启动项目快
+  - 只启动一台静态页面的服务器，对文件代码不打包；
+  - Vite 的原理是借助了浏览器对 ESM 规范的支持；
+  - Vite 无需进行 bundle 操作，Vite 项目，源文件之间的依赖关系通过浏览器对 ESM 规范的支持来解析；
+  - 所以在启动过程中，只需要进行一些初始化的操作，其余全部交由浏览器处理，所以项目启动非常之快；
+- 热更新快
+  - 本地开发环境，在监听到文件变化以后，直接通过 ws 连接，通知浏览器去重新加载变化的文件；
+  - 在 Vite 中，HMR 是在原生 ESM 上执行的;
+  - 编辑一个文件时，Vite 只需要精确地使已编辑的模块与其最近的 HMR 边界之间的链失活（大多数时候只是模块本身），使得无论应用大小如何，HMR 始终能保持快速更新；
+  - 源码缓存：Vite 同时利用 HTTP 头来加速整个页面的重新加载（再次让浏览器为我们做更多事情）：源码模块的请求会根据 304 Not Modified 进行协商缓存；
+  - 依赖模块缓存：解析后的依赖请求则会通过 Cache-Control: max-age=31536000,immutable 进行强缓存，因此一旦被缓存它们将不需要再次请求。
 
 ### Vite 缺点
 
-* 首屏加载慢
-  * 没有对文件进行 bundle 操作，会导致大量的 http 请求
-  * dev 服务运行期间会对源文件做转换操作，需要时间
-  * Vite 需要把 webpack dev 启动完成的工作，移接到了 dev 响应浏览器的过程中，时间加长
+- 首屏加载慢
+  - 没有对文件进行 bundle 操作，会导致大量的 http 请求
+  - dev 服务运行期间会对源文件做转换操作，需要时间
+  - Vite 需要把 webpack dev 启动完成的工作，移接到了 dev 响应浏览器的过程中，时间加长
 
-* 懒加载慢
-  * 和首屏加载一样，动态加载的文件需要对源文件进行转换操作
-  * 还可能会有大量的 http 请求，懒加载的性能同样会受到影响
+- 懒加载慢
+  - 和首屏加载一样，动态加载的文件需要对源文件进行转换操作
+  - 还可能会有大量的 http 请求，懒加载的性能同样会受到影响

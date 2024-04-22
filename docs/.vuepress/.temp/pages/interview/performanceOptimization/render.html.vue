@@ -146,7 +146,15 @@
 <h2 id="dom-优化" tabindex="-1"><a class="header-anchor" href="#dom-优化"><span>DOM 优化</span></a></h2>
 <h3 id="优化措施" tabindex="-1"><a class="header-anchor" href="#优化措施"><span>优化措施</span></a></h3>
 <h4 id="基于-event-loop-进行异步更新" tabindex="-1"><a class="header-anchor" href="#基于-event-loop-进行异步更新"><span>基于 Event Loop，进行异步更新</span></a></h4>
+<ul>
+<li>当我们需要在异步任务中实现 DOM 修改时，把它包装成 micro 任务是相对明智的选择。
+<ul>
+<li>因为 micro 任务执行完毕后会马上进行渲染操作，而渲染完之后才会执行 script 中产生的第一个 macro，所以该 macro 任务执行完后要等到下一次事件循环才能渲染</li>
+</ul>
+</li>
+</ul>
 <h4 id="减少重绘与回流" tabindex="-1"><a class="header-anchor" href="#减少重绘与回流"><span>减少重绘与回流</span></a></h4>
+<p><RouteLink to="/interview/browser.html#%E5%9B%9E%E6%B5%81%E4%B8%8E%E9%87%8D%E7%BB%98">回流与重绘</RouteLink></p>
 </div></template>
 
 

@@ -526,276 +526,6 @@ export const searchIndex = [
     "extraFields": []
   },
   {
-    "title": "Umi 常见问题",
-    "headers": [
-      {
-        "level": 2,
-        "title": "前端项目引入自定义字体包",
-        "slug": "前端项目引入自定义字体包",
-        "link": "#前端项目引入自定义字体包",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "Ant Design Pro中打包与加载otf自定义字体",
-        "slug": "ant-design-pro中打包与加载otf自定义字体",
-        "link": "#ant-design-pro中打包与加载otf自定义字体",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "umi中的request二次封装",
-        "slug": "umi中的request二次封装",
-        "link": "#umi中的request二次封装",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "云效Node.js构建报错",
-        "slug": "云效node-js构建报错",
-        "link": "#云效node-js构建报错",
-        "children": []
-      }
-    ],
-    "path": "/other/",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "Antd 常见问题",
-    "headers": [
-      {
-        "level": 2,
-        "title": "Select",
-        "slug": "select",
-        "link": "#select",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "antd Form.Item",
-        "slug": "antd-form-item",
-        "link": "#antd-form-item",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "antd Anchor",
-        "slug": "antd-anchor",
-        "link": "#antd-anchor",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "antd Tabs 闪动",
-        "slug": "antd-tabs-闪动",
-        "link": "#antd-tabs-闪动",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "antd Select",
-        "slug": "antd-select",
-        "link": "#antd-select",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "Input 组件取消自动显示输入历史",
-        "slug": "input-组件取消自动显示输入历史",
-        "link": "#input-组件取消自动显示输入历史",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "Form",
-        "slug": "form",
-        "link": "#form",
-        "children": []
-      }
-    ],
-    "path": "/other/antd.html",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "Css 常见问题",
-    "headers": [
-      {
-        "level": 2,
-        "title": "less文件引入",
-        "slug": "less文件引入",
-        "link": "#less文件引入",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "box-shadow",
-        "slug": "box-shadow",
-        "link": "#box-shadow",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "修改光标颜色",
-        "slug": "修改光标颜色",
-        "link": "#修改光标颜色",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "css文字垂直居中",
-        "slug": "css文字垂直居中",
-        "link": "#css文字垂直居中",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "svg",
-        "slug": "svg",
-        "link": "#svg",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "自定义滚动条样式",
-        "slug": "自定义滚动条样式",
-        "link": "#自定义滚动条样式",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "解决滚动条scrollbar出现造成的页面宽度被挤压的问题",
-        "slug": "解决滚动条scrollbar出现造成的页面宽度被挤压的问题",
-        "link": "#解决滚动条scrollbar出现造成的页面宽度被挤压的问题",
-        "children": []
-      }
-    ],
-    "path": "/other/css.html",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "Nginx常见问题",
-    "headers": [
-      {
-        "level": 2,
-        "title": "解决页面刷新，显示404",
-        "slug": "解决页面刷新-显示404",
-        "link": "#解决页面刷新-显示404",
-        "children": []
-      }
-    ],
-    "path": "/other/nginx.html",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "React 常见问题",
-    "headers": [
-      {
-        "level": 2,
-        "title": "useState",
-        "slug": "usestate",
-        "link": "#usestate",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "useRef",
-        "slug": "useref",
-        "link": "#useref",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "设置source-map后在chrome中仍无法显示webpack://的问题",
-        "slug": "设置source-map后在chrome中仍无法显示webpack-的问题",
-        "link": "#设置source-map后在chrome中仍无法显示webpack-的问题",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "控制台警告",
-        "slug": "控制台警告",
-        "link": "#控制台警告",
-        "children": [
-          {
-            "level": 3,
-            "title": "原因分析",
-            "slug": "原因分析",
-            "link": "#原因分析",
-            "children": []
-          }
-        ]
-      }
-    ],
-    "path": "/other/react.html",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "Stylelint 常见问题",
-    "headers": [
-      {
-        "level": 2,
-        "title": "stylelint警告",
-        "slug": "stylelint警告",
-        "link": "#stylelint警告",
-        "children": []
-      }
-    ],
-    "path": "/other/stylelint.html",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "Vite 常见问题",
-    "headers": [
-      {
-        "level": 2,
-        "title": "vite多入口配置",
-        "slug": "vite多入口配置",
-        "link": "#vite多入口配置",
-        "children": [
-          {
-            "level": 3,
-            "title": "配置vite.config.ts",
-            "slug": "配置vite-config-ts",
-            "link": "#配置vite-config-ts",
-            "children": []
-          }
-        ]
-      }
-    ],
-    "path": "/other/vite.html",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "vscode常见问题",
-    "headers": [
-      {
-        "level": 2,
-        "title": "vscode 代码尾部添加分号",
-        "slug": "vscode-代码尾部添加分号",
-        "link": "#vscode-代码尾部添加分号",
-        "children": [
-          {
-            "level": 3,
-            "title": "设置setting.json",
-            "slug": "设置setting-json",
-            "link": "#设置setting-json",
-            "children": []
-          }
-        ]
-      }
-    ],
-    "path": "/other/vscode.html",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
     "title": "JS基础知识点",
     "headers": [
       {
@@ -2532,6 +2262,43 @@ export const searchIndex = [
     "headers": [
       {
         "level": 2,
+        "title": "基本配置",
+        "slug": "基本配置",
+        "link": "#基本配置",
+        "children": [
+          {
+            "level": 3,
+            "title": "拆分配置和 merge",
+            "slug": "拆分配置和-merge",
+            "link": "#拆分配置和-merge",
+            "children": []
+          },
+          {
+            "level": 3,
+            "title": "处理样式",
+            "slug": "处理样式",
+            "link": "#处理样式",
+            "children": []
+          }
+        ]
+      },
+      {
+        "level": 2,
+        "title": "高级配置",
+        "slug": "高级配置",
+        "link": "#高级配置",
+        "children": [
+          {
+            "level": 3,
+            "title": "配置多入口",
+            "slug": "配置多入口",
+            "link": "#配置多入口",
+            "children": []
+          }
+        ]
+      },
+      {
+        "level": 2,
         "title": "减少 Webpack 打包时间",
         "slug": "减少-webpack-打包时间",
         "link": "#减少-webpack-打包时间",
@@ -2640,6 +2407,276 @@ export const searchIndex = [
       }
     ],
     "path": "/interview/webpack.html",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
+    "title": "Umi 常见问题",
+    "headers": [
+      {
+        "level": 2,
+        "title": "前端项目引入自定义字体包",
+        "slug": "前端项目引入自定义字体包",
+        "link": "#前端项目引入自定义字体包",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "Ant Design Pro中打包与加载otf自定义字体",
+        "slug": "ant-design-pro中打包与加载otf自定义字体",
+        "link": "#ant-design-pro中打包与加载otf自定义字体",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "umi中的request二次封装",
+        "slug": "umi中的request二次封装",
+        "link": "#umi中的request二次封装",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "云效Node.js构建报错",
+        "slug": "云效node-js构建报错",
+        "link": "#云效node-js构建报错",
+        "children": []
+      }
+    ],
+    "path": "/other/",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
+    "title": "Antd 常见问题",
+    "headers": [
+      {
+        "level": 2,
+        "title": "Select",
+        "slug": "select",
+        "link": "#select",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "antd Form.Item",
+        "slug": "antd-form-item",
+        "link": "#antd-form-item",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "antd Anchor",
+        "slug": "antd-anchor",
+        "link": "#antd-anchor",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "antd Tabs 闪动",
+        "slug": "antd-tabs-闪动",
+        "link": "#antd-tabs-闪动",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "antd Select",
+        "slug": "antd-select",
+        "link": "#antd-select",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "Input 组件取消自动显示输入历史",
+        "slug": "input-组件取消自动显示输入历史",
+        "link": "#input-组件取消自动显示输入历史",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "Form",
+        "slug": "form",
+        "link": "#form",
+        "children": []
+      }
+    ],
+    "path": "/other/antd.html",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
+    "title": "Css 常见问题",
+    "headers": [
+      {
+        "level": 2,
+        "title": "less文件引入",
+        "slug": "less文件引入",
+        "link": "#less文件引入",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "box-shadow",
+        "slug": "box-shadow",
+        "link": "#box-shadow",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "修改光标颜色",
+        "slug": "修改光标颜色",
+        "link": "#修改光标颜色",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "css文字垂直居中",
+        "slug": "css文字垂直居中",
+        "link": "#css文字垂直居中",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "svg",
+        "slug": "svg",
+        "link": "#svg",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "自定义滚动条样式",
+        "slug": "自定义滚动条样式",
+        "link": "#自定义滚动条样式",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "解决滚动条scrollbar出现造成的页面宽度被挤压的问题",
+        "slug": "解决滚动条scrollbar出现造成的页面宽度被挤压的问题",
+        "link": "#解决滚动条scrollbar出现造成的页面宽度被挤压的问题",
+        "children": []
+      }
+    ],
+    "path": "/other/css.html",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
+    "title": "Nginx常见问题",
+    "headers": [
+      {
+        "level": 2,
+        "title": "解决页面刷新，显示404",
+        "slug": "解决页面刷新-显示404",
+        "link": "#解决页面刷新-显示404",
+        "children": []
+      }
+    ],
+    "path": "/other/nginx.html",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
+    "title": "React 常见问题",
+    "headers": [
+      {
+        "level": 2,
+        "title": "useState",
+        "slug": "usestate",
+        "link": "#usestate",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "useRef",
+        "slug": "useref",
+        "link": "#useref",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "设置source-map后在chrome中仍无法显示webpack://的问题",
+        "slug": "设置source-map后在chrome中仍无法显示webpack-的问题",
+        "link": "#设置source-map后在chrome中仍无法显示webpack-的问题",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "控制台警告",
+        "slug": "控制台警告",
+        "link": "#控制台警告",
+        "children": [
+          {
+            "level": 3,
+            "title": "原因分析",
+            "slug": "原因分析",
+            "link": "#原因分析",
+            "children": []
+          }
+        ]
+      }
+    ],
+    "path": "/other/react.html",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
+    "title": "Stylelint 常见问题",
+    "headers": [
+      {
+        "level": 2,
+        "title": "stylelint警告",
+        "slug": "stylelint警告",
+        "link": "#stylelint警告",
+        "children": []
+      }
+    ],
+    "path": "/other/stylelint.html",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
+    "title": "Vite 常见问题",
+    "headers": [
+      {
+        "level": 2,
+        "title": "vite多入口配置",
+        "slug": "vite多入口配置",
+        "link": "#vite多入口配置",
+        "children": [
+          {
+            "level": 3,
+            "title": "配置vite.config.ts",
+            "slug": "配置vite-config-ts",
+            "link": "#配置vite-config-ts",
+            "children": []
+          }
+        ]
+      }
+    ],
+    "path": "/other/vite.html",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
+    "title": "vscode常见问题",
+    "headers": [
+      {
+        "level": 2,
+        "title": "vscode 代码尾部添加分号",
+        "slug": "vscode-代码尾部添加分号",
+        "link": "#vscode-代码尾部添加分号",
+        "children": [
+          {
+            "level": 3,
+            "title": "设置setting.json",
+            "slug": "设置setting-json",
+            "link": "#设置setting-json",
+            "children": []
+          }
+        ]
+      }
+    ],
+    "path": "/other/vscode.html",
     "pathLocale": "/",
     "extraFields": []
   },
@@ -3911,16 +3948,3 @@ export const searchIndex = [
     "extraFields": []
   }
 ]
-
-if (import.meta.webpackHot) {
-  import.meta.webpackHot.accept()
-  if (__VUE_HMR_RUNTIME__.updateSearchIndex) {
-    __VUE_HMR_RUNTIME__.updateSearchIndex(searchIndex)
-  }
-}
-
-if (import.meta.hot) {
-  import.meta.hot.accept(({ searchIndex }) => {
-    __VUE_HMR_RUNTIME__.updateSearchIndex(searchIndex)
-  })
-}

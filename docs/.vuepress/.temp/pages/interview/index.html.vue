@@ -669,7 +669,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
       <span class="token function">clearTimeout</span><span class="token punctuation">(</span>timerId<span class="token punctuation">)</span>
     <span class="token punctuation">}</span>
     timerId <span class="token operator">=</span> <span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
-      <span class="token function">fn</span><span class="token punctuation">(</span>args<span class="token punctuation">)</span>
+      <span class="token function">fn</span><span class="token punctuation">(</span><span class="token operator">...</span>args<span class="token punctuation">)</span>
     <span class="token punctuation">}</span><span class="token punctuation">,</span> wait<span class="token punctuation">)</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
@@ -687,20 +687,21 @@ window<span class="token punctuation">.</span>onresize <span class="token operat
 <li>浏览器播放事件，每隔 <code v-pre>wait</code> 秒计算一次进度信息等</li>
 <li>input框实时搜索并发送请求展示下拉列表，每隔 <code v-pre>wait</code> 秒发送一次请求（也可做防抖）</li>
 </ol>
-<div class="language-javascript line-numbers-mode" data-ext="js" data-title="js"><pre v-pre class="language-javascript"><code><span class="token comment">// 延时器</span>
-<span class="token keyword">function</span> <span class="token function">throttle</span><span class="token punctuation">(</span><span class="token parameter">fn<span class="token punctuation">,</span> wait <span class="token operator">=</span> <span class="token number">3000</span></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<div class="language-javascript line-numbers-mode" data-ext="js" data-title="js"><pre v-pre class="language-javascript"><code><span class="token keyword">function</span> <span class="token function">throttle</span><span class="token punctuation">(</span><span class="token parameter">fn<span class="token punctuation">,</span> wait <span class="token operator">=</span> <span class="token number">3000</span></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token keyword">let</span> timerId
+
+  <span class="token comment">// throttle 处理结果一定要当作一个函数返回</span>
   <span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token operator">...</span>args</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
     <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span>timerId<span class="token punctuation">)</span> <span class="token punctuation">{</span>
       timerId <span class="token operator">=</span> <span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
-        timerId <span class="token operator">=</span> <span class="token keyword">null</span>
         <span class="token function">clearTimeout</span><span class="token punctuation">(</span>timerId<span class="token punctuation">)</span>
-        <span class="token function">fn</span><span class="token punctuation">(</span>args<span class="token punctuation">)</span>
+        <span class="token function">fn</span><span class="token punctuation">(</span><span class="token operator">...</span>args<span class="token punctuation">)</span>
+        timerId <span class="token operator">=</span> <span class="token keyword">null</span>
       <span class="token punctuation">}</span><span class="token punctuation">,</span> wait<span class="token punctuation">)</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
-</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="总结" tabindex="-1"><a class="header-anchor" href="#总结"><span>总结</span></a></h3>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="总结" tabindex="-1"><a class="header-anchor" href="#总结"><span>总结</span></a></h3>
 <ul>
 <li>防抖：防止抖动，单位时间内事件触发会被重置，避免事件被误伤触发多次。<strong>代码实现重在清零</strong> <code v-pre>clearTimeout</code>。防抖可以比作等电梯，只要有一个人进来，就需要再等一会儿。业务场景有避免登录按钮多次点击的重复提交。</li>
 <li>节流：控制流量，单位时间内事件只能触发一次，与服务器端的限流 (Rate Limit) 类似。<strong>代码实现重在开锁关锁</strong> <code v-pre>timer=timeout; timer=null</code>。节流可以比作过红绿灯，每等一个红灯时间就可以过一批。</li>

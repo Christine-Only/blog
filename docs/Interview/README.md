@@ -728,7 +728,7 @@ function debounce(fn, wait = 3000) {
       clearTimeout(timerId)
     }
     timerId = setTimeout(() => {
-      fn(args)
+      fn(...args)
     }, wait)
   }
 }
@@ -749,15 +749,16 @@ window.onresize = debounce(function() {
 3. input框实时搜索并发送请求展示下拉列表，每隔 `wait` 秒发送一次请求（也可做防抖）
 
 ```js
-// 延时器
 function throttle(fn, wait = 3000) {
   let timerId
+
+  // throttle 处理结果一定要当作一个函数返回
   return (...args) => {
     if(!timerId) {
       timerId = setTimeout(() => {
-        timerId = null
         clearTimeout(timerId)
-        fn(args)
+        fn(...args)
+        timerId = null
       }, wait)
     }
   }
