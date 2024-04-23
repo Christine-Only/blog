@@ -1,4 +1,4 @@
-<template><div><h1 id="webpack" tabindex="-1"><a class="header-anchor" href="#webpack"><span>Webpack</span></a></h1>
+<template><div><h1 id="webpack" tabindex="-1"><a class="header-anchor" href="#webpack"><span>webpack</span></a></h1>
 <h2 id="基本配置" tabindex="-1"><a class="header-anchor" href="#基本配置"><span>基本配置</span></a></h2>
 <h3 id="拆分配置和-merge" tabindex="-1"><a class="header-anchor" href="#拆分配置和-merge"><span>拆分配置和 merge</span></a></h3>
 <h4 id="公共配置webpack-common-js" tabindex="-1"><a class="header-anchor" href="#公共配置webpack-common-js"><span>公共配置<code v-pre>webpack.common.js</code></span></a></h4>

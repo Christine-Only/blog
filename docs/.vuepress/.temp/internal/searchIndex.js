@@ -172,6 +172,85 @@ export const searchIndex = [
     "extraFields": []
   },
   {
+    "title": "Git",
+    "headers": [
+      {
+        "level": 2,
+        "title": "git checkout",
+        "slug": "git-checkout",
+        "link": "#git-checkout",
+        "children": [
+          {
+            "level": 3,
+            "title": "基于远程分支创建本地新分支",
+            "slug": "基于远程分支创建本地新分支",
+            "link": "#基于远程分支创建本地新分支",
+            "children": []
+          },
+          {
+            "level": 3,
+            "title": "用于检出某一个指定文件或文件夹",
+            "slug": "用于检出某一个指定文件或文件夹",
+            "link": "#用于检出某一个指定文件或文件夹",
+            "children": []
+          }
+        ]
+      },
+      {
+        "level": 2,
+        "title": "git push",
+        "slug": "git-push",
+        "link": "#git-push",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "git clone",
+        "slug": "git-clone",
+        "link": "#git-clone",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "git reset",
+        "slug": "git-reset",
+        "link": "#git-reset",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "git revert",
+        "slug": "git-revert",
+        "link": "#git-revert",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "git pull 报错error",
+        "slug": "git-pull-报错error",
+        "link": "#git-pull-报错error",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "git branch",
+        "slug": "git-branch",
+        "link": "#git-branch",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "如何保持本地代码与 fork 仓库远程代码一致",
+        "slug": "如何保持本地代码与-fork-仓库远程代码一致",
+        "link": "#如何保持本地代码与-fork-仓库远程代码一致",
+        "children": []
+      }
+    ],
+    "path": "/git/",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
     "title": "前端自动化部署",
     "headers": [
       {
@@ -443,85 +522,6 @@ export const searchIndex = [
       }
     ],
     "path": "/books/",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "Git",
-    "headers": [
-      {
-        "level": 2,
-        "title": "git checkout",
-        "slug": "git-checkout",
-        "link": "#git-checkout",
-        "children": [
-          {
-            "level": 3,
-            "title": "基于远程分支创建本地新分支",
-            "slug": "基于远程分支创建本地新分支",
-            "link": "#基于远程分支创建本地新分支",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "用于检出某一个指定文件或文件夹",
-            "slug": "用于检出某一个指定文件或文件夹",
-            "link": "#用于检出某一个指定文件或文件夹",
-            "children": []
-          }
-        ]
-      },
-      {
-        "level": 2,
-        "title": "git push",
-        "slug": "git-push",
-        "link": "#git-push",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "git clone",
-        "slug": "git-clone",
-        "link": "#git-clone",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "git reset",
-        "slug": "git-reset",
-        "link": "#git-reset",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "git revert",
-        "slug": "git-revert",
-        "link": "#git-revert",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "git pull 报错error",
-        "slug": "git-pull-报错error",
-        "link": "#git-pull-报错error",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "git branch",
-        "slug": "git-branch",
-        "link": "#git-branch",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "如何保持本地代码与 fork 仓库远程代码一致",
-        "slug": "如何保持本地代码与-fork-仓库远程代码一致",
-        "link": "#如何保持本地代码与-fork-仓库远程代码一致",
-        "children": []
-      }
-    ],
-    "path": "/git/",
     "pathLocale": "/",
     "extraFields": []
   },
@@ -2258,159 +2258,6 @@ export const searchIndex = [
     "extraFields": []
   },
   {
-    "title": "Webpack",
-    "headers": [
-      {
-        "level": 2,
-        "title": "基本配置",
-        "slug": "基本配置",
-        "link": "#基本配置",
-        "children": [
-          {
-            "level": 3,
-            "title": "拆分配置和 merge",
-            "slug": "拆分配置和-merge",
-            "link": "#拆分配置和-merge",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "处理样式",
-            "slug": "处理样式",
-            "link": "#处理样式",
-            "children": []
-          }
-        ]
-      },
-      {
-        "level": 2,
-        "title": "高级配置",
-        "slug": "高级配置",
-        "link": "#高级配置",
-        "children": [
-          {
-            "level": 3,
-            "title": "配置多入口",
-            "slug": "配置多入口",
-            "link": "#配置多入口",
-            "children": []
-          }
-        ]
-      },
-      {
-        "level": 2,
-        "title": "减少 Webpack 打包时间",
-        "slug": "减少-webpack-打包时间",
-        "link": "#减少-webpack-打包时间",
-        "children": [
-          {
-            "level": 3,
-            "title": "优化 Loader",
-            "slug": "优化-loader",
-            "link": "#优化-loader",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "HappyPack",
-            "slug": "happypack",
-            "link": "#happypack",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "DllPlugin",
-            "slug": "dllplugin",
-            "link": "#dllplugin",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "一些小的优化点",
-            "slug": "一些小的优化点",
-            "link": "#一些小的优化点",
-            "children": []
-          }
-        ]
-      },
-      {
-        "level": 2,
-        "title": "减少 Webpack 打包后的文件体积",
-        "slug": "减少-webpack-打包后的文件体积",
-        "link": "#减少-webpack-打包后的文件体积",
-        "children": [
-          {
-            "level": 3,
-            "title": "按需加载",
-            "slug": "按需加载",
-            "link": "#按需加载",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "Scope Hoisting",
-            "slug": "scope-hoisting",
-            "link": "#scope-hoisting",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "Tree Shaking",
-            "slug": "tree-shaking",
-            "link": "#tree-shaking",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "代码压缩",
-            "slug": "代码压缩",
-            "link": "#代码压缩",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "懒加载",
-            "slug": "懒加载",
-            "link": "#懒加载",
-            "children": []
-          }
-        ]
-      },
-      {
-        "level": 2,
-        "title": "HMR 实现原理",
-        "slug": "hmr-实现原理",
-        "link": "#hmr-实现原理",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "Vite 和 Webpack对比",
-        "slug": "vite-和-webpack对比",
-        "link": "#vite-和-webpack对比",
-        "children": [
-          {
-            "level": 3,
-            "title": "Vite 优点",
-            "slug": "vite-优点",
-            "link": "#vite-优点",
-            "children": []
-          },
-          {
-            "level": 3,
-            "title": "Vite 缺点",
-            "slug": "vite-缺点",
-            "link": "#vite-缺点",
-            "children": []
-          }
-        ]
-      }
-    ],
-    "path": "/interview/webpack.html",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
     "title": "Umi 常见问题",
     "headers": [
       {
@@ -2681,362 +2528,183 @@ export const searchIndex = [
     "extraFields": []
   },
   {
-    "title": "React 基础",
+    "title": "webpack",
     "headers": [
       {
         "level": 2,
-        "title": "新旧生命周期对比",
-        "slug": "新旧生命周期对比",
-        "link": "#新旧生命周期对比",
+        "title": "基本配置",
+        "slug": "基本配置",
+        "link": "#基本配置",
         "children": [
           {
             "level": 3,
-            "title": "旧生命周期",
-            "slug": "旧生命周期",
-            "link": "#旧生命周期",
+            "title": "拆分配置和 merge",
+            "slug": "拆分配置和-merge",
+            "link": "#拆分配置和-merge",
             "children": []
           },
           {
             "level": 3,
-            "title": "新生命周期",
-            "slug": "新生命周期",
-            "link": "#新生命周期",
+            "title": "处理样式",
+            "slug": "处理样式",
+            "link": "#处理样式",
             "children": []
           }
         ]
       },
       {
         "level": 2,
-        "title": "setState",
-        "slug": "setstate",
-        "link": "#setstate",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "高阶组件（HOC）",
-        "slug": "高阶组件-hoc",
-        "link": "#高阶组件-hoc",
-        "children": []
-      }
-    ],
-    "path": "/react/",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "RN",
-    "headers": [
-      {
-        "level": 2,
-        "title": "项目部署在 iOS 模拟器",
-        "slug": "项目部署在-ios-模拟器",
-        "link": "#项目部署在-ios-模拟器",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "项目部署在 Android 模拟器",
-        "slug": "项目部署在-android-模拟器",
-        "link": "#项目部署在-android-模拟器",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "项目打包发布",
-        "slug": "项目打包发布",
-        "link": "#项目打包发布",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "LayoutAnimation",
-        "slug": "layoutanimation",
-        "link": "#layoutanimation",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "KeyboardAvoidingView",
-        "slug": "keyboardavoidingview",
-        "link": "#keyboardavoidingview",
-        "children": []
-      }
-    ],
-    "path": "/react/RN.html",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "React 进阶",
-    "headers": [
-      {
-        "level": 2,
-        "title": "JSX到底是什么",
-        "slug": "jsx到底是什么",
-        "link": "#jsx到底是什么",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "Virtual DOM 如何提升效率",
-        "slug": "virtual-dom-如何提升效率",
-        "link": "#virtual-dom-如何提升效率",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "虚拟DOM实现原理",
-        "slug": "虚拟dom实现原理",
-        "link": "#虚拟dom实现原理",
+        "title": "高级配置",
+        "slug": "高级配置",
+        "link": "#高级配置",
         "children": [
           {
             "level": 3,
-            "title": "JSX和createElement",
-            "slug": "jsx和createelement",
-            "link": "#jsx和createelement",
+            "title": "配置多入口",
+            "slug": "配置多入口",
+            "link": "#配置多入口",
             "children": []
           },
           {
             "level": 3,
-            "title": "创建虚拟DOM",
-            "slug": "创建虚拟dom",
-            "link": "#创建虚拟dom",
+            "title": "抽离和压缩 CSS 文件（MiniCssExtractPlugin）",
+            "slug": "抽离和压缩-css-文件-minicssextractplugin",
+            "link": "#抽离和压缩-css-文件-minicssextractplugin",
+            "children": []
+          },
+          {
+            "level": 3,
+            "title": "抽离公共代码和第三方代码（splitChunks + HtmlWebpackPlugin）",
+            "slug": "抽离公共代码和第三方代码-splitchunks-htmlwebpackplugin",
+            "link": "#抽离公共代码和第三方代码-splitchunks-htmlwebpackplugin",
+            "children": []
+          },
+          {
+            "level": 3,
+            "title": "实现异步加载 Js",
+            "slug": "实现异步加载-js",
+            "link": "#实现异步加载-js",
+            "children": []
+          },
+          {
+            "level": 3,
+            "title": "处理JSX/Vue",
+            "slug": "处理jsx-vue",
+            "link": "#处理jsx-vue",
             "children": []
           }
         ]
       },
       {
         "level": 2,
-        "title": "Fiber 节点的构建",
-        "slug": "fiber-节点的构建",
-        "link": "#fiber-节点的构建",
+        "title": "优化打包构建速度",
+        "slug": "优化打包构建速度",
+        "link": "#优化打包构建速度",
         "children": [
           {
             "level": 3,
-            "title": "render 阶段",
-            "slug": "render-阶段",
-            "link": "#render-阶段",
+            "title": "优化 Loader",
+            "slug": "优化-loader",
+            "link": "#优化-loader",
             "children": []
           },
           {
             "level": 3,
-            "title": "render 完成",
-            "slug": "render-完成",
-            "link": "#render-完成",
+            "title": "HappyPack",
+            "slug": "happypack",
+            "link": "#happypack",
+            "children": []
+          },
+          {
+            "level": 3,
+            "title": "DllPlugin",
+            "slug": "dllplugin",
+            "link": "#dllplugin",
+            "children": []
+          },
+          {
+            "level": 3,
+            "title": "一些小的优化点",
+            "slug": "一些小的优化点",
+            "link": "#一些小的优化点",
             "children": []
           }
         ]
       },
       {
         "level": 2,
-        "title": "React Diff",
-        "slug": "react-diff",
-        "link": "#react-diff",
+        "title": "减小 Webpack 打包后的文件体积",
+        "slug": "减小-webpack-打包后的文件体积",
+        "link": "#减小-webpack-打包后的文件体积",
         "children": [
           {
             "level": 3,
-            "title": "Diff 的瓶颈以及 React 如何应对",
-            "slug": "diff-的瓶颈以及-react-如何应对",
-            "link": "#diff-的瓶颈以及-react-如何应对",
-            "children": []
-          }
-        ]
-      }
-    ],
-    "path": "/react/advance.html",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "React hooks",
-    "headers": [
-      {
-        "level": 2,
-        "title": "useContext",
-        "slug": "usecontext",
-        "link": "#usecontext",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "useRef",
-        "slug": "useref",
-        "link": "#useref",
-        "children": [
-          {
-            "level": 3,
-            "title": "createRef API",
-            "slug": "createref-api",
-            "link": "#createref-api",
+            "title": "按需加载",
+            "slug": "按需加载",
+            "link": "#按需加载",
             "children": []
           },
           {
             "level": 3,
-            "title": "useRef",
-            "slug": "useref-1",
-            "link": "#useref-1",
+            "title": "Scope Hoisting",
+            "slug": "scope-hoisting",
+            "link": "#scope-hoisting",
             "children": []
           },
           {
             "level": 3,
-            "title": "createRef 与 useRef 的区别",
-            "slug": "createref-与-useref-的区别",
-            "link": "#createref-与-useref-的区别",
+            "title": "Tree Shaking",
+            "slug": "tree-shaking",
+            "link": "#tree-shaking",
+            "children": []
+          },
+          {
+            "level": 3,
+            "title": "代码压缩",
+            "slug": "代码压缩",
+            "link": "#代码压缩",
+            "children": []
+          },
+          {
+            "level": 3,
+            "title": "懒加载",
+            "slug": "懒加载",
+            "link": "#懒加载",
             "children": []
           }
         ]
       },
       {
         "level": 2,
-        "title": "Error boundaries",
-        "slug": "error-boundaries",
-        "link": "#error-boundaries",
+        "title": "HMR 实现原理",
+        "slug": "hmr-实现原理",
+        "link": "#hmr-实现原理",
         "children": []
       },
       {
         "level": 2,
-        "title": "React Hooks原理",
-        "slug": "react-hooks原理",
-        "link": "#react-hooks原理",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "useLayoutEffect 和 useEffect 区别",
-        "slug": "uselayouteffect-和-useeffect-区别",
-        "link": "#uselayouteffect-和-useeffect-区别",
-        "children": []
+        "title": "Vite 和 Webpack对比",
+        "slug": "vite-和-webpack对比",
+        "link": "#vite-和-webpack对比",
+        "children": [
+          {
+            "level": 3,
+            "title": "Vite 优点",
+            "slug": "vite-优点",
+            "link": "#vite-优点",
+            "children": []
+          },
+          {
+            "level": 3,
+            "title": "Vite 缺点",
+            "slug": "vite-缺点",
+            "link": "#vite-缺点",
+            "children": []
+          }
+        ]
       }
     ],
-    "path": "/react/hooks.html",
-    "pathLocale": "/",
-    "extraFields": []
-  },
-  {
-    "title": "React 面试题",
-    "headers": [
-      {
-        "level": 2,
-        "title": "说一下 useEffect 和 useLayoutEffect 有什么区别",
-        "slug": "说一下-useeffect-和-uselayouteffect-有什么区别",
-        "link": "#说一下-useeffect-和-uselayouteffect-有什么区别",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "useEffect 对应在 class 中都生命周期怎么写？",
-        "slug": "useeffect-对应在-class-中都生命周期怎么写",
-        "link": "#useeffect-对应在-class-中都生命周期怎么写",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "Reac 类组件新的生命周期都有哪些？",
-        "slug": "reac-类组件新的生命周期都有哪些",
-        "link": "#reac-类组件新的生命周期都有哪些",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "在 if 条件语句中，能使用 Hook 吗？",
-        "slug": "在-if-条件语句中-能使用-hook-吗",
-        "link": "#在-if-条件语句中-能使用-hook-吗",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "在 if 语句里面写 Hook 会报错，你可以用 Fiber 架构来解释一下吗？",
-        "slug": "在-if-语句里面写-hook-会报错-你可以用-fiber-架构来解释一下吗",
-        "link": "#在-if-语句里面写-hook-会报错-你可以用-fiber-架构来解释一下吗",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "说一下 React 的 Fiber 架构是什么？",
-        "slug": "说一下-react-的-fiber-架构是什么",
-        "link": "#说一下-react-的-fiber-架构是什么",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "能简单的介绍一下  React Hooks 吗？",
-        "slug": "能简单的介绍一下-react-hooks-吗",
-        "link": "#能简单的介绍一下-react-hooks-吗",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "useEffect 的执行时机，以及 deps 的作用",
-        "slug": "useeffect-的执行时机-以及-deps-的作用",
-        "link": "#useeffect-的执行时机-以及-deps-的作用",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "全新的 JSX 转换器",
-        "slug": "全新的-jsx-转换器",
-        "link": "#全新的-jsx-转换器",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "React18新特性",
-        "slug": "react18新特性",
-        "link": "#react18新特性",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "React 底层是怎么利用浏览器的空闲时间来做组件渲染的",
-        "slug": "react-底层是怎么利用浏览器的空闲时间来做组件渲染的",
-        "link": "#react-底层是怎么利用浏览器的空闲时间来做组件渲染的",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "React18 流式 SSR 和 传统 SSR 的区别",
-        "slug": "react18-流式-ssr-和-传统-ssr-的区别",
-        "link": "#react18-流式-ssr-和-传统-ssr-的区别",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "useState使用时用数组解构，为何不使用对象",
-        "slug": "usestate使用时用数组解构-为何不使用对象",
-        "link": "#usestate使用时用数组解构-为何不使用对象",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "React18 并发更新特性实现搜索功能",
-        "slug": "react18-并发更新特性实现搜索功能",
-        "link": "#react18-并发更新特性实现搜索功能",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "ReactDOM.render 的流程？",
-        "slug": "reactdom-render-的流程",
-        "link": "#reactdom-render-的流程",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "Scheduler 是如何根据任务的优先级和剩余时间进行调度的？",
-        "slug": "scheduler-是如何根据任务的优先级和剩余时间进行调度的",
-        "link": "#scheduler-是如何根据任务的优先级和剩余时间进行调度的",
-        "children": []
-      },
-      {
-        "level": 2,
-        "title": "React 博客整理",
-        "slug": "react-博客整理",
-        "link": "#react-博客整理",
-        "children": []
-      }
-    ],
-    "path": "/react/reactInterview.html",
+    "path": "/webpack/",
     "pathLocale": "/",
     "extraFields": []
   },
@@ -3778,6 +3446,366 @@ export const searchIndex = [
     "extraFields": []
   },
   {
+    "title": "React 基础",
+    "headers": [
+      {
+        "level": 2,
+        "title": "新旧生命周期对比",
+        "slug": "新旧生命周期对比",
+        "link": "#新旧生命周期对比",
+        "children": [
+          {
+            "level": 3,
+            "title": "旧生命周期",
+            "slug": "旧生命周期",
+            "link": "#旧生命周期",
+            "children": []
+          },
+          {
+            "level": 3,
+            "title": "新生命周期",
+            "slug": "新生命周期",
+            "link": "#新生命周期",
+            "children": []
+          }
+        ]
+      },
+      {
+        "level": 2,
+        "title": "setState",
+        "slug": "setstate",
+        "link": "#setstate",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "高阶组件（HOC）",
+        "slug": "高阶组件-hoc",
+        "link": "#高阶组件-hoc",
+        "children": []
+      }
+    ],
+    "path": "/react/",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
+    "title": "RN",
+    "headers": [
+      {
+        "level": 2,
+        "title": "项目部署在 iOS 模拟器",
+        "slug": "项目部署在-ios-模拟器",
+        "link": "#项目部署在-ios-模拟器",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "项目部署在 Android 模拟器",
+        "slug": "项目部署在-android-模拟器",
+        "link": "#项目部署在-android-模拟器",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "项目打包发布",
+        "slug": "项目打包发布",
+        "link": "#项目打包发布",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "LayoutAnimation",
+        "slug": "layoutanimation",
+        "link": "#layoutanimation",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "KeyboardAvoidingView",
+        "slug": "keyboardavoidingview",
+        "link": "#keyboardavoidingview",
+        "children": []
+      }
+    ],
+    "path": "/react/RN.html",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
+    "title": "React 进阶",
+    "headers": [
+      {
+        "level": 2,
+        "title": "JSX到底是什么",
+        "slug": "jsx到底是什么",
+        "link": "#jsx到底是什么",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "Virtual DOM 如何提升效率",
+        "slug": "virtual-dom-如何提升效率",
+        "link": "#virtual-dom-如何提升效率",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "虚拟DOM实现原理",
+        "slug": "虚拟dom实现原理",
+        "link": "#虚拟dom实现原理",
+        "children": [
+          {
+            "level": 3,
+            "title": "JSX和createElement",
+            "slug": "jsx和createelement",
+            "link": "#jsx和createelement",
+            "children": []
+          },
+          {
+            "level": 3,
+            "title": "创建虚拟DOM",
+            "slug": "创建虚拟dom",
+            "link": "#创建虚拟dom",
+            "children": []
+          }
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Fiber 节点的构建",
+        "slug": "fiber-节点的构建",
+        "link": "#fiber-节点的构建",
+        "children": [
+          {
+            "level": 3,
+            "title": "render 阶段",
+            "slug": "render-阶段",
+            "link": "#render-阶段",
+            "children": []
+          },
+          {
+            "level": 3,
+            "title": "render 完成",
+            "slug": "render-完成",
+            "link": "#render-完成",
+            "children": []
+          }
+        ]
+      },
+      {
+        "level": 2,
+        "title": "React Diff",
+        "slug": "react-diff",
+        "link": "#react-diff",
+        "children": [
+          {
+            "level": 3,
+            "title": "Diff 的瓶颈以及 React 如何应对",
+            "slug": "diff-的瓶颈以及-react-如何应对",
+            "link": "#diff-的瓶颈以及-react-如何应对",
+            "children": []
+          }
+        ]
+      }
+    ],
+    "path": "/react/advance.html",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
+    "title": "React hooks",
+    "headers": [
+      {
+        "level": 2,
+        "title": "useContext",
+        "slug": "usecontext",
+        "link": "#usecontext",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "useRef",
+        "slug": "useref",
+        "link": "#useref",
+        "children": [
+          {
+            "level": 3,
+            "title": "createRef API",
+            "slug": "createref-api",
+            "link": "#createref-api",
+            "children": []
+          },
+          {
+            "level": 3,
+            "title": "useRef",
+            "slug": "useref-1",
+            "link": "#useref-1",
+            "children": []
+          },
+          {
+            "level": 3,
+            "title": "createRef 与 useRef 的区别",
+            "slug": "createref-与-useref-的区别",
+            "link": "#createref-与-useref-的区别",
+            "children": []
+          }
+        ]
+      },
+      {
+        "level": 2,
+        "title": "Error boundaries",
+        "slug": "error-boundaries",
+        "link": "#error-boundaries",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "React Hooks原理",
+        "slug": "react-hooks原理",
+        "link": "#react-hooks原理",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "useLayoutEffect 和 useEffect 区别",
+        "slug": "uselayouteffect-和-useeffect-区别",
+        "link": "#uselayouteffect-和-useeffect-区别",
+        "children": []
+      }
+    ],
+    "path": "/react/hooks.html",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
+    "title": "React 面试题",
+    "headers": [
+      {
+        "level": 2,
+        "title": "说一下 useEffect 和 useLayoutEffect 有什么区别",
+        "slug": "说一下-useeffect-和-uselayouteffect-有什么区别",
+        "link": "#说一下-useeffect-和-uselayouteffect-有什么区别",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "useEffect 对应在 class 中都生命周期怎么写？",
+        "slug": "useeffect-对应在-class-中都生命周期怎么写",
+        "link": "#useeffect-对应在-class-中都生命周期怎么写",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "Reac 类组件新的生命周期都有哪些？",
+        "slug": "reac-类组件新的生命周期都有哪些",
+        "link": "#reac-类组件新的生命周期都有哪些",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "在 if 条件语句中，能使用 Hook 吗？",
+        "slug": "在-if-条件语句中-能使用-hook-吗",
+        "link": "#在-if-条件语句中-能使用-hook-吗",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "在 if 语句里面写 Hook 会报错，你可以用 Fiber 架构来解释一下吗？",
+        "slug": "在-if-语句里面写-hook-会报错-你可以用-fiber-架构来解释一下吗",
+        "link": "#在-if-语句里面写-hook-会报错-你可以用-fiber-架构来解释一下吗",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "说一下 React 的 Fiber 架构是什么？",
+        "slug": "说一下-react-的-fiber-架构是什么",
+        "link": "#说一下-react-的-fiber-架构是什么",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "能简单的介绍一下  React Hooks 吗？",
+        "slug": "能简单的介绍一下-react-hooks-吗",
+        "link": "#能简单的介绍一下-react-hooks-吗",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "useEffect 的执行时机，以及 deps 的作用",
+        "slug": "useeffect-的执行时机-以及-deps-的作用",
+        "link": "#useeffect-的执行时机-以及-deps-的作用",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "全新的 JSX 转换器",
+        "slug": "全新的-jsx-转换器",
+        "link": "#全新的-jsx-转换器",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "React18新特性",
+        "slug": "react18新特性",
+        "link": "#react18新特性",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "React 底层是怎么利用浏览器的空闲时间来做组件渲染的",
+        "slug": "react-底层是怎么利用浏览器的空闲时间来做组件渲染的",
+        "link": "#react-底层是怎么利用浏览器的空闲时间来做组件渲染的",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "React18 流式 SSR 和 传统 SSR 的区别",
+        "slug": "react18-流式-ssr-和-传统-ssr-的区别",
+        "link": "#react18-流式-ssr-和-传统-ssr-的区别",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "useState使用时用数组解构，为何不使用对象",
+        "slug": "usestate使用时用数组解构-为何不使用对象",
+        "link": "#usestate使用时用数组解构-为何不使用对象",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "React18 并发更新特性实现搜索功能",
+        "slug": "react18-并发更新特性实现搜索功能",
+        "link": "#react18-并发更新特性实现搜索功能",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "ReactDOM.render 的流程？",
+        "slug": "reactdom-render-的流程",
+        "link": "#reactdom-render-的流程",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "Scheduler 是如何根据任务的优先级和剩余时间进行调度的？",
+        "slug": "scheduler-是如何根据任务的优先级和剩余时间进行调度的",
+        "link": "#scheduler-是如何根据任务的优先级和剩余时间进行调度的",
+        "children": []
+      },
+      {
+        "level": 2,
+        "title": "React 博客整理",
+        "slug": "react-博客整理",
+        "link": "#react-博客整理",
+        "children": []
+      }
+    ],
+    "path": "/react/reactInterview.html",
+    "pathLocale": "/",
+    "extraFields": []
+  },
+  {
     "title": "网络层面的性能优化",
     "headers": [
       {
@@ -3948,3 +3976,16 @@ export const searchIndex = [
     "extraFields": []
   }
 ]
+
+if (import.meta.webpackHot) {
+  import.meta.webpackHot.accept()
+  if (__VUE_HMR_RUNTIME__.updateSearchIndex) {
+    __VUE_HMR_RUNTIME__.updateSearchIndex(searchIndex)
+  }
+}
+
+if (import.meta.hot) {
+  import.meta.hot.accept(({ searchIndex }) => {
+    __VUE_HMR_RUNTIME__.updateSearchIndex(searchIndex)
+  })
+}

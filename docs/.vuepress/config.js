@@ -14,10 +14,11 @@ export default defineUserConfig({
         content: "no-referrer",
       },
     ],
-    // ["link", { rel: "icon", href: "growth.jpg" }],
+    ["link", { rel: "icon", href: "/growth.jpg" }],
   ],
   description: "一名专注前端开发的程序媛 👧🏻",
   base: "/blog/",
+  lang: "zh-CN",
   plugins: [palettePlugin({ preset: "sass" })],
   theme: defaultTheme({
     actions: [
@@ -28,7 +29,7 @@ export default defineUserConfig({
     ],
     // 在这里添加主题配置
     logo: "logo.png",
-    lastUpdated: "最后更新时间",
+    lastUpdated: true,
     smoothScroll: true,
     repo: "https://github.com/Christine-Only/blog",
     repoLabel: "Github",
@@ -40,6 +41,10 @@ export default defineUserConfig({
       {
         text: "React",
         link: "/react/",
+      },
+      {
+        text: "webpack",
+        link: "/webpack/",
       },
       {
         text: "TypeScript",
@@ -92,11 +97,6 @@ export default defineUserConfig({
           ],
         },
         {
-          text: "Webpack",
-          collapsible: false,
-          children: ["/interview/webpack.md"],
-        },
-        {
           text: "性能优化",
           collapsible: false,
           children: [
@@ -136,6 +136,13 @@ export default defineUserConfig({
           text: "React Native",
           collapsible: false,
           children: ["/react/RN.md"],
+        },
+      ],
+      "/webpack/": [
+        {
+          text: "webpack",
+          collapsible: true,
+          children: ["/webpack/README.md"],
         },
       ],
       "/typescript/": [
@@ -202,6 +209,10 @@ export default defineUserConfig({
         },
       ],
     },
+    docsRepo: "https://github.com/Christine-Only/blog",
+    docsBranch: "master",
+    docsDir: "docs",
+    editLinkPattern: ":repo/edit/:branch/:path",
   }),
   bundler: viteBundler({
     viteOptions: {},

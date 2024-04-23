@@ -1,9 +1,11 @@
 ---
 home: true
-heroImage: /logo.png
+heroImage: /home.jpg
 heroText: 前端宝藏库
-# actionText: 点我开始吧 👉
-# actionLink: /interview/
+actions:
+ -  text: 点我开始吧 👉
+    link: /interview/
+    type: primary
 features:
 - title: 前端常用知识
   details: JavaScript、React、Webpack、TypeScript等。
