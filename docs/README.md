@@ -2,6 +2,7 @@
 home: true
 heroImage: /home.jpg
 heroText: 前端宝藏库
+lastUpdated: true
 actions:
  -  text: 点我开始吧 👉
     link: /interview/

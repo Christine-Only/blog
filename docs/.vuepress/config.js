@@ -51,6 +51,10 @@ export default defineUserConfig({
         link: "/typescript/",
       },
       {
+        text: "TailWind CSS",
+        link: "/tailwind-css/",
+      },
+      {
         text: "前端进阶",
         link: "/advance/prettier",
       },
@@ -127,8 +131,8 @@ export default defineUserConfig({
           collapsible: true,
           children: [
             "/react/README.md",
-            "/react/hooks.md",
             "/react/advance.md",
+            "/react/hooks.md",
             "/react/reactInterview.md",
           ],
         },
@@ -158,6 +162,13 @@ export default defineUserConfig({
             "/typescript/tsconfig.md",
             "/typescript/interview.md",
           ],
+        },
+      ],
+      "/tailwind-css/": [
+        {
+          text: "TailWind Css",
+          collapsible: false,
+          children: ["/tailwind-css/README.md"],
         },
       ],
       "/advance/": [

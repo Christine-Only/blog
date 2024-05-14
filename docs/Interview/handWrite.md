@@ -15,7 +15,7 @@ function myNew(fn, ...args) {
 }
 ```
 
-### 🌰
+例子如下：
 
 ```javascript
 // 构造函数
@@ -61,7 +61,7 @@ Function.prototype.myCall = function (context, ...args) {
 };
 ```
 
-### 🌰
+例子如下：
 
 ```javascript
 function say(value) {
@@ -92,7 +92,7 @@ Function.prototype.myApply = function (context, args) {
 };
 ```
 
-### 🌰
+例子如下：
 
 ```javascript
 const arr = [1, 2, 3, 4];
@@ -131,7 +131,7 @@ Function.prototype.myBind = function (context, ...args) {
 };
 ```
 
-### 🌰
+例子如下：
 
 ```javascript
 function Person(name, age) {
@@ -189,7 +189,7 @@ function myFlatter(arr) {
 }
 ```
 
-### 🌰
+例子如下：
 
 ```javascript
 const arr = [1, 2, [1, [2, 3, [4, 5, [6]]]]]
@@ -296,7 +296,7 @@ class Promise {
 }
 ```
 
-### 🌰
+例子如下：
 
 ```javascript
 // promiseA+ (resolve, reject) => {} 是executor
@@ -415,7 +415,7 @@ Array.prototype.myReduce = function (callBack, initialValue) {
 };
 ```
 
-### 🌰
+例子如下：
 
 ```javascript
 // 使用 myReduce 求和
@@ -474,7 +474,7 @@ function deepClone(obj, clones = new WeakMap()) {
 }
 ```
 
-### 🌰
+例子如下：
 
 ```javascript
 const obj = {
@@ -521,7 +521,7 @@ function debounce(fn, delay) {
 }
 ```
 
-### 🌰
+例子如下：
 
 ```javascript
 // 假设有一个需要防抖的函数
@@ -563,7 +563,7 @@ function throttle(fn, delay) {
 }
 ```
 
-### 🌰
+例子如下：
 
 ```javascript
 const throttledResizeHandler = throttle(function () {
@@ -594,7 +594,7 @@ function compose(...fns) {
 }
 ```
 
-### 🌰
+例子如下：
 
 ```javascript
 function fn1(x) {
@@ -661,7 +661,7 @@ class EventEmitter {
 }
 ```
 
-### 🌰
+例子如下：
 
 ```javascript
 const eventEmitter = new EventEmitter();
@@ -696,7 +696,7 @@ eventEmitter.emit("scroll", "Hi Picker");
 >
 > Scheduler 是一个带并发限制的异步调度器，保证同时运行的任务最多有n个，n 为可配置的
 
-## 题目描述
+### 题目描述
 
 ```yaml
 解释下完整的执行流程：一开始1、2两个任务开始执行；
@@ -747,9 +747,7 @@ class Scheduler {
 }
 ```
 
-<a name="edc2783b-11"></a>
-
-### 🌰
+例子如下：
 
 ```javascript
 const scheduler = new Scheduler(2);
@@ -780,7 +778,7 @@ function simulateSetInterval(callback, timeout) {
 }
 ```
 
-### 🌰
+例子如下：
 
 ```javascript
 const a = simulateSetInterval(() => {
@@ -803,7 +801,7 @@ function simulateSetTimeout(callback, timeout) {
 }
 ```
 
-### 🌰
+例子如下：
 
 ```javascript
 simulateSetTimeout(() => {
@@ -830,7 +828,7 @@ Object.newIs = (x, y) => {
 };
 ```
 
-### 🌰
+例子如下：
 
 ```javascript
 console.log(Object.newIs(-0, +0)); // false
@@ -1034,7 +1032,7 @@ function listToTree(list) {
 }
 ```
 
-### 🌰
+例子如下：
 
 ```javascript
 const list = [
@@ -1052,9 +1050,9 @@ listToTree(list)
 
 ## 树形结构转成列表
 
-## 题目描述
+### 题目描述
 
-```
+```js
 const tree = [
   {
     id: 1,
@@ -1094,10 +1092,10 @@ const list = [
 ];
 ```
 
-## 代码实现
+### 代码实现
 
 ```javascript
-递归
+// 递归
 function treeToList(tree) {
   const list = [];
 
@@ -1119,7 +1117,7 @@ function treeToList(tree) {
   return list;
 }
 
-迭代
+// 迭代
 function treeToList(tree) {
   const list = [];
   // 初始状态将树的根节点放入栈中
@@ -1141,7 +1139,7 @@ function treeToList(tree) {
 }
 ```
 
-### 🌰
+例子如下：
 
 ```javascript
 const tree = [
@@ -1175,9 +1173,7 @@ console.log(treeToList(tree));
 
 ## 实现一个对象的 flatten 功能
 
-<a name="273a27cc-2"></a>
-
-## 题目描述
+### 题目描述
 
 ```yaml
 const obj = {
@@ -1204,9 +1200,7 @@ const obj = {
 // }
 ```
 
-<a name="83175ad0-1"></a>
-
-## 代码实现
+### 代码实现
 
 ```javascript
 function flatten(obj) {
@@ -1239,7 +1233,7 @@ function flatten(obj) {
 
 <a name="edc2783b-17"></a>
 
-### 🌰
+例子如下：
 
 ```javascript
 flatten(obj)
@@ -1271,13 +1265,9 @@ versions.sort((version1, version2) => {
 });
 ```
 
-<a name="uwCPW"></a>
-
 ## 实现虚拟 dom 转换为真实 dom
 
-<a name="273a27cc-3"></a>
-
-## 题目描述
+### 题目描述
 
 ```yaml
 const virtualDom = {
@@ -1348,7 +1338,7 @@ function virtualDomTransformRealDom(virtualDom) {
 
 <a name="edc2783b-18"></a>
 
-### 🌰
+例子如下：
 
 ```javascript
 const virtualDom = {
@@ -1406,7 +1396,7 @@ function parseTemplate(template, data) {
 
 <a name="cZhtN"></a>
 
-#### 🌰
+# 例子如下
 
 ```javascript
 const template = "我是{{name}}，年龄{{age}}，性别{{sex}}";
@@ -1460,7 +1450,7 @@ class Query {
 
 <a name="VoAOI"></a>
 
-#### 🌰
+# 例子如下
 
 ```javascript
 // 示例数据

@@ -1,4 +1,4 @@
-# React hooks
+# React Hooks
 
 ## useContext
 
@@ -151,8 +151,59 @@ class ErrorBoundary extends Component {
 * `static getDerivedStateFromError`: 在出错后有机会修改 state 触发最后一次错误 fallback 的渲染。
 * `componentDidCatch`: 用于出错时副作用代码，比如错误上报等。
 
-## React Hooks原理
+## useEffect 和 useLayoutEffect 的区别
 
-## useLayoutEffect 和 useEffect 区别
+`useEffect` 和 `useLayoutEffect` 都是 React 中的 Hook，用于在组件渲染周期中处理副作用。它们的主要区别在于触发时机和对应的执行时机。
 
-`useLayoutEffect` 和 `useEffect` 调用时机不同，`useLayoutEffect`当 dom 改变以后同步执行，`useEffect`当 dom 改变以后异步执行。
+**useEffect**:
+
+* `useEffect` 是在组件渲染之后异步执行的。
+* 它不会阻塞组件的渲染过程，而是在浏览器完成渲染后才执行。
+* 适用于处理异步操作、数据获取、订阅和取消订阅等副作用。
+* `useEffect` 的回调函数在每次组件渲染完成后都会执行，包括首次渲染和后续的重新渲染。
+
+**useLayoutEffect**:
+
+* `useLayoutEffect` 与 `useEffect` 类似，但它是在组件渲染之后同步执行的。
+* 它会在浏览器执行绘制之前同步执行，阻塞组件的渲染过程。
+* 适用于需要在 DOM 更新之前执行的副作用，例如测量 DOM 元素的尺寸、计算布局等。
+* `useLayoutEffect` 的回调函数在每次组件渲染完成后都会执行，包括首次渲染和后续的重新渲染。
+
+下面是一个示例，展示了 `useEffect` 和 `useLayoutEffect` 的区别：
+
+```javascript
+import React, { useState, useEffect, useLayoutEffect } from 'react';
+
+function MyComponent() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    console.log('useEffect');
+    document.title = `Count: ${count}`;
+  });
+
+  useLayoutEffect(() => {
+    console.log('useLayoutEffect');
+    // 模拟一个耗时的计算
+    for (let i = 0; i < 1000000000; i++) {}
+    document.title = `Count: ${count}`;
+  });
+
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={() => setCount(count + 1)}>增加</button>
+    </div>
+  );
+}
+```
+
+在上面的示例中，我们使用了 `useEffect` 和 `useLayoutEffect`。当点击增加按钮时，`count` 的值会增加，并且会更新页面的标题。
+
+* `useEffect` 的回调函数会在组件渲染之后异步执行。在本例中，每次 `count` 更新后，`useEffect` 的回调函数都会执行并更新页面的标题。
+* `useLayoutEffect` 的回调函数会在组件渲染之后同步执行。在本例中，每次 `count` 更新后，`useLayoutEffect` 的回调函数都会执行并更新页面的标题。由于 `useLayoutEffect` 的回调函数中模拟了一个耗时的计算，这会阻塞组件的渲染过程，导致页面在计算完成之前被冻结。
+
+总结：
+
+* `useEffect` 适用于大多数副作用情况，它在浏览器完成渲染后异步执行，不会阻塞页面的渲染过程。
+* `useLayoutEffect` 适用于需要在 DOM 更新之前同步执行的副作用，它会在浏览器执行绘制之前阻塞页面的渲染过程。使用时需要注意性能和避免阻塞页面的渲染。

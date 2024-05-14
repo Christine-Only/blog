@@ -1,55 +1,4 @@
 <template><div><h1 id="react-面试题" tabindex="-1"><a class="header-anchor" href="#react-面试题"><span>React 面试题</span></a></h1>
-<h2 id="说一下-useeffect-和-uselayouteffect-有什么区别" tabindex="-1"><a class="header-anchor" href="#说一下-useeffect-和-uselayouteffect-有什么区别"><span>说一下 useEffect 和 useLayoutEffect 有什么区别</span></a></h2>
-<p><code v-pre>useEffect</code> 和 <code v-pre>useLayoutEffect</code> 都是 React 中的 Hook，用于在组件渲染周期中处理副作用。它们的主要区别在于触发时机和对应的执行时机。
-<strong>useEffect</strong>:</p>
-<ul>
-<li><code v-pre>useEffect</code> 是在组件渲染之后异步执行的。</li>
-<li>它不会阻塞组件的渲染过程，而是在浏览器完成渲染后才执行。</li>
-<li>适用于处理异步操作、数据获取、订阅和取消订阅等副作用。</li>
-<li><code v-pre>useEffect</code> 的回调函数在每次组件渲染完成后都会执行，包括首次渲染和后续的重新渲染。</li>
-</ul>
-<p><strong>useLayoutEffect</strong>:</p>
-<ul>
-<li><code v-pre>useLayoutEffect</code> 与 <code v-pre>useEffect</code> 类似，但它是在组件渲染之后同步执行的。</li>
-<li>它会在浏览器执行绘制之前同步执行，阻塞组件的渲染过程。</li>
-<li>适用于需要在 DOM 更新之前执行的副作用，例如测量 DOM 元素的尺寸、计算布局等。</li>
-<li><code v-pre>useLayoutEffect</code> 的回调函数在每次组件渲染完成后都会执行，包括首次渲染和后续的重新渲染。</li>
-</ul>
-<p>下面是一个示例，展示了 <code v-pre>useEffect</code> 和 <code v-pre>useLayoutEffect</code> 的区别：</p>
-<div class="language-javascript line-numbers-mode" data-ext="js" data-title="js"><pre v-pre class="language-javascript"><code><span class="token keyword">import</span> React<span class="token punctuation">,</span> <span class="token punctuation">{</span> useState<span class="token punctuation">,</span> useEffect<span class="token punctuation">,</span> useLayoutEffect <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'react'</span><span class="token punctuation">;</span>
-
-<span class="token keyword">function</span> <span class="token function">MyComponent</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-  <span class="token keyword">const</span> <span class="token punctuation">[</span>count<span class="token punctuation">,</span> setCount<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">useState</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-  <span class="token function">useEffect</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
-    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'useEffect'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    document<span class="token punctuation">.</span>title <span class="token operator">=</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Count: </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>count<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">;</span>
-  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-  <span class="token function">useLayoutEffect</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
-    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'useLayoutEffect'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment">// 模拟一个耗时的计算</span>
-    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">1000000000</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
-    document<span class="token punctuation">.</span>title <span class="token operator">=</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Count: </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>count<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">;</span>
-  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-  <span class="token keyword">return</span> <span class="token punctuation">(</span>
-    <span class="token operator">&lt;</span>div<span class="token operator">></span>
-      <span class="token operator">&lt;</span>p<span class="token operator">></span>Count<span class="token operator">:</span> <span class="token punctuation">{</span>count<span class="token punctuation">}</span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">></span>
-      <span class="token operator">&lt;</span>button onClick<span class="token operator">=</span><span class="token punctuation">{</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token function">setCount</span><span class="token punctuation">(</span>count <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token operator">></span>增加<span class="token operator">&lt;</span><span class="token operator">/</span>button<span class="token operator">></span>
-    <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
-  <span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>在上面的示例中，我们使用了 <code v-pre>useEffect</code> 和 <code v-pre>useLayoutEffect</code>。当点击增加按钮时，<code v-pre>count</code> 的值会增加，并且会更新页面的标题。</p>
-<ul>
-<li><code v-pre>useEffect</code> 的回调函数会在组件渲染之后异步执行。在本例中，每次 <code v-pre>count</code> 更新后，<code v-pre>useEffect</code> 的回调函数都会执行并更新页面的标题。</li>
-<li><code v-pre>useLayoutEffect</code> 的回调函数会在组件渲染之后同步执行。在本例中，每次 <code v-pre>count</code> 更新后，<code v-pre>useLayoutEffect</code> 的回调函数都会执行并更新页面的标题。由于 <code v-pre>useLayoutEffect</code> 的回调函数中模拟了一个耗时的计算，这会阻塞组件的渲染过程，导致页面在计算完成之前被冻结。</li>
-</ul>
-<p>总结：</p>
-<ul>
-<li><code v-pre>useEffect</code> 适用于大多数副作用情况，它在浏览器完成渲染后异步执行，不会阻塞页面的渲染过程。</li>
-<li><code v-pre>useLayoutEffect</code> 适用于需要在 DOM 更新之前同步执行的副作用，它会在浏览器执行绘制之前阻塞页面的渲染过程。使用时需要注意性能和避免阻塞页面的渲染。</li>
-</ul>
 <h2 id="useeffect-对应在-class-中都生命周期怎么写" tabindex="-1"><a class="header-anchor" href="#useeffect-对应在-class-中都生命周期怎么写"><span>useEffect 对应在 class 中都生命周期怎么写？</span></a></h2>
 <p>在 React 类组件中，<code v-pre>useEffect</code> 的功能可以通过不同的生命周期方法来实现。下面是一些常见的 <code v-pre>useEffect</code> 使用场景以及它们在类组件中的对应生命周期方法：</p>
 <ol>
@@ -81,7 +30,7 @@
 <li><code v-pre>shouldComponentUpdate(nextProps, nextState)</code>：用于控制组件是否需要重新渲染。</li>
 </ul>
 <p>请注意，以上是一些常见的对应关系，但并不是所有情况都有直接的一对一映射。在使用类组件时，根据具体的需求和组件的生命周期，选择合适的生命周期方法来处理副作用逻辑。</p>
-<h2 id="reac-类组件新的生命周期都有哪些" tabindex="-1"><a class="header-anchor" href="#reac-类组件新的生命周期都有哪些"><span>Reac 类组件新的生命周期都有哪些？</span></a></h2>
+<h2 id="react-类组件新的生命周期都有哪些" tabindex="-1"><a class="header-anchor" href="#react-类组件新的生命周期都有哪些"><span>React 类组件新的生命周期都有哪些？</span></a></h2>
 <p>在 React 类组件中，除了传统的生命周期方法（如 <code v-pre>componentDidMount</code>、<code v-pre>componentDidUpdate</code> 和 <code v-pre>componentWillUnmount</code>）之外，React 还引入了一些新的生命周期方法。这些新的生命周期方法是在 React 16.3 版本中引入的，并提供了更细粒度的控制和更清晰的生命周期阶段。
 以下是 React 类组件中的新生命周期方法：</p>
 <ol>
@@ -147,10 +96,10 @@
 
   <span class="token comment">// 渲染逻辑...</span>
 <span class="token punctuation">}</span>
-</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>在上面的示例中，根据条件 <code v-pre>condition</code> 的不同，<code v-pre>MyComponent</code> 会渲染不同的组件，每个组件都可以独立地使用自己的 Hook。
-:::success
-总结起来，不推荐在条件语句中使用 Hook。应该将 Hook 的调用放在组件的顶层作用域中，或者使用条件渲染来渲染不同的组件并在各自的组件中使用不同的 Hook。
-:::</p>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>在上面的示例中，根据条件 <code v-pre>condition</code> 的不同，<code v-pre>MyComponent</code> 会渲染不同的组件，每个组件都可以独立地使用自己的 Hook。</p>
+<div class="custom-container tip"><p class="custom-container-title">总结</p>
+<p>不推荐在条件语句中使用 Hook。应该将 Hook 的调用放在组件的顶层作用域中，或者使用条件渲染来渲染不同的组件并在各自的组件中使用不同的 Hook。</p>
+</div>
 <h2 id="在-if-语句里面写-hook-会报错-你可以用-fiber-架构来解释一下吗" tabindex="-1"><a class="header-anchor" href="#在-if-语句里面写-hook-会报错-你可以用-fiber-架构来解释一下吗"><span>在 if 语句里面写 Hook 会报错，你可以用 Fiber 架构来解释一下吗？</span></a></h2>
 <p>当在条件语句（如 if 语句）中使用 Hook 时，由于 React Fiber 的工作机制，会导致报错或意外的行为。
 React Fiber 使用一种称为协调（reconciliation）的机制来处理组件的更新和渲染。在每次渲染时，React Fiber 会构建一个更新任务的工作单元（work unit），并按照优先级进行调度和执行。
@@ -179,39 +128,25 @@ React Fiber 使用一种称为协调（reconciliation）的机制来处理组件
 </ol>
 <p>通过使用这些 Hooks，你可以更方便地编写可复用、可测试和易于维护的函数组件，而不需要编写类组件或使用类组件中的生命周期方法。Hooks 提供了一种更简洁、直观和灵活的方式来处理组件的状态和副作用。</p>
 <h2 id="useeffect-的执行时机-以及-deps-的作用" tabindex="-1"><a class="header-anchor" href="#useeffect-的执行时机-以及-deps-的作用"><span>useEffect 的执行时机，以及 deps 的作用</span></a></h2>
-<p><code v-pre>useEffect</code> 是 React Hooks 中用于处理副作用操作的函数。它在组件渲染后执行，并且可以在组件的每次渲染过程中多次执行。
-<code v-pre>useEffect</code> 接收两个参数：一个回调函数和一个依赖数组（可选）。回调函数定义了需要执行的副作用操作，而依赖数组用于指定触发执行副作用的依赖项。
+<p><code v-pre>useEffect</code> 是 React Hooks 中用于处理副作用操作的函数。它在组件渲染后执行，并且可以在组件的每次渲染过程中多次执行。</p>
+<p><code v-pre>useEffect</code> 接收两个参数：一个回调函数和一个依赖数组（可选）。回调函数定义了需要执行的副作用操作，而依赖数组用于指定触发执行副作用的依赖项。
 当组件渲染后，React 会记住这个回调函数，并在每次渲染后调用它。如果提供了依赖数组，React 将会比较前一次渲染和当前渲染的依赖项是否发生了变化。如果有任何一个依赖项发生了变化，React 将会执行回调函数。如果没有提供依赖数组，那么每次渲染都会执行回调函数。
-依赖数组的作用是告诉 React 哪些状态或属性的变化会触发副作用的重新执行。只有在依赖项发生变化时，才会执行回调函数。这样可以避免不必要的副作用执行，提高性能和效率。
-<strong>依赖数组可以有不同的取值</strong>：</p>
+依赖数组的作用是告诉 React 哪些状态或属性的变化会触发副作用的重新执行。只有在依赖项发生变化时，才会执行回调函数。这样可以避免不必要的副作用执行，提高性能和效率。</p>
+<p><strong>依赖数组可以有不同的取值</strong>：</p>
 <ul>
-<li><strong>如果传递一个空数组</strong><code v-pre>**[]**</code>，则表示回调函数只会在组件挂载和卸载时执行，类似于 <code v-pre>componentDidMount</code> 和 <code v-pre>componentWillUnmount</code>。</li>
+<li><strong>如果传递一个空数组</strong><code v-pre>[]</code>，则表示回调函数只会在组件挂载和卸载时执行，类似于 <code v-pre>componentDidMount</code> 和 <code v-pre>componentWillUnmount</code>。</li>
 <li><strong>如果没有传递依赖数组</strong>，即不提供第二个参数，那么回调函数在每次组件渲染后都会执行。</li>
 <li><strong>如果传递一个包含状态或属性的数组</strong>，那么只有在数组中的状态或属性发生变化时，才会执行回调函数。</li>
 </ul>
-<p>使用依赖数组可以精确地控制副作用的执行时机，避免不必要的重复执行。在实际使用中，需要根据具体的场景和需求来决定是否提供依赖数组，以及依赖数组中的依赖项。
-:::success
-总结一下，<code v-pre>useEffect</code> 的执行时机是在组件渲染后，可以在每次渲染过程中多次执行。依赖数组用于指定触发副作用执行的依赖项，只有在依赖项发生变化时才会执行回调函数。
-:::
-React17 和 React18 的区别
-<a href="https://juejin.cn/post/7157888552229928996" target="_blank" rel="noopener noreferrer">一文解读 React 17 与 React 18 的更新变化 - 掘金<ExternalLinkIcon/></a></p>
-<h2 id="全新的-jsx-转换器" tabindex="-1"><a class="header-anchor" href="#全新的-jsx-转换器"><span>全新的 JSX 转换器</span></a></h2>
-<p>总结下来就是两点：</p>
-<ul>
-<li>用 jsx() 函数替换 React.createElement()</li>
-<li>运行时自动引入 jsx() 函数，无需手写引入react</li>
-</ul>
-<p>在<strong>v16</strong>中，我们写一个React组件，总要引入</p>
-<div class="language-tsx line-numbers-mode" data-ext="tsx" data-title="tsx"><pre v-pre class="language-tsx"><code><span class="token keyword">import</span> React <span class="token keyword">from</span> <span class="token string">'react'</span>
-</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div></div></div><p>这是因为在浏览器中无法直接使用 jsx，所以要借助工具如@babel/preset-react将 jsx 语法转换为 React.createElement 的 js 代码，所以需要显式引入 React，才能正常调用 createElement。
-v17之后，React 与 Babel 官方进行合作，直接通过将 react/jsx-runtime 对 jsx 语法进行了新的转换而不依赖</p>
+<p>使用依赖数组可以精确地控制副作用的执行时机，避免不必要的重复执行。在实际使用中，需要根据具体的场景和需求来决定是否提供依赖数组，以及依赖数组中的依赖项。</p>
+<div class="custom-container tip"><p class="custom-container-title">总结</p>
+<p><code v-pre>useEffect</code> 的执行时机是在组件渲染后，可以在每次渲染过程中多次执行。依赖数组用于指定触发副作用执行的依赖项，只有在依赖项发生变化时才会执行回调函数。</p>
+</div>
+<h2 id="react17-和-react18-的区别" tabindex="-1"><a class="header-anchor" href="#react17-和-react18-的区别"><span>React17 和 React18 的区别</span></a></h2>
+<p><a href="https://juejin.cn/post/7157888552229928996" target="_blank" rel="noopener noreferrer">一文解读 React 17 与 React 18 的更新变化 - 掘金<ExternalLinkIcon/></a></p>
 <h2 id="react18新特性" tabindex="-1"><a class="header-anchor" href="#react18新特性"><span>React18新特性</span></a></h2>
-<ul>
-<li>并发模式</li>
-<li>自动批处理</li>
-</ul>
-<p>useTransition
-React 的状态更新可以分为两类：</p>
+<h3 id="usetransition" tabindex="-1"><a class="header-anchor" href="#usetransition"><span>useTransition</span></a></h3>
+<p>React 的状态更新可以分为两类：</p>
 <ul>
 <li>紧急更新（Urgent updates）：比如打字、点击、拖动等，需要立即响应的行为，如果不立即响应会给人很卡，或者出问题了的感觉</li>
 <li>过渡更新（Transition updates）：将 UI 从一个视图过渡到另一个视图。不需要即时响应，有些延迟是可以接受的。</li>
@@ -236,12 +171,9 @@ React 的状态更新可以分为两类：</p>
   <span class="token function">setSearchQuery</span><span class="token punctuation">(</span>input<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 非紧急的</span>
 <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>如上代码，我们通过 startTransition 来标记一个非紧急更新，让该状态触发的变更变成低优先级的。</p>
-<ul>
-<li>useDeferredValue
+<h3 id="usedeferredvalue" tabindex="-1"><a class="header-anchor" href="#usedeferredvalue"><span>useDeferredValue</span></a></h3>
 <ul>
 <li><strong>useDeferredValue</strong> 是一个钩子（hook），它接受一个值，并返回一个可能会“滞后”一段时间的版本。这意味着如果有高优先级的更新发生，useDeferredValue 返回的值可能会保持不变，直到浏览器有足够的时间来处理低优先级的工作。</li>
-</ul>
-</li>
 </ul>
 <div class="language-tsx line-numbers-mode" data-ext="tsx" data-title="tsx"><pre v-pre class="language-tsx"><code><span class="token keyword">import</span> <span class="token punctuation">{</span> useDeferredValue <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'react'</span><span class="token punctuation">;</span>
 
@@ -251,24 +183,48 @@ React 的状态更新可以分为两类：</p>
 
 <span class="token comment">// 使用deferredValue而不是直接使用value</span>
 <span class="token comment">// deferredValue可能会“延迟”更新，避免阻塞重要的渲染</span>
-</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><ul>
-<li>useDeferredValue 适用于那些你希望在不影响主要渲染的情况下，能够“平滑”更新的值。例如，你可能希望在用户输入时立即更新输入框，但是推迟更新基于输入值的渲染结果。</li>
-<li>流式 SSR</li>
-</ul>
-<p>在 CM（Concurrent Mode）模式下，React 在执行过程中，每执行一个 Fiber，都会看看有没有更高优先级的更新，如果有，则当前低优先级的的更新会被暂停，待高优先级任务执行完之后，再继续执行或重新执行。
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>适用于那些你希望在不影响主要渲染的情况下，能够“平滑”更新的值。例如，你可能希望在用户输入时立即更新输入框，但是推迟更新基于输入值的渲染结果。</p>
+<h3 id="流式-ssr" tabindex="-1"><a class="header-anchor" href="#流式-ssr"><span>流式 SSR</span></a></h3>
+<p>在 React 18 中，我们通过 Suspense包裹，可以告诉 React，我们不需要等这个组件，可以先返回其它内容，等这个组件准备好之后，单独返回。</p>
+<div class="language-jsx line-numbers-mode" data-ext="jsx" data-title="jsx"><pre v-pre class="language-jsx"><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Layout</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+  </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">NavBar</span></span> <span class="token punctuation">/></span></span><span class="token plain-text">
+  </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Sidebar</span></span> <span class="token punctuation">/></span></span><span class="token plain-text">
+  </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">RightPane</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Post</span></span> <span class="token punctuation">/></span></span><span class="token plain-text">
+    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Suspense</span></span> <span class="token attr-name">fallback</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Spinner</span></span> <span class="token punctuation">/></span></span><span class="token punctuation">}</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Comments</span></span> <span class="token punctuation">/></span></span><span class="token plain-text">
+    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token class-name">Suspense</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+  </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token class-name">RightPane</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token class-name">Layout</span></span><span class="token punctuation">></span></span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>如上，我们通过 <code v-pre>Suspense</code> 包裹了 <code v-pre>Comments</code> 组件，那服务器首次返回的 HTML 是下面这样的，<code v-pre>&lt;Comments /&gt;</code>组件处通过 <code v-pre>loading</code> 进行了占位。</p>
+<div class="language-html line-numbers-mode" data-ext="html" data-title="html"><pre v-pre class="language-html"><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>main</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>nav</span><span class="token punctuation">></span></span>
+    <span class="token comment">&lt;!--NavBar --></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>/<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Home<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span>
+   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>nav</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>aside</span><span class="token punctuation">></span></span>
+    <span class="token comment">&lt;!-- Sidebar --></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>/profile<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Profile<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>aside</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>article</span><span class="token punctuation">></span></span>
+    <span class="token comment">&lt;!-- Post --></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>Hello world<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>article</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>section</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>comments-spinner<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token comment">&lt;!-- Spinner --></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">width</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span>400</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>spinner.gif<span class="token punctuation">"</span></span> <span class="token attr-name">alt</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>Loading...<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>section</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>main</span><span class="token punctuation">></span></span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>当 <code v-pre>&lt;Comments /&gt;</code> 组件准备好之后，React 会通过同一个流（stream）发送给浏览器（res.send 替换成 res.socket），并替换到相应位置。
 <a href="https://juejin.cn/post/7087486984146878494" target="_blank" rel="noopener noreferrer">React 18 总览 - 掘金<ExternalLinkIcon/></a></p>
-<h2 id="react-底层是怎么利用浏览器的空闲时间来做组件渲染的" tabindex="-1"><a class="header-anchor" href="#react-底层是怎么利用浏览器的空闲时间来做组件渲染的"><span>React 底层是怎么利用浏览器的空闲时间来做组件渲染的</span></a></h2>
-<div class="language-text line-numbers-mode" data-ext="text" data-title="text"><pre v-pre class="language-text"><code>React 16开始引入了一种新的更新机制，叫作Fiber。Fiber是一种基于浏览器的requestIdleCallback API的协调引擎，它充分利用浏览器的空闲时间来进行组件的渲染。
-
-React的更新机制是分阶段的，分为两大阶段，分别是Reconciliation阶段和Commit阶段。
-
-在Reconciliation阶段，React会将新旧Virtual DOM进行对比，生成更新内容，这个阶段的任务是可以被打断的。React会利用requestIdleCallback API，
-在浏览器空闲的时候进行这个阶段的更新工作。
-
-而在Commit阶段，React会将Reconciliation阶段生成的更新内容应用到实际的DOM上，这个阶段的任务是不能被打断的，需要一次性完成。
-
-这样，React就能够在不阻塞用户的正常操作下，尽可能地利用浏览器的空闲时间，进行组件的渲染更新。
-</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="react18-流式-ssr-和-传统-ssr-的区别" tabindex="-1"><a class="header-anchor" href="#react18-流式-ssr-和-传统-ssr-的区别"><span>React18 流式 SSR 和 传统 SSR 的区别</span></a></h2>
+<h2 id="react-底层是怎么利用浏览器的空闲时间来做组件渲染的" tabindex="-1"><a class="header-anchor" href="#react-底层是怎么利用浏览器的空闲时间来做组件渲染的"><span>React 底层是怎么利用浏览器的空闲时间来做组件渲染的？</span></a></h2>
+<p>React 16开始引入了一种新的更新机制，叫作Fiber。Fiber是一种基于浏览器的requestIdleCallback API的协调引擎，它充分利用浏览器的空闲时间来进行组件的渲染。</p>
+<p>React的更新机制是分阶段的，分为两大阶段，分别是Reconciliation阶段和Commit阶段。</p>
+<p>在Reconciliation阶段，React会将新旧Virtual DOM进行对比，生成更新内容，这个阶段的任务是可以被打断的。React会利用requestIdleCallback API，
+在浏览器空闲的时候进行这个阶段的更新工作。</p>
+<p>而在Commit阶段，React会将Reconciliation阶段生成的更新内容应用到实际的DOM上，这个阶段的任务是不能被打断的，需要一次性完成。</p>
+<p>这样，React就能够在不阻塞用户的正常操作下，尽可能地利用浏览器的空闲时间，进行组件的渲染更新。</p>
+<h2 id="react18-流式-ssr-和-传统-ssr-的区别" tabindex="-1"><a class="header-anchor" href="#react18-流式-ssr-和-传统-ssr-的区别"><span>React18 流式 SSR 和 传统 SSR 的区别</span></a></h2>
 <p>React 18 引入了新的流式 SSR（Server-Side Rendering）特性，与传统的 SSR 有一些显著区别。以下是它们之间的一些主要差异：</p>
 <ol>
 <li><strong>流式渲染：</strong></li>
@@ -343,11 +299,11 @@ React的更新机制是分阶段的，分为两大阶段，分别是Reconciliati
   <span class="token keyword">return</span> <span class="token punctuation">(</span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span><span class="token plain-text">
       </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> 
-    <span class="token attr-name">onChange</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>onChange<span class="token punctuation">}</span></span>
-    <span class="token attr-name">value</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>query<span class="token punctuation">}</span></span>
-    <span class="token attr-name">placeholder</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>Search...<span class="token punctuation">"</span></span>
+      <span class="token attr-name">onChange</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>onChange<span class="token punctuation">}</span></span>
+      <span class="token attr-name">value</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>query<span class="token punctuation">}</span></span>
+      <span class="token attr-name">placeholder</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>Search...<span class="token punctuation">"</span></span>
       <span class="token punctuation">/></span></span><span class="token plain-text">
-      </span><span class="token punctuation">{</span>isPending <span class="token operator">?</span> <span class="token string">"Loading..."</span> <span class="token operator">:</span> 
+      </span><span class="token punctuation">{</span>isPending <span class="token operator">?</span> <span class="token string">"Loading..."</span> <span class="token operator">:</span>
         <span class="token punctuation">(</span>data <span class="token operator">&amp;&amp;</span> data<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">item</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">(</span>
           <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">key</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>item<span class="token punctuation">.</span>id<span class="token punctuation">}</span></span><span class="token punctuation">></span></span><span class="token punctuation">{</span>item<span class="token punctuation">.</span>name<span class="token punctuation">}</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
         <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
@@ -391,8 +347,43 @@ Scheduler有一个runNextUnitOfWork方法，这个方法会计算当前帧剩余
 </ol>
 <div class="custom-container tip"><p class="custom-container-title">Scheduler的核心就是在通过合理利用浏览器主线程的空闲周期，在不阻塞用户交互、保证流畅性的同时，尽可能快的完成任务。</p>
 </div>
-<h2 id="react-博客整理" tabindex="-1"><a class="header-anchor" href="#react-博客整理"><span>React 博客整理</span></a></h2>
-<p><a href="https://react.iamkasong.com/process/fiber.html#fiber%E7%9A%84%E7%BB%93%E6%9E%84" target="_blank" rel="noopener noreferrer">React技术揭秘<ExternalLinkIcon/></a></p>
-</div></template>
+<h2 id="在-usestate-中如何实现类似于-setstate-的回调功能" tabindex="-1"><a class="header-anchor" href="#在-usestate-中如何实现类似于-setstate-的回调功能"><span>在 <code v-pre>useState</code> 中如何实现类似于 <code v-pre>setState</code> 的回调功能？</span></a></h2>
+<div class="language-jsx line-numbers-mode" data-ext="jsx" data-title="jsx"><pre v-pre class="language-jsx"><code><span class="token keyword">import</span> React<span class="token punctuation">,</span> <span class="token punctuation">{</span> useState<span class="token punctuation">,</span> useEffect<span class="token punctuation">,</span> useRef <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'react'</span><span class="token punctuation">;</span>
+
+<span class="token keyword">function</span> <span class="token function">useStateWithCallback</span><span class="token punctuation">(</span><span class="token parameter">initialValue</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> <span class="token punctuation">[</span>state<span class="token punctuation">,</span> setState<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">useState</span><span class="token punctuation">(</span>initialValue<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">const</span> callbackRef <span class="token operator">=</span> <span class="token function">useRef</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">const</span> <span class="token function-variable function">setStateWithCallback</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">value<span class="token punctuation">,</span> callback</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+    callbackRef<span class="token punctuation">.</span>current <span class="token operator">=</span> callback<span class="token punctuation">;</span>
+    <span class="token function">setState</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+  <span class="token function">useEffect</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>callbackRef<span class="token punctuation">.</span>current<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      callbackRef<span class="token punctuation">.</span><span class="token function">current</span><span class="token punctuation">(</span>state<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      callbackRef<span class="token punctuation">.</span>current <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>state<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">return</span> <span class="token punctuation">[</span>state<span class="token punctuation">,</span> setStateWithCallback<span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">function</span> <span class="token function">MyComponent</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> <span class="token punctuation">[</span>count<span class="token punctuation">,</span> setCount<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">useStateWithCallback</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">const</span> <span class="token function-variable function">incrementCount</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+    <span class="token function">setCount</span><span class="token punctuation">(</span>count <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+      console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Count value updated to: </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>count <span class="token operator">+</span> <span class="token number">1</span><span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">return</span> <span class="token punctuation">(</span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">onClick</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>incrementCount<span class="token punctuation">}</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+      Increment Count
+    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
+  <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div></div></template>
 
 

@@ -2,7 +2,7 @@
 
 ## JSX到底是什么
 
-JSX代码在执行前，会被Babel转换为React.createElement方法的调用，该方法在调用后会返回Virtual DOM对象，然后React再将Virtual DOM对象转换为真实的DOM对象，再将真实DOM渲染在页面上。
+JSX代码在执行前，会被`Babel`转换为`React.createElement`方法的调用，该方法在调用后会返回`Virtual DOM`对象，然后React再将`Virtual DOM`对象转换为真实的DOM对象，再将真实DOM渲染在页面上。
 
 ## Virtual DOM 如何提升效率
 
@@ -16,7 +16,7 @@ JSX代码在执行前，会被Babel转换为React.createElement方法的调用�
 
 按照图中的流程，我们依次来分析`虚拟DOM`的实现原理。
 
-### JSX和createElement
+### JSX 和 createElement
 
 我们在实现一个`React`组件时可以选择两种编码方式
 
@@ -83,17 +83,55 @@ function Story(props) {
 }
 ```
 
-所以，使用`JSX`你需要安装`Babel`插件`babel-plugin-transform-react-jsx`
+所以，使用`JSX`时，需要安装`Babel`插件：
+
+* @babel/core
+* @babel/preset-env
+* @babel/preset-react
+* babel-loader
+
+在 webpack 配置文件中，需要为 JavaScript 文件添加一个规则，让 babel-loader 可以运行。通常在webpack.config.js文件的module->rules数组中添加以下内容：
 
 ```js
-{
-  "plugins": [
-    ["transform-react-jsx", {
-      "pragma": "React.createElement"
-    }]
+module: {
+  rules: [
+    {
+      test: /\.js$/,
+      exclude: /(node_modules)/,
+      use: {
+        loader: 'babel-loader',
+        options: {
+          presets: ['@babel/preset-env', '@babel/preset-react']
+        }
+      }
+    }
   ]
 }
 ```
+
+创建和配置 Babel 的配置文件（`.babelrc` 或 `babel.config.json`） ，`@babel/preset-react` 是负责将 JSX 转换为 React.createElement 的 preset。
+
+```json
+{
+  "presets": ["@babel/preset-env", "@babel/preset-react"]
+}
+```
+
+### 全新的 JSX 转换器
+
+总结下来就是两点：
+
+* 用 jsx() 函数替换 React.createElement()
+* 运行时自动引入 jsx() 函数，无需手写引入react
+
+在**v16**中，我们写一个React组件，总要引入
+
+```tsx
+import React from 'react'
+```
+
+这是因为在浏览器中无法直接使用 jsx，所以要借助工具如@babel/preset-react将 jsx 语法转换为 React.createElement 的 js 代码，所以需要显式引入 React，才能正常调用 createElement。
+v17之后，React 与 Babel 官方进行合作，直接通过将 react/jsx-runtime 对 jsx 语法进行了新的转换而不依赖
 
 ### 创建虚拟DOM
 
@@ -174,3 +212,18 @@ function performUnitOfWork(nextUnitOfWork) {
 3. 通过 `key` 来`复用`节点。
 
 [一文讲通React的diff过程](https://juejin.cn/post/7212918899867041849#heading-0)
+
+## 协调算法
+
+React的协调算法（也称作Reconciliation）是一种高效地比较和更新虚拟DOM树的算法，它解决的主要问题是在存在大量组件及元素时，如何有效地更新DOM，使页面渲染性能最优化。
+
+具体地，协调算法解决以下几个问题：
+
+* **确定哪些组件和DOM元素需要更新**: 当状态或者属性发生变化时，React需要确定哪些组件和元素需要重新渲染。协调算法通过比较新旧虚拟DOM树，快速找出需要更新的部分，减少不必要的渲染操作。
+* **最小化DOM操作数量**: 直接操作DOM是昂贵的，因此React尽力减少实际DOM操作的数量。协调算法通过只变更差异部分的方法，确保了只在必须的地方进行DOM操作。
+* **持续性能优化**: 协调算法在不断优化过程中提升性能，应用的规模并不会对React应用的性能产生负面影响。
+* **提供稳定的组件_id_和_key_**: 在应用中，通常会出现大量相似或相同类型的元素列表，如何快速准确地识别它们就变得尤为重要。通过React提供的key属性，协调算法能够更好地追踪哪些元素发生了变化，从而减少重绘和重排，提升渲染性能。
+
+## 学习博客
+
+[React技术揭秘](https://react.iamkasong.com/process/fiber.html#fiber%E7%9A%84%E7%BB%93%E6%9E%84)

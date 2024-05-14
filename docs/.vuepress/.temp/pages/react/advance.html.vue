@@ -1,13 +1,13 @@
 <template><div><h1 id="react-进阶" tabindex="-1"><a class="header-anchor" href="#react-进阶"><span>React 进阶</span></a></h1>
 <h2 id="jsx到底是什么" tabindex="-1"><a class="header-anchor" href="#jsx到底是什么"><span>JSX到底是什么</span></a></h2>
-<p>JSX代码在执行前，会被Babel转换为React.createElement方法的调用，该方法在调用后会返回Virtual DOM对象，然后React再将Virtual DOM对象转换为真实的DOM对象，再将真实DOM渲染在页面上。</p>
+<p>JSX代码在执行前，会被<code v-pre>Babel</code>转换为<code v-pre>React.createElement</code>方法的调用，该方法在调用后会返回<code v-pre>Virtual DOM</code>对象，然后React再将<code v-pre>Virtual DOM</code>对象转换为真实的DOM对象，再将真实DOM渲染在页面上。</p>
 <h2 id="virtual-dom-如何提升效率" tabindex="-1"><a class="header-anchor" href="#virtual-dom-如何提升效率"><span>Virtual DOM 如何提升效率</span></a></h2>
 <p>精准找出发生变化的 DOM 对象，只更新发生变化的部分。</p>
 <p>在 React 第一次创建 DOM 对象后，会为每个 DOM 对象创建其对应的 Virtual DOM 对象，在 DOM 对象发生更新之前，React 会先更新所有的 Virtual DOM 对象，然后 React 会将更新后的 Virtual DOM 和 更新前的 Virtual DOM 进行比较，从而找出发生变化的部分，React 会将发生变化的部分更新到真实的 DOM 对象中，React 仅更新必要更新的部分。</p>
 <h2 id="虚拟dom实现原理" tabindex="-1"><a class="header-anchor" href="#虚拟dom实现原理"><span>虚拟DOM实现原理</span></a></h2>
 <p><img src="/vdom.png" alt="alt"></p>
 <p>按照图中的流程，我们依次来分析<code v-pre>虚拟DOM</code>的实现原理。</p>
-<h3 id="jsx和createelement" tabindex="-1"><a class="header-anchor" href="#jsx和createelement"><span>JSX和createElement</span></a></h3>
+<h3 id="jsx-和-createelement" tabindex="-1"><a class="header-anchor" href="#jsx-和-createelement"><span>JSX 和 createElement</span></a></h3>
 <p>我们在实现一个<code v-pre>React</code>组件时可以选择两种编码方式</p>
 <ul>
 <li>第一种是使用<code v-pre>JSX</code>编写：</li>
@@ -50,15 +50,43 @@
   <span class="token keyword">const</span> SpecificStory <span class="token operator">=</span> components<span class="token punctuation">[</span>props<span class="token punctuation">.</span>storyType<span class="token punctuation">]</span><span class="token punctuation">;</span>
   <span class="token keyword">return</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">SpecificStory</span></span> <span class="token attr-name">story</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>props<span class="token punctuation">.</span>story<span class="token punctuation">}</span></span> <span class="token punctuation">/></span></span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
-</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>所以，使用<code v-pre>JSX</code>你需要安装<code v-pre>Babel</code>插件<code v-pre>babel-plugin-transform-react-jsx</code></p>
-<div class="language-javascript line-numbers-mode" data-ext="js" data-title="js"><pre v-pre class="language-javascript"><code><span class="token punctuation">{</span>
-  <span class="token string-property property">"plugins"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-    <span class="token punctuation">[</span><span class="token string">"transform-react-jsx"</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
-      <span class="token string-property property">"pragma"</span><span class="token operator">:</span> <span class="token string">"React.createElement"</span>
-    <span class="token punctuation">}</span><span class="token punctuation">]</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>所以，使用<code v-pre>JSX</code>时，需要安装<code v-pre>Babel</code>插件：</p>
+<ul>
+<li>@babel/core</li>
+<li>@babel/preset-env</li>
+<li>@babel/preset-react</li>
+<li>babel-loader</li>
+</ul>
+<p>在 webpack 配置文件中，需要为 JavaScript 文件添加一个规则，让 babel-loader 可以运行。通常在webpack.config.js文件的module-&gt;rules数组中添加以下内容：</p>
+<div class="language-javascript line-numbers-mode" data-ext="js" data-title="js"><pre v-pre class="language-javascript"><code><span class="token literal-property property">module</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+  <span class="token literal-property property">rules</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">{</span>
+      <span class="token literal-property property">test</span><span class="token operator">:</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\.js$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span>
+      <span class="token literal-property property">exclude</span><span class="token operator">:</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">(node_modules)</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span>
+      <span class="token literal-property property">use</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token literal-property property">loader</span><span class="token operator">:</span> <span class="token string">'babel-loader'</span><span class="token punctuation">,</span>
+        <span class="token literal-property property">options</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+          <span class="token literal-property property">presets</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'@babel/preset-env'</span><span class="token punctuation">,</span> <span class="token string">'@babel/preset-react'</span><span class="token punctuation">]</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
   <span class="token punctuation">]</span>
 <span class="token punctuation">}</span>
-</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="创建虚拟dom" tabindex="-1"><a class="header-anchor" href="#创建虚拟dom"><span>创建虚拟DOM</span></a></h3>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>创建和配置 Babel 的配置文件（<code v-pre>.babelrc</code> 或 <code v-pre>babel.config.json</code>） ，<code v-pre>@babel/preset-react</code> 是负责将 JSX 转换为 React.createElement 的 preset。</p>
+<div class="language-json line-numbers-mode" data-ext="json" data-title="json"><pre v-pre class="language-json"><code><span class="token punctuation">{</span>
+  <span class="token property">"presets"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"@babel/preset-env"</span><span class="token punctuation">,</span> <span class="token string">"@babel/preset-react"</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="全新的-jsx-转换器" tabindex="-1"><a class="header-anchor" href="#全新的-jsx-转换器"><span>全新的 JSX 转换器</span></a></h3>
+<p>总结下来就是两点：</p>
+<ul>
+<li>用 jsx() 函数替换 React.createElement()</li>
+<li>运行时自动引入 jsx() 函数，无需手写引入react</li>
+</ul>
+<p>在<strong>v16</strong>中，我们写一个React组件，总要引入</p>
+<div class="language-tsx line-numbers-mode" data-ext="tsx" data-title="tsx"><pre v-pre class="language-tsx"><code><span class="token keyword">import</span> React <span class="token keyword">from</span> <span class="token string">'react'</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div></div></div><p>这是因为在浏览器中无法直接使用 jsx，所以要借助工具如@babel/preset-react将 jsx 语法转换为 React.createElement 的 js 代码，所以需要显式引入 React，才能正常调用 createElement。
+v17之后，React 与 Babel 官方进行合作，直接通过将 react/jsx-runtime 对 jsx 语法进行了新的转换而不依赖</p>
+<h3 id="创建虚拟dom" tabindex="-1"><a class="header-anchor" href="#创建虚拟dom"><span>创建虚拟DOM</span></a></h3>
 <p>下面我们来看看虚拟<code v-pre>DOM</code>的真实模样，将下面的<code v-pre>JSX</code>代码在控制台打印出来：</p>
 <div class="language-jsx line-numbers-mode" data-ext="jsx" data-title="jsx"><pre v-pre class="language-jsx"><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">className</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>title<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token plain-text">
   </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span><span class="token punctuation">></span></span><span class="token plain-text">Hello Christine</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span><span class="token plain-text">
@@ -118,6 +146,17 @@
 <li>通过 <code v-pre>key</code> 来<code v-pre>复用</code>节点。</li>
 </ol>
 <p><a href="https://juejin.cn/post/7212918899867041849#heading-0" target="_blank" rel="noopener noreferrer">一文讲通React的diff过程<ExternalLinkIcon/></a></p>
+<h2 id="协调算法" tabindex="-1"><a class="header-anchor" href="#协调算法"><span>协调算法</span></a></h2>
+<p>React的协调算法（也称作Reconciliation）是一种高效地比较和更新虚拟DOM树的算法，它解决的主要问题是在存在大量组件及元素时，如何有效地更新DOM，使页面渲染性能最优化。</p>
+<p>具体地，协调算法解决以下几个问题：</p>
+<ul>
+<li><strong>确定哪些组件和DOM元素需要更新</strong>: 当状态或者属性发生变化时，React需要确定哪些组件和元素需要重新渲染。协调算法通过比较新旧虚拟DOM树，快速找出需要更新的部分，减少不必要的渲染操作。</li>
+<li><strong>最小化DOM操作数量</strong>: 直接操作DOM是昂贵的，因此React尽力减少实际DOM操作的数量。协调算法通过只变更差异部分的方法，确保了只在必须的地方进行DOM操作。</li>
+<li><strong>持续性能优化</strong>: 协调算法在不断优化过程中提升性能，应用的规模并不会对React应用的性能产生负面影响。</li>
+<li><strong>提供稳定的组件_id_和_key_</strong>: 在应用中，通常会出现大量相似或相同类型的元素列表，如何快速准确地识别它们就变得尤为重要。通过React提供的key属性，协调算法能够更好地追踪哪些元素发生了变化，从而减少重绘和重排，提升渲染性能。</li>
+</ul>
+<h2 id="学习博客" tabindex="-1"><a class="header-anchor" href="#学习博客"><span>学习博客</span></a></h2>
+<p><a href="https://react.iamkasong.com/process/fiber.html#fiber%E7%9A%84%E7%BB%93%E6%9E%84" target="_blank" rel="noopener noreferrer">React技术揭秘<ExternalLinkIcon/></a></p>
 </div></template>
 
 

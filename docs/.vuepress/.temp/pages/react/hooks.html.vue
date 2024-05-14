@@ -1,4 +1,4 @@
-<template><div><h1 id="react-hooks" tabindex="-1"><a class="header-anchor" href="#react-hooks"><span>React hooks</span></a></h1>
+<template><div><h1 id="react-hooks" tabindex="-1"><a class="header-anchor" href="#react-hooks"><span>React Hooks</span></a></h1>
 <h2 id="usecontext" tabindex="-1"><a class="header-anchor" href="#usecontext"><span>useContext</span></a></h2>
 <p>一、React.createContext</p>
 <div class="language-javascript line-numbers-mode" data-ext="js" data-title="js"><pre v-pre class="language-javascript"><code><span class="token keyword">const</span> MyContext <span class="token operator">=</span> React<span class="token punctuation">.</span><span class="token function">createContext</span><span class="token punctuation">(</span>defaultValue<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -117,9 +117,57 @@
 <li><code v-pre>static getDerivedStateFromError</code>: 在出错后有机会修改 state 触发最后一次错误 fallback 的渲染。</li>
 <li><code v-pre>componentDidCatch</code>: 用于出错时副作用代码，比如错误上报等。</li>
 </ul>
-<h2 id="react-hooks原理" tabindex="-1"><a class="header-anchor" href="#react-hooks原理"><span>React Hooks原理</span></a></h2>
-<h2 id="uselayouteffect-和-useeffect-区别" tabindex="-1"><a class="header-anchor" href="#uselayouteffect-和-useeffect-区别"><span>useLayoutEffect 和 useEffect 区别</span></a></h2>
-<p><code v-pre>useLayoutEffect</code> 和 <code v-pre>useEffect</code> 调用时机不同，<code v-pre>useLayoutEffect</code>当 dom 改变以后同步执行，<code v-pre>useEffect</code>当 dom 改变以后异步执行。</p>
+<h2 id="useeffect-和-uselayouteffect-的区别" tabindex="-1"><a class="header-anchor" href="#useeffect-和-uselayouteffect-的区别"><span>useEffect 和 useLayoutEffect 的区别</span></a></h2>
+<p><code v-pre>useEffect</code> 和 <code v-pre>useLayoutEffect</code> 都是 React 中的 Hook，用于在组件渲染周期中处理副作用。它们的主要区别在于触发时机和对应的执行时机。</p>
+<p><strong>useEffect</strong>:</p>
+<ul>
+<li><code v-pre>useEffect</code> 是在组件渲染之后异步执行的。</li>
+<li>它不会阻塞组件的渲染过程，而是在浏览器完成渲染后才执行。</li>
+<li>适用于处理异步操作、数据获取、订阅和取消订阅等副作用。</li>
+<li><code v-pre>useEffect</code> 的回调函数在每次组件渲染完成后都会执行，包括首次渲染和后续的重新渲染。</li>
+</ul>
+<p><strong>useLayoutEffect</strong>:</p>
+<ul>
+<li><code v-pre>useLayoutEffect</code> 与 <code v-pre>useEffect</code> 类似，但它是在组件渲染之后同步执行的。</li>
+<li>它会在浏览器执行绘制之前同步执行，阻塞组件的渲染过程。</li>
+<li>适用于需要在 DOM 更新之前执行的副作用，例如测量 DOM 元素的尺寸、计算布局等。</li>
+<li><code v-pre>useLayoutEffect</code> 的回调函数在每次组件渲染完成后都会执行，包括首次渲染和后续的重新渲染。</li>
+</ul>
+<p>下面是一个示例，展示了 <code v-pre>useEffect</code> 和 <code v-pre>useLayoutEffect</code> 的区别：</p>
+<div class="language-javascript line-numbers-mode" data-ext="js" data-title="js"><pre v-pre class="language-javascript"><code><span class="token keyword">import</span> React<span class="token punctuation">,</span> <span class="token punctuation">{</span> useState<span class="token punctuation">,</span> useEffect<span class="token punctuation">,</span> useLayoutEffect <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'react'</span><span class="token punctuation">;</span>
+
+<span class="token keyword">function</span> <span class="token function">MyComponent</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> <span class="token punctuation">[</span>count<span class="token punctuation">,</span> setCount<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">useState</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token function">useEffect</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'useEffect'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    document<span class="token punctuation">.</span>title <span class="token operator">=</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Count: </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>count<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token function">useLayoutEffect</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'useLayoutEffect'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 模拟一个耗时的计算</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">1000000000</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+    document<span class="token punctuation">.</span>title <span class="token operator">=</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Count: </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>count<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">return</span> <span class="token punctuation">(</span>
+    <span class="token operator">&lt;</span>div<span class="token operator">></span>
+      <span class="token operator">&lt;</span>p<span class="token operator">></span>Count<span class="token operator">:</span> <span class="token punctuation">{</span>count<span class="token punctuation">}</span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">></span>
+      <span class="token operator">&lt;</span>button onClick<span class="token operator">=</span><span class="token punctuation">{</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token function">setCount</span><span class="token punctuation">(</span>count <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token operator">></span>增加<span class="token operator">&lt;</span><span class="token operator">/</span>button<span class="token operator">></span>
+    <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
+  <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>在上面的示例中，我们使用了 <code v-pre>useEffect</code> 和 <code v-pre>useLayoutEffect</code>。当点击增加按钮时，<code v-pre>count</code> 的值会增加，并且会更新页面的标题。</p>
+<ul>
+<li><code v-pre>useEffect</code> 的回调函数会在组件渲染之后异步执行。在本例中，每次 <code v-pre>count</code> 更新后，<code v-pre>useEffect</code> 的回调函数都会执行并更新页面的标题。</li>
+<li><code v-pre>useLayoutEffect</code> 的回调函数会在组件渲染之后同步执行。在本例中，每次 <code v-pre>count</code> 更新后，<code v-pre>useLayoutEffect</code> 的回调函数都会执行并更新页面的标题。由于 <code v-pre>useLayoutEffect</code> 的回调函数中模拟了一个耗时的计算，这会阻塞组件的渲染过程，导致页面在计算完成之前被冻结。</li>
+</ul>
+<p>总结：</p>
+<ul>
+<li><code v-pre>useEffect</code> 适用于大多数副作用情况，它在浏览器完成渲染后异步执行，不会阻塞页面的渲染过程。</li>
+<li><code v-pre>useLayoutEffect</code> 适用于需要在 DOM 更新之前同步执行的副作用，它会在浏览器执行绘制之前阻塞页面的渲染过程。使用时需要注意性能和避免阻塞页面的渲染。</li>
+</ul>
 </div></template>
 
 

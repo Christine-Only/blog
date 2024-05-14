@@ -1,4 +1,264 @@
 <template><div><h1 id="css-知识点" tabindex="-1"><a class="header-anchor" href="#css-知识点"><span>CSS 知识点</span></a></h1>
+<h2 id="规则" tabindex="-1"><a class="header-anchor" href="#规则"><span>@规则</span></a></h2>
+<h3 id="link-和-import-的区别和使用" tabindex="-1"><a class="header-anchor" href="#link-和-import-的区别和使用"><span>link 和 @import 的区别和使用</span></a></h3>
+<h4 id="link标签" tabindex="-1"><a class="header-anchor" href="#link标签"><span>link标签</span></a></h4>
+<ul>
+<li>使用方式：link 是 HTML 标签，放在 head 标签里面，除了能导入 CSS 外，还能导入别的资源，比如图片、脚本和字体等。例如：</li>
+</ul>
+<div class="language-html line-numbers-mode" data-ext="html" data-title="html"><pre v-pre class="language-html"><code>  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">rel</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>stylesheet<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>text/css<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>style.css<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div></div></div><ul>
+<li>
+<p>加载方式：当浏览器解析到 link 标签的时候，会同时去加载资源，支持并行下载。</p>
+</li>
+<li>
+<p>支持程度：浏览器对 link 的支持较好。</p>
+</li>
+</ul>
+<h4 id="import导入" tabindex="-1"><a class="header-anchor" href="#import导入"><span>@import导入</span></a></h4>
+<ul>
+<li>使用方式：@import 是 CSS 的语法，只能用来导入 CSS。</li>
+</ul>
+<div class="language-css line-numbers-mode" data-ext="css" data-title="css"><pre v-pre class="language-css"><code>  <span class="token atrule"><span class="token rule">@import</span> <span class="token url"><span class="token function">url</span><span class="token punctuation">(</span>style.css<span class="token punctuation">)</span></span><span class="token punctuation">;</span></span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div></div></div><ul>
+<li>
+<p>加载方式：@import 导入的样式需等页面加载完成后再加载，即异步加载外部 CSS。</p>
+</li>
+<li>
+<p>支持程度：老版本的浏览器（如 IE 5）不支持 @import，而且 @import 只能导入 CSS。</p>
+</li>
+</ul>
+<div class="custom-container tip"><p class="custom-container-title">注意</p>
+<p>link 标签由于是 DOM 元素，因此我们可以用 JavaScript 动态地创建和修改这个元素，以实现动态地引入和改变样式。</p>
+<div class="language-html line-numbers-mode" data-ext="html" data-title="html"><pre v-pre class="language-html"><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">></span></span>Test Page<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>myHeading<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Hello World!<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span><span class="token punctuation">></span></span>Change Style<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
+
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">></span></span><span class="token script"><span class="token language-javascript">
+        <span class="token keyword">const</span> button <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">querySelector</span><span class="token punctuation">(</span><span class="token string">'button'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        button<span class="token punctuation">.</span><span class="token function-variable function">onclick</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">const</span> linkElement <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">'link'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            linkElement<span class="token punctuation">.</span>rel <span class="token operator">=</span> <span class="token string">'stylesheet'</span><span class="token punctuation">;</span>
+            linkElement<span class="token punctuation">.</span>type <span class="token operator">=</span> <span class="token string">'text/css'</span><span class="token punctuation">;</span>
+            linkElement<span class="token punctuation">.</span>href <span class="token operator">=</span> <span class="token string">'newStyles.css'</span><span class="token punctuation">;</span> <span class="token comment">// 假设这个文件存在并且定义了一些样式</span>
+
+            document<span class="token punctuation">.</span>head<span class="token punctuation">.</span><span class="token function">appendChild</span><span class="token punctuation">(</span>linkElement<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    </span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div></div>
+<h3 id="media" tabindex="-1"><a class="header-anchor" href="#media"><span>@media</span></a></h3>
+<p>创建的媒体查询，适配不同尺寸的设备。</p>
+<div class="language-css line-numbers-mode" data-ext="css" data-title="css"><pre v-pre class="language-css"><code><span class="token comment">/* 导入一个 CSS 文件，并在屏幕宽度大于 600px 时应用这个 CSS 文件中的样式 */</span>
+<span class="token atrule"><span class="token rule">@media</span> screen <span class="token keyword">and</span> <span class="token punctuation">(</span><span class="token property">min-width</span><span class="token punctuation">:</span> 600px<span class="token punctuation">)</span></span> <span class="token punctuation">{</span>
+  <span class="token atrule"><span class="token rule">@import</span> <span class="token url"><span class="token function">url</span><span class="token punctuation">(</span><span class="token string url">'style.css'</span><span class="token punctuation">)</span></span><span class="token punctuation">;</span></span>
+<span class="token punctuation">}</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="namespace" tabindex="-1"><a class="header-anchor" href="#namespace"><span>@namespace</span></a></h3>
+<p>在 CSS 中包含一个 XML 命名空间。</p>
+<p>例如，如果你在 HTML 中使用 SVG，并且你想在 CSS 中针对 SVG 元素进行样式设置，那么你可能需要在 CSS 中声明 SVG 的命名空间。</p>
+<p>HTML 中的 SVG 元素：</p>
+<div class="language-html line-numbers-mode" data-ext="html" data-title="html"><pre v-pre class="language-html"><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>svg</span> <span class="token attr-name">xmlns</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>http://www.w3.org/2000/svg<span class="token punctuation">"</span></span> <span class="token attr-name">version</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>1.1<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>circle</span> <span class="token attr-name">cx</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>50<span class="token punctuation">"</span></span> <span class="token attr-name">cy</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>50<span class="token punctuation">"</span></span> <span class="token attr-name">r</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>40<span class="token punctuation">"</span></span> <span class="token attr-name">stroke</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>black<span class="token punctuation">"</span></span> <span class="token attr-name">stroke-width</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>2<span class="token punctuation">"</span></span> <span class="token attr-name">fill</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>red<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>svg</span><span class="token punctuation">></span></span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>CSS 中使用 @namespace 声明 SVG 的命名空间：</p>
+<div class="language-css line-numbers-mode" data-ext="css" data-title="css"><pre v-pre class="language-css"><code><span class="token atrule"><span class="token rule">@namespace</span> svg <span class="token string">"http://www.w3.org/2000/svg"</span><span class="token punctuation">;</span></span>
+
+<span class="token selector">svg|circle</span> <span class="token punctuation">{</span>
+  <span class="token property">stroke-width</span><span class="token punctuation">:</span> 5<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>在样式规则中，你可以使用格式 <code v-pre>namespace|element</code> 来选择命名空间中的特定元素。在这种情况下，svg|circle 选择了 SVG 命名空间中的所有 <code v-pre>&lt;circle&gt;</code> 元素。</p>
+<h3 id="keyframes" tabindex="-1"><a class="header-anchor" href="#keyframes"><span>@keyframes</span></a></h3>
+<div class="language-css line-numbers-mode" data-ext="css" data-title="css"><pre v-pre class="language-css"><code><span class="token atrule"><span class="token rule">@keyframes</span> slidein</span> <span class="token punctuation">{</span>
+  <span class="token selector">from</span> <span class="token punctuation">{</span><span class="token property">margin-left</span><span class="token punctuation">:</span> 100%<span class="token punctuation">;</span><span class="token punctuation">}</span>
+  <span class="token selector">to</span> <span class="token punctuation">{</span><span class="token property">margin-left</span><span class="token punctuation">:</span> 0%<span class="token punctuation">;</span><span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>创建 CSS 动画。</p>
+<h3 id="font-face" tabindex="-1"><a class="header-anchor" href="#font-face"><span>@font-face</span></a></h3>
+<p>描述将下载的外部的字体。</p>
+<div class="language-css line-numbers-mode" data-ext="css" data-title="css"><pre v-pre class="language-css"><code><span class="token atrule"><span class="token rule">@font-face</span></span> <span class="token punctuation">{</span>
+  <span class="token property">font-family</span><span class="token punctuation">:</span> myFirstFont<span class="token punctuation">;</span>
+  <span class="token property">src</span><span class="token punctuation">:</span> <span class="token url"><span class="token function">url</span><span class="token punctuation">(</span>sansation_light.woff<span class="token punctuation">)</span></span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="viewport" tabindex="-1"><a class="header-anchor" href="#viewport"><span>@viewport</span></a></h3>
+<p>设置视口的宽度和初始缩放级别</p>
+<div class="language-css line-numbers-mode" data-ext="css" data-title="css"><pre v-pre class="language-css"><code><span class="token atrule"><span class="token rule">@viewport</span></span> <span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> device-width<span class="token punctuation">;</span>
+  <span class="token property">zoom</span><span class="token punctuation">:</span> 1<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="选择器" tabindex="-1"><a class="header-anchor" href="#选择器"><span>选择器</span></a></h2>
+<h3 id="基础选择器" tabindex="-1"><a class="header-anchor" href="#基础选择器"><span>基础选择器</span></a></h3>
+<ul>
+<li>标签选择器：<code v-pre>h1</code></li>
+<li>类选择器：<code v-pre>.checked</code></li>
+<li>ID 选择器：<code v-pre>#picker</code></li>
+<li>通配选择器：<code v-pre>*</code></li>
+</ul>
+<h3 id="属性选择器" tabindex="-1"><a class="header-anchor" href="#属性选择器"><span>属性选择器</span></a></h3>
+<ul>
+<li><code v-pre>[attr]</code>：指定属性的元素；</li>
+<li><code v-pre>[attr=val]</code>：属性等于指定值的元素；</li>
+</ul>
+<h3 id="组合选择器" tabindex="-1"><a class="header-anchor" href="#组合选择器"><span>组合选择器</span></a></h3>
+<ul>
+<li>相邻兄弟选择器：<code v-pre>A + B</code></li>
+<li>普通兄弟选择器：<code v-pre>A ~ B</code></li>
+<li>子选择器：<code v-pre>A &gt; B</code></li>
+<li>后代选择器：<code v-pre>A B</code></li>
+</ul>
+<h3 id="伪类" tabindex="-1"><a class="header-anchor" href="#伪类"><span>伪类</span></a></h3>
+<ul>
+<li>:active：鼠标激活的元素；</li>
+<li>:hover： 鼠标悬浮的元素；</li>
+<li>:root：文档的根元素；</li>
+</ul>
+<h3 id="伪元素" tabindex="-1"><a class="header-anchor" href="#伪元素"><span>伪元素</span></a></h3>
+<ul>
+<li><code v-pre>::before</code>：在元素前插入内容；</li>
+<li><code v-pre>::after</code>：在元素后插入内容；</li>
+</ul>
+<h3 id="优先级" tabindex="-1"><a class="header-anchor" href="#优先级"><span>优先级</span></a></h3>
+<ul>
+<li>10000：!important；</li>
+<li>01000：内联样式；</li>
+<li>00100：ID 选择器；</li>
+<li>00010：类选择器、伪类选择器、属性选择器；</li>
+<li>00001：标签选择器、伪元素选择器；</li>
+<li>00000：通配符选择器、后代选择器、兄弟选择器；</li>
+</ul>
+<div class="custom-container tip"><p class="custom-container-title">注意</p>
+<ul>
+<li>!important 声明的样式优先级最高</li>
+<li>如果优先级相同，则后面出现的样式生效</li>
+<li>继承得到的样式优先级最低</li>
+<li>样式表的来源不同时，优先级顺序为：内联样式 &gt; 内部样式 &gt; 外部样式 &gt; 浏览器用户自定义样式 &gt; 浏览器默认样式</li>
+</ul>
+</div>
+<h2 id="盒模型" tabindex="-1"><a class="header-anchor" href="#盒模型"><span>盒模型</span></a></h2>
+<p>在 CSS 中任何元素都可以看成是一个盒子，而一个盒子是由 4 部分组成的：内容（content）、内边距（padding）、边框（border）和外边距（margin）。</p>
+<p>盒模型有 2 种：标准盒模型和 IE 盒模型，本别是由 W3C 和 IExplore 制定的标准。</p>
+<h3 id="标准盒模型-box-sizing-content-box" tabindex="-1"><a class="header-anchor" href="#标准盒模型-box-sizing-content-box"><span>标准盒模型：<code v-pre>box-sizing: content-box</code></span></a></h3>
+<p><img src="/ie.jpg" alt="alt 标准盒模型"></p>
+<ul>
+<li>width 和 height 属性的范围只包含了 <code v-pre>content</code></li>
+</ul>
+<h3 id="ie-盒模型-box-sizing-border-box" tabindex="-1"><a class="header-anchor" href="#ie-盒模型-box-sizing-border-box"><span>IE 盒模型: <code v-pre>box-sizing: border-box</code></span></a></h3>
+<p><img src="/w3c.jpg" alt="alt IE 盒模型"></p>
+<ul>
+<li>width 和 height 属性的范围包含了 <code v-pre>border</code>、<code v-pre>padding</code> 和 <code v-pre>content</code></li>
+</ul>
+<div class="custom-container tip"><p class="custom-container-title">注意</p>
+<p>若在页面最顶部声明了 DOCTYPE 类型：<code v-pre>&lt;!DOCTYPE html&gt;</code>，所有的浏览器都会把盒模型默认解释为标准盒模型。
+不然的话，IE 浏览器会将盒子模型解释为 IE 盒模型，FireFox 等会将其解释为标准盒模型。</p>
+</div>
+<h2 id="bfc-block-formatting-context-块级格式化上下文" tabindex="-1"><a class="header-anchor" href="#bfc-block-formatting-context-块级格式化上下文"><span>BFC (Block Formatting Context) 块级格式化上下文</span></a></h2>
+<h3 id="如何创建-bfc" tabindex="-1"><a class="header-anchor" href="#如何创建-bfc"><span>如何创建 BFC</span></a></h3>
+<ul>
+<li>根元素：html</li>
+<li>非溢出的可见元素：overflow 不为 visible</li>
+<li>设置浮动：float 属性不为 none</li>
+<li>设置定位：position 为 absolute 或 fixed</li>
+<li>定义成块级的非块级元素：display: inline-block/table-cell/table-caption/flex/inline-flex/grid/inline-grid</li>
+</ul>
+<h3 id="应用场景" tabindex="-1"><a class="header-anchor" href="#应用场景"><span>应用场景</span></a></h3>
+<ol>
+<li><strong>自适应两栏布局</strong>：BFC 的区域不会和浮动区域重叠，所以就可以把侧边栏固定宽度且左浮动，而对右侧内容触发 BFC，使得它的宽度自适应该行剩余宽度。</li>
+<li><strong>清除内部浮动</strong>：浮动造成的问题就是父元素高度坍塌，所以清除浮动需要解决的问题就是让父元素的高度恢复正常。而用 BFC 清除浮动的原理就是：计算 BFC 的高度时，浮动元素也参与计算。只要触发父元素的 BFC 即可。</li>
+<li><strong>防止垂直 margin 合并</strong>：BFC 渲染原理之一：同一个 BFC 下的垂直 margin 会发生合并。所以如果让 2 个元素不在同一个 BFC 中即可阻止垂直 margin 合并。那如何让 2 个相邻的兄弟元素不在同一个 BFC 中呢？可以给其中一个元素外面包裹一层，然后触发其包裹层的 BFC，这样一来 2 个元素就不会在同一个 BFC 中了。</li>
+</ol>
+<p>针对以上 3 种场景，可以参考这个<a href="https://codepen.io/tangshiya/pen/ZEZNXzo" target="_blank" rel="noopener noreferrer">BFC 应用示例<ExternalLinkIcon/></a></p>
+<h2 id="值和单位" tabindex="-1"><a class="header-anchor" href="#值和单位"><span>值和单位</span></a></h2>
+<h3 id="px" tabindex="-1"><a class="header-anchor" href="#px"><span>px</span></a></h3>
+<p>屏幕分辨率是指在屏幕的横纵方向上的像素点数量，比如分辨率 <code v-pre>1920×1080</code> 意味着水平方向含有 <code v-pre>1920</code> 个像素数，垂直方向含有 <code v-pre>1080</code> 个像素数。</p>
+<p>px 表示的是 CSS 中的像素，在 CSS 中它是绝对的长度单位，也是最基础的单位。</p>
+<h4 id="设备像素-device-pixels" tabindex="-1"><a class="header-anchor" href="#设备像素-device-pixels"><span>设备像素（Device pixels）</span></a></h4>
+<p>设备屏幕的物理像素，表示的是屏幕的横纵有多少像素点；和屏幕分辨率是差不多的意思。</p>
+<h4 id="设备像素比-dpr" tabindex="-1"><a class="header-anchor" href="#设备像素比-dpr"><span>设备像素比（DPR）</span></a></h4>
+<p>设备像素比表示 1 个 CSS 像素等于几个物理像素。</p>
+<p>计算公式：DPR = 物理像素数 / 逻辑像素数；</p>
+<p>在浏览器中可以通过 <code v-pre>window.devicePixelRatio</code> 来获取当前屏幕的 DPR。</p>
+<h3 id="em" tabindex="-1"><a class="header-anchor" href="#em"><span>em</span></a></h3>
+<p>em 是 CSS 中的相对长度单位，相对的是<strong>父元素</strong> font-size 大小</p>
+<h3 id="rem" tabindex="-1"><a class="header-anchor" href="#rem"><span>rem</span></a></h3>
+<p>rem 是 CSS 中的相对长度单位，相对的是 HTML 的<strong>根元素 html</strong> font-size 大小。</p>
+<h4 id="使用场景" tabindex="-1"><a class="header-anchor" href="#使用场景"><span>使用场景</span></a></h4>
+<p>需要适配各种移动设备时，例如需要适配 iPhone 和 iPad 等分辨率差别比较挺大的设备。</p>
+<h3 id="vw-vh" tabindex="-1"><a class="header-anchor" href="#vw-vh"><span>vw/vh</span></a></h3>
+<p><code v-pre>vw</code> 和 <code v-pre>vh</code> 分别是相对于屏幕视口宽度和高度而言的长度单位：</p>
+<ul>
+<li>1vw = 视口宽度的 <code v-pre>1 / 100</code> ===&gt; <code v-pre>100vw = window.innerWidth</code></li>
+<li>1vh = 视口高度的 <code v-pre>1 / 100</code> ===&gt; <code v-pre>100vh = window.innerHeight</code></li>
+</ul>
+<p>相对视口的单位，除了 vw/vh 外，还有 <code v-pre>vmin</code> 和 <code v-pre>vmax</code>：</p>
+<ul>
+<li>vmin：取 vw 和 vh 中值较小的；</li>
+<li>vmax：取 vw 和 vh 中值较大的；</li>
+</ul>
+<h2 id="颜色关键字" tabindex="-1"><a class="header-anchor" href="#颜色关键字"><span>颜色关键字</span></a></h2>
+<h3 id="transparent" tabindex="-1"><a class="header-anchor" href="#transparent"><span>transparent</span></a></h3>
+<p><code v-pre>transparent</code> 关键字表示一个完全透明的颜色，即该颜色看上去将是背景色。从技术上说，它是带有 alpha 通道为最小值的黑色，是 rgba(0,0,0,0) 的简写。</p>
+<h4 id="应用场景-1" tabindex="-1"><a class="header-anchor" href="#应用场景-1"><span>应用场景</span></a></h4>
+<ul>
+<li>
+<p><a href="https://codepen.io/tangshiya/pen/KKYLvOy?editors=1100" target="_blank" rel="noopener noreferrer">画三角形<ExternalLinkIcon/></a></p>
+</li>
+<li>
+<p><strong>增大点击区域</strong>: 通过透明的边框来增大按钮的点击区域</p>
+</li>
+</ul>
+<div class="language-css line-numbers-mode" data-ext="css" data-title="css"><pre v-pre class="language-css"><code><span class="token selector">.btn</span> <span class="token punctuation">{</span>
+  <span class="token property">border</span><span class="token punctuation">:</span> 5px solid transparent<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="currentcolor-关键字" tabindex="-1"><a class="header-anchor" href="#currentcolor-关键字"><span>currentColor 关键字</span></a></h3>
+<blockquote>
+<p>currentColor 是 CSS 的一个关键字，表示使用当前元素 color 属性的值作为引用 currentColor 的属性值。</p>
+</blockquote>
+<div class="language-html line-numbers-mode" data-ext="html" data-title="html"><pre v-pre class="language-html"><code><span class="token doctype"><span class="token punctuation">&lt;!</span><span class="token doctype-tag">DOCTYPE</span> <span class="token name">html</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token special-attr"><span class="token attr-name">style</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span><span class="token value css language-css"><span class="token property">color</span><span class="token punctuation">:</span> blue<span class="token punctuation">;</span> <span class="token property">border</span><span class="token punctuation">:</span> 1px solid currentColor<span class="token punctuation">;</span> <span class="token property">background-color</span><span class="token punctuation">:</span> currentColor<span class="token punctuation">;</span></span><span class="token punctuation">"</span></span></span><span class="token punctuation">></span></span>
+      This div has blue text, blue border and blue background.
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="自定义属性-变量" tabindex="-1"><a class="header-anchor" href="#自定义属性-变量"><span>自定义属性（变量）</span></a></h2>
+<p>在 CSS 中，你可以创建自定义的属性，这些被称为 CSS 变量或自定义属性。它的格式为：<code v-pre>--x</code></p>
+<div class="language-css line-numbers-mode" data-ext="css" data-title="css"><pre v-pre class="language-css"><code><span class="token selector">&lt;!-- 定义自定义属性 -->
+:root</span> <span class="token punctuation">{</span>
+  <span class="token property">--theme-color</span><span class="token punctuation">:</span> red<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token selector">&lt;!-- 使用变量 -->
+h1</span> <span class="token punctuation">{</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--theme-color<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><div class="custom-container tip"><p class="custom-container-title">注意</p>
+<ul>
+<li><code v-pre>:root</code> 下声明的时候，在全局都能访问，如果是在某个元素下声明自定义属性，则只能在它所在的元素以及它的子元素中使用。</li>
+<li>自定义属性名是大小写敏感的，--my-color 和 --My-color 会被认为是两个不同的自定义属性。</li>
+</ul>
+</div>
+<h3 id="css-中定义的变量和在-css-预处理器-如-sass-或-less-中定义的变量的区别" tabindex="-1"><a class="header-anchor" href="#css-中定义的变量和在-css-预处理器-如-sass-或-less-中定义的变量的区别"><span>CSS 中定义的变量和在 CSS 预处理器（如 Sass 或 Less）中定义的变量的区别</span></a></h3>
+<p><strong>1. 作用范围</strong></p>
+<ul>
+<li>CSS 变量: CSS 变量作用范围是它所在的元素以及它的子元素。也就是说，你可以在一个元素里定义一个 CSS 变量，并且在它的所有子元素中使用这个变量。</li>
+<li>预处理器变量: 在预处理器中，变量的作用范围通常被限定在定义它们的块级作用域内。也就是说，如果你在一个块（由 {} 定义）中定义了一个变量，那么这个变量只能在这个块或这个块的嵌套内部块中使用。</li>
+</ul>
+<p><strong>2. 修改和更新</strong></p>
+<ul>
+<li>CSS 变量: 你可以使用 JavaScript 在运行时来修改 CSS 变量的值，并且任何使用这个变量的元素都会立即更新，这就赋予了 CSS 变量动态模式修改样式的能力。</li>
+<li>预处理器变量: 一旦 CSS 预处理器生成了 CSS 代码，变量就不能再被修改了。因为预处理器的变量在编译阶段就已经被替换为实值，所以你不能用 JavaScript 在运行时动态的改变预处理器变量的值。</li>
+</ul>
+<p><strong>3. 兼容性</strong></p>
+<ul>
+<li>CSS 变量: CSS 变量是一个原生的浏览器功能，目前已经被所有现代浏览器支持。</li>
+<li>预处理器变量: 预处理器变量并不依赖于浏览器的支持，因为它在浏览器加载 CSS 之前就已经被预处理器编译为 CSS 代码了。</li>
+</ul>
 <h2 id="flex布局" tabindex="-1"><a class="header-anchor" href="#flex布局"><span>Flex布局</span></a></h2>
 <h3 id="flex" tabindex="-1"><a class="header-anchor" href="#flex"><span>flex</span></a></h3>
 <blockquote>

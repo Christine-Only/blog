@@ -1,61 +1,5 @@
 # React 面试题
 
-## 说一下 useEffect 和 useLayoutEffect 有什么区别
-
-`useEffect` 和 `useLayoutEffect` 都是 React 中的 Hook，用于在组件渲染周期中处理副作用。它们的主要区别在于触发时机和对应的执行时机。
-**useEffect**:
-
-- `useEffect` 是在组件渲染之后异步执行的。
-- 它不会阻塞组件的渲染过程，而是在浏览器完成渲染后才执行。
-- 适用于处理异步操作、数据获取、订阅和取消订阅等副作用。
-- `useEffect` 的回调函数在每次组件渲染完成后都会执行，包括首次渲染和后续的重新渲染。
-
-**useLayoutEffect**:
-
-- `useLayoutEffect` 与 `useEffect` 类似，但它是在组件渲染之后同步执行的。
-- 它会在浏览器执行绘制之前同步执行，阻塞组件的渲染过程。
-- 适用于需要在 DOM 更新之前执行的副作用，例如测量 DOM 元素的尺寸、计算布局等。
-- `useLayoutEffect` 的回调函数在每次组件渲染完成后都会执行，包括首次渲染和后续的重新渲染。
-
-下面是一个示例，展示了 `useEffect` 和 `useLayoutEffect` 的区别：
-
-```javascript
-import React, { useState, useEffect, useLayoutEffect } from 'react';
-
-function MyComponent() {
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    console.log('useEffect');
-    document.title = `Count: ${count}`;
-  });
-
-  useLayoutEffect(() => {
-    console.log('useLayoutEffect');
-    // 模拟一个耗时的计算
-    for (let i = 0; i < 1000000000; i++) {}
-    document.title = `Count: ${count}`;
-  });
-
-  return (
-    <div>
-      <p>Count: {count}</p>
-      <button onClick={() => setCount(count + 1)}>增加</button>
-    </div>
-  );
-}
-```
-
-在上面的示例中，我们使用了 `useEffect` 和 `useLayoutEffect`。当点击增加按钮时，`count` 的值会增加，并且会更新页面的标题。
-
-- `useEffect` 的回调函数会在组件渲染之后异步执行。在本例中，每次 `count` 更新后，`useEffect` 的回调函数都会执行并更新页面的标题。
-- `useLayoutEffect` 的回调函数会在组件渲染之后同步执行。在本例中，每次 `count` 更新后，`useLayoutEffect` 的回调函数都会执行并更新页面的标题。由于 `useLayoutEffect` 的回调函数中模拟了一个耗时的计算，这会阻塞组件的渲染过程，导致页面在计算完成之前被冻结。
-
-总结：
-
-- `useEffect` 适用于大多数副作用情况，它在浏览器完成渲染后异步执行，不会阻塞页面的渲染过程。
-- `useLayoutEffect` 适用于需要在 DOM 更新之前同步执行的副作用，它会在浏览器执行绘制之前阻塞页面的渲染过程。使用时需要注意性能和避免阻塞页面的渲染。
-
 ## useEffect 对应在 class 中都生命周期怎么写？
 
 在 React 类组件中，`useEffect` 的功能可以通过不同的生命周期方法来实现。下面是一些常见的 `useEffect` 使用场景以及它们在类组件中的对应生命周期方法：
@@ -96,7 +40,7 @@ componentWillUnmount() {
 
 请注意，以上是一些常见的对应关系，但并不是所有情况都有直接的一对一映射。在使用类组件时，根据具体的需求和组件的生命周期，选择合适的生命周期方法来处理副作用逻辑。
 
-## Reac 类组件新的生命周期都有哪些？
+## React 类组件新的生命周期都有哪些？
 
 在 React 类组件中，除了传统的生命周期方法（如 `componentDidMount`、`componentDidUpdate` 和 `componentWillUnmount`）之外，React 还引入了一些新的生命周期方法。这些新的生命周期方法是在 React 16.3 版本中引入的，并提供了更细粒度的控制和更清晰的生命周期阶段。
 以下是 React 类组件中的新生命周期方法：
@@ -163,8 +107,9 @@ function ComponentWithHook2() {
 ```
 
 在上面的示例中，根据条件 `condition` 的不同，`MyComponent` 会渲染不同的组件，每个组件都可以独立地使用自己的 Hook。
-:::success
-总结起来，不推荐在条件语句中使用 Hook。应该将 Hook 的调用放在组件的顶层作用域中，或者使用条件渲染来渲染不同的组件并在各自的组件中使用不同的 Hook。
+
+:::tip 总结
+不推荐在条件语句中使用 Hook。应该将 Hook 的调用放在组件的顶层作用域中，或者使用条件渲染来渲染不同的组件并在各自的组件中使用不同的 Hook。
 :::
 
 ## 在 if 语句里面写 Hook 会报错，你可以用 Fiber 架构来解释一下吗？
@@ -202,44 +147,30 @@ React Hooks 是 React 16.8 版本引入的一项重要特性，它可以让你�
 ## useEffect 的执行时机，以及 deps 的作用
 
 `useEffect` 是 React Hooks 中用于处理副作用操作的函数。它在组件渲染后执行，并且可以在组件的每次渲染过程中多次执行。
+
 `useEffect` 接收两个参数：一个回调函数和一个依赖数组（可选）。回调函数定义了需要执行的副作用操作，而依赖数组用于指定触发执行副作用的依赖项。
 当组件渲染后，React 会记住这个回调函数，并在每次渲染后调用它。如果提供了依赖数组，React 将会比较前一次渲染和当前渲染的依赖项是否发生了变化。如果有任何一个依赖项发生了变化，React 将会执行回调函数。如果没有提供依赖数组，那么每次渲染都会执行回调函数。
 依赖数组的作用是告诉 React 哪些状态或属性的变化会触发副作用的重新执行。只有在依赖项发生变化时，才会执行回调函数。这样可以避免不必要的副作用执行，提高性能和效率。
+
 **依赖数组可以有不同的取值**：
 
-- **如果传递一个空数组**`**[]**`，则表示回调函数只会在组件挂载和卸载时执行，类似于 `componentDidMount` 和 `componentWillUnmount`。
+- **如果传递一个空数组**`[]`，则表示回调函数只会在组件挂载和卸载时执行，类似于 `componentDidMount` 和 `componentWillUnmount`。
 - **如果没有传递依赖数组**，即不提供第二个参数，那么回调函数在每次组件渲染后都会执行。
 - **如果传递一个包含状态或属性的数组**，那么只有在数组中的状态或属性发生变化时，才会执行回调函数。
 
 使用依赖数组可以精确地控制副作用的执行时机，避免不必要的重复执行。在实际使用中，需要根据具体的场景和需求来决定是否提供依赖数组，以及依赖数组中的依赖项。
-:::success
-总结一下，`useEffect` 的执行时机是在组件渲染后，可以在每次渲染过程中多次执行。依赖数组用于指定触发副作用执行的依赖项，只有在依赖项发生变化时才会执行回调函数。
+:::tip 总结
+`useEffect` 的执行时机是在组件渲染后，可以在每次渲染过程中多次执行。依赖数组用于指定触发副作用执行的依赖项，只有在依赖项发生变化时才会执行回调函数。
 :::
-React17 和 React18 的区别
+
+## React17 和 React18 的区别
+
 [一文解读 React 17 与 React 18 的更新变化 - 掘金](https://juejin.cn/post/7157888552229928996)
-
-## 全新的 JSX 转换器
-
-总结下来就是两点：
-
-- 用 jsx() 函数替换 React.createElement()
-- 运行时自动引入 jsx() 函数，无需手写引入react
-
-在**v16**中，我们写一个React组件，总要引入
-
-```tsx
-import React from 'react'
-```
-
-这是因为在浏览器中无法直接使用 jsx，所以要借助工具如@babel/preset-react将 jsx 语法转换为 React.createElement 的 js 代码，所以需要显式引入 React，才能正常调用 createElement。
-v17之后，React 与 Babel 官方进行合作，直接通过将 react/jsx-runtime 对 jsx 语法进行了新的转换而不依赖
 
 ## React18新特性
 
-- 并发模式
-- 自动批处理
+### useTransition
 
-useTransition
 React 的状态更新可以分为两类：
 
 - 紧急更新（Urgent updates）：比如打字、点击、拖动等，需要立即响应的行为，如果不立即响应会给人很卡，或者出问题了的感觉
@@ -274,8 +205,9 @@ startTransition(() => {
 
 如上代码，我们通过 startTransition 来标记一个非紧急更新，让该状态触发的变更变成低优先级的。
 
-- useDeferredValue
-  - **useDeferredValue** 是一个钩子（hook），它接受一个值，并返回一个可能会“滞后”一段时间的版本。这意味着如果有高优先级的更新发生，useDeferredValue 返回的值可能会保持不变，直到浏览器有足够的时间来处理低优先级的工作。
+### useDeferredValue
+
+- **useDeferredValue** 是一个钩子（hook），它接受一个值，并返回一个可能会“滞后”一段时间的版本。这意味着如果有高优先级的更新发生，useDeferredValue 返回的值可能会保持不变，直到浏览器有足够的时间来处理低优先级的工作。
 
 ```tsx
 import { useDeferredValue } from 'react';
@@ -288,15 +220,53 @@ const deferredValue = useDeferredValue(value);
 // deferredValue可能会“延迟”更新，避免阻塞重要的渲染
 ```
 
-- useDeferredValue 适用于那些你希望在不影响主要渲染的情况下，能够“平滑”更新的值。例如，你可能希望在用户输入时立即更新输入框，但是推迟更新基于输入值的渲染结果。
-- 流式 SSR
+适用于那些你希望在不影响主要渲染的情况下，能够“平滑”更新的值。例如，你可能希望在用户输入时立即更新输入框，但是推迟更新基于输入值的渲染结果。
 
-在 CM（Concurrent Mode）模式下，React 在执行过程中，每执行一个 Fiber，都会看看有没有更高优先级的更新，如果有，则当前低优先级的的更新会被暂停，待高优先级任务执行完之后，再继续执行或重新执行。
+### 流式 SSR
+
+在 React 18 中，我们通过 Suspense包裹，可以告诉 React，我们不需要等这个组件，可以先返回其它内容，等这个组件准备好之后，单独返回。
+
+```jsx
+<Layout>
+  <NavBar />
+  <Sidebar />
+  <RightPane>
+    <Post />
+    <Suspense fallback={<Spinner />}>
+      <Comments />
+    </Suspense>
+  </RightPane>
+</Layout>
+```
+
+如上，我们通过 `Suspense` 包裹了 `Comments` 组件，那服务器首次返回的 HTML 是下面这样的，`<Comments />`组件处通过 `loading` 进行了占位。
+
+```html
+<main>
+  <nav>
+    <!--NavBar -->
+    <a href="/">Home</a>
+   </nav>
+  <aside>
+    <!-- Sidebar -->
+    <a href="/profile">Profile</a>
+  </aside>
+  <article>
+    <!-- Post -->
+    <p>Hello world</p>
+  </article>
+  <section id="comments-spinner">
+    <!-- Spinner -->
+    <img width=400 src="spinner.gif" alt="Loading..." />
+  </section>
+</main>
+```
+
+当 `<Comments />` 组件准备好之后，React 会通过同一个流（stream）发送给浏览器（res.send 替换成 res.socket），并替换到相应位置。
 [React 18 总览 - 掘金](https://juejin.cn/post/7087486984146878494)
 
-## React 底层是怎么利用浏览器的空闲时间来做组件渲染的
+## React 底层是怎么利用浏览器的空闲时间来做组件渲染的？
 
-```
 React 16开始引入了一种新的更新机制，叫作Fiber。Fiber是一种基于浏览器的requestIdleCallback API的协调引擎，它充分利用浏览器的空闲时间来进行组件的渲染。
 
 React的更新机制是分阶段的，分为两大阶段，分别是Reconciliation阶段和Commit阶段。
@@ -307,7 +277,6 @@ React的更新机制是分阶段的，分为两大阶段，分别是Reconciliati
 而在Commit阶段，React会将Reconciliation阶段生成的更新内容应用到实际的DOM上，这个阶段的任务是不能被打断的，需要一次性完成。
 
 这样，React就能够在不阻塞用户的正常操作下，尽可能地利用浏览器的空闲时间，进行组件的渲染更新。
-```
 
 ## React18 流式 SSR 和 传统 SSR 的区别
 
@@ -381,11 +350,11 @@ function SearchResults() {
   return (
     <div>
       <input 
-    onChange={onChange}
-    value={query}
-    placeholder="Search..."
+      onChange={onChange}
+      value={query}
+      placeholder="Search..."
       />
-      {isPending ? "Loading..." : 
+      {isPending ? "Loading..." :
         (data && data.map((item) => (
           <div key={item.id}>{item.name}</div>
         )))
@@ -429,6 +398,43 @@ Scheduler有一个runNextUnitOfWork方法，这个方法会计算当前帧剩余
 :::tip Scheduler的核心就是在通过合理利用浏览器主线程的空闲周期，在不阻塞用户交互、保证流畅性的同时，尽可能快的完成任务。
 :::
 
-## React 博客整理
+## 在 `useState` 中如何实现类似于 `setState` 的回调功能？
 
-[React技术揭秘](https://react.iamkasong.com/process/fiber.html#fiber%E7%9A%84%E7%BB%93%E6%9E%84)
+```jsx
+import React, { useState, useEffect, useRef } from 'react';
+
+function useStateWithCallback(initialValue) {
+  const [state, setState] = useState(initialValue);
+  const callbackRef = useRef(null);
+
+  const setStateWithCallback = (value, callback) => {
+    callbackRef.current = callback;
+    setState(value);
+  };
+
+  useEffect(() => {
+    if (callbackRef.current) {
+      callbackRef.current(state);
+      callbackRef.current = null;
+    }
+  }, [state]);
+
+  return [state, setStateWithCallback];
+}
+
+function MyComponent() {
+  const [count, setCount] = useStateWithCallback(0);
+
+  const incrementCount = () => {
+    setCount(count + 1, () => {
+      console.log(`Count value updated to: ${count + 1}`);
+    });
+  };
+
+  return (
+    <button onClick={incrementCount}>
+      Increment Count
+    </button>
+  );
+}
+```
